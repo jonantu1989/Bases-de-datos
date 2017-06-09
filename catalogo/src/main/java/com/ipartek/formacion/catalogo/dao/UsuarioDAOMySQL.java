@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.catalogo.tipos.Usuario;
 
-
 public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	private final static String FIND_ALL = "SELECT * FROM usuarios";
@@ -28,6 +27,10 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 	}
 
 	public UsuarioDAOMySQL() {
+
+	}
+
+	public UsuarioDAOMySQL(String string) {
 
 	}
 
@@ -186,6 +189,6 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			cerrar(psDelete);
 		}
 
-	} 
+	}
 
 }

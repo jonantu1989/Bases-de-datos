@@ -51,8 +51,8 @@ public class App {
 
 	public static void main(String[] args) {
 		try {
-			dao = new UsuarioDAOMySQL("jdbc:mysql://localhost/ipartek", "jon",
-					"jon");
+			dao = new UsuarioDAOMySQL(
+					"jdbc:mysql://localhost/catalogoapp?user=root&password=");
 
 			dao.abrir();
 
