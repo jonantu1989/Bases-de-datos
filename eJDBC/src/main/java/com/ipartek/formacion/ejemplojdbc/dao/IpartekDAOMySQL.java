@@ -13,6 +13,13 @@ public class IpartekDAOMySQL implements IpartekDAO {
 	private String mysqlUser = "root";
 	private String mysqlPass = "";
 
+	public IpartekDAOMySQL(String url, String mysqlUser, String mysqlPass) {
+		this();
+		this.url = url;
+		this.mysqlUser = mysqlUser;
+		this.mysqlPass = mysqlPass;
+	}
+
 	public IpartekDAOMySQL() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -48,6 +55,32 @@ public class IpartekDAOMySQL implements IpartekDAO {
 					"Error de cierre de conexión a la base de datos", e);
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
+		}
+	}
+
+	public void iniciarTransaccion() {
+		try {
+			con.setAutoCommit(false);
+		} catch (SQLException e) {
+			throw new DAOException("Error al desactivar AutoCommit", e);
+		}
+	}
+
+	public void confirmarTransaccion() {
+		try {
+			con.commit();
+			con.setAutoCommit(true);
+		} catch (SQLException e) {
+			throw new DAOException("Error al confirmar transacción", e);
+		}
+	}
+
+	public void deshacerTransaccion() {
+		try {
+			con.rollback();
+			con.setAutoCommit(true);
+		} catch (SQLException e) {
+			throw new DAOException("Error al deshacer transacción", e);
 		}
 	}
 
