@@ -101,7 +101,7 @@ public class App {
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		String url = "jdbc:mysql://localhost/ipartek?user=root&password=";
+		String url = "jdbc:mysql://localhost/catalogoapp?user=root&password=";
 
 		Connection con = DriverManager.getConnection(url);
 
