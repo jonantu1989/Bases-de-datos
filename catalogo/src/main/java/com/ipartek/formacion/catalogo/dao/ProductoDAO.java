@@ -2,7 +2,7 @@ package com.ipartek.formacion.catalogo.dao;
 
 import com.ipartek.formacion.catalogo.tipos.Producto;
 
-public interface ProductoDAO {
+public interface ProductoDAO extends IpartekDAO {
 	public Producto[] findAll();
 
 	public Producto findById(int id);
