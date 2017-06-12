@@ -45,11 +45,11 @@ public class LoginServlet extends HttpServlet {
 		// Llamada a lógica de negocio
 		ServletContext application = getServletContext();
 
-		UsuarioDAO usuariosDAO = (UsuarioDAO) application
-				.getAttribute(AltaCatalogoAppServlet.USUARIOS_DAO);
+		UsuarioDAO usuarioDAO = (UsuarioDAO) application
+				.getAttribute(AltaServlet.USUARIO_DAO);
 
-		if (usuariosDAO == null) {
-			usuariosDAO = DAOUsuarioFactory.getUsuarioDAL();
+		if (usuarioDAO == null) {
+			usuarioDAO = DAOUsuarioFactory.getUsuarioDAL();
 		}
 
 		// Sólo para crear una base de datos falsa con el
@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 		// }
 
 		// ESTADOS
-		boolean esValido = usuariosDAO.validar(usuario);
+		boolean esValido = usuarioDAO.validar(usuario);
 
 		boolean sinParametros = usuario.getNombre_completo() == null;
 
