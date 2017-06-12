@@ -8,6 +8,8 @@ public class Usuario {
 	private String nombre_completo;
 	private String password;
 	private String username;
+	// errores
+	private String errores;
 
 	public Usuario(int id, int id_roles, String nombre_completo,
 			String password, String username) {
@@ -61,6 +63,14 @@ public class Usuario {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getErrores() {
+		return errores;
+	}
+
+	public void setErrores(String errores) {
+		this.errores = errores;
 	}
 
 	@Override
