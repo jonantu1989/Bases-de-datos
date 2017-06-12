@@ -181,7 +181,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 						+ res);
 
 		} catch (Exception e) {
-			throw new DAOException("Error en update", e);
+			throw new DAOException("Error en delete", e);
 		} finally {
 			cerrar(psDelete);
 		}

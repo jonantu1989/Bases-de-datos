@@ -184,7 +184,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 						+ res);
 
 		} catch (Exception e) {
-			throw new DAOException("Error en update", e);
+			throw new DAOException("Error en delete", e);
 		} finally {
 			cerrar(psDelete);
 		}
