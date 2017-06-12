@@ -7,25 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ipartek.formacion.catalogo.dao.DAOException;
-import com.ipartek.formacion.catalogo.dao.ProductoDAO;
-import com.ipartek.formacion.catalogo.dao.ProductoDAOMySQL;
 import com.ipartek.formacion.catalogo.dao.UsuarioDAO;
 import com.ipartek.formacion.catalogo.dao.UsuarioDAOMySQL;
-import com.ipartek.formacion.catalogo.tipos.Producto;
 import com.ipartek.formacion.catalogo.tipos.Usuario;
 
 public class App {
-	public static UsuarioDAO daousuario = null;
-	public static ProductoDAO daoproducto = null;
+	public static UsuarioDAO dao = null;
 
 	public static void mainTransacciones(String[] args) {
 		try {
-			daousuario = new UsuarioDAOMySQL(); // "jdbc:mysql://localhost/ipartek",
+			dao = new UsuarioDAOMySQL(); // "jdbc:mysql://localhost/ipartek",
 			// "javierlete", "javipass");
 
-			daousuario.abrir();
+			dao.abrir();
 
-			daousuario.iniciarTransaccion();
+			dao.iniciarTransaccion();
 
 			Usuario usuario;
 
@@ -39,81 +35,48 @@ public class App {
 				// if(i > 150)
 				// throw new RuntimeException("CASQUE ACCIDENTAL");
 				// else
-				daousuario.insert(usuario);
+				dao.insert(usuario);
 			}
 
-			daousuario.confirmarTransaccion();
+			dao.confirmarTransaccion();
 
 		} catch (Exception e) {
-			daousuario.deshacerTransaccion();
+			dao.deshacerTransaccion();
 			System.out.println("HA CASCADO");
 			e.printStackTrace();
 		} finally {
-			daousuario.cerrar();
-		}
-
-		try {
-			daoproducto = new ProductoDAOMySQL(); // "jdbc:mysql://localhost/ipartek",
-			// "javierlete", "javipass");
-
-			daoproducto.abrir();
-
-			daoproducto.iniciarTransaccion();
-
-			Producto producto;
-
-			for (int i = 100; i < 200; i++) {
-				producto = new Producto();
-				producto.setId("producto" + i);
-				producto.setNombre("producto" + i + "nombre");
-				producto.setDescripcion("Producto" + i + " Productos");
-				producto.getPrecio();
-
-				// if(i > 150)
-				// throw new RuntimeException("CASQUE ACCIDENTAL");
-				// else
-				daoproducto.insert(producto);
-			}
-
-			daoproducto.confirmarTransaccion();
-
-		} catch (Exception e) {
-			daoproducto.deshacerTransaccion();
-			System.out.println("HA CASCADO");
-			e.printStackTrace();
-		} finally {
-			daoproducto.cerrar();
+			dao.cerrar();
 		}
 	}
 
 	public static void main(String[] args) {
 		try {
-			daousuario = new UsuarioDAOMySQL(
+			dao = new UsuarioDAOMySQL(
 					"jdbc:mysql://localhost/catalogoapp?user=root&password=");
 
-			daousuario.abrir();
+			dao.abrir();
 
 			listado();
 
 			Usuario usuario = new Usuario(0, 2, "Nuevo nuevez", "nuevopass",
 					"nuevo100");
 
-			int id = daousuario.insert(usuario);
+			int id = dao.insert(usuario);
 			System.out.println("Se ha insertado un nuevo registro con el id "
 					+ id);
 
-			usuario = daousuario.findById(id);
+			usuario = dao.findById(id);
 			System.out.println("Usuario ID:" + id + "=" + usuario);
 
 			listado();
 
 			usuario.setNombre_completo("MODIFICADO");
-			daousuario.update(usuario);
+			dao.update(usuario);
 			System.out.println("Se ha modificado el registro " + id);
 
 			listado();
 
-			daousuario.delete(usuario);
+			dao.delete(usuario);
 			System.out.println("Se ha borrado el registro " + id);
 
 			listado();
@@ -121,14 +84,14 @@ public class App {
 		} catch (DAOException e) {
 			e.printStackTrace();
 		} finally {
-			daousuario.cerrar();
+			dao.cerrar();
 		}
 	}
 
 	private static void listado() {
 		System.out.println("\nLISTADO\n=======");
 
-		for (Usuario u : daousuario.findAll())
+		for (Usuario u : dao.findAll())
 			System.out.println(u);
 
 		System.out.println();
