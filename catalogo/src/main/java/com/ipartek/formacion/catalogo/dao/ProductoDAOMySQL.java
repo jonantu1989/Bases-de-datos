@@ -5,10 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ipartek.formacion.catalogo.tipos.Producto;
 
 public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
+
+	private Map<String, Producto> productos = new HashMap<String, Producto>();
 
 	private final static String FIND_ALL = "SELECT * FROM productos";
 	private final static String FIND_BY_ID = "SELECT * FROM productos WHERE id = ?";
@@ -28,6 +32,41 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	public ProductoDAOMySQL() {
 
+	}
+
+	public void altaProducto(Producto producto) {
+		if (productos.containsKey(producto.getNombre())) {
+
+			throw new ProductoYaExistenteDAOException("Ya existe el producto "
+					+ producto.getNombre());
+		} else {
+			productos.put(producto.getNombre(), producto);
+		}
+	}
+
+	public void modificarProducto(Producto producto) {
+		if (!productos.containsKey(producto.getNombre())) {
+
+			throw new DAOException(
+					String.format(
+							"Error el  producto %s no existe por lo que no se puede modificar.",
+							producto.getNombre()));
+		} else {
+
+			productos.put(producto.getNombre(), producto);
+		}
+	}
+
+	public void borrarProducto(Producto producto) {
+		if (!productos.containsKey(producto.getNombre())) {
+			// Si no lo hay, lanzamos una exception.
+			throw new DAOException(String.format(
+					"Error por que el producto %s no existe.",
+					producto.getNombre()));
+		} else {
+			// Borramos el producto por que existe.
+			productos.remove(producto.getNombre());
+		}
 	}
 
 	public Producto[] findAll() {

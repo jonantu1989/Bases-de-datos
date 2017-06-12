@@ -5,10 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ipartek.formacion.catalogo.tipos.Usuario;
 
 public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
+
+	private Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
 
 	private final static String FIND_ALL = "SELECT * FROM usuarios";
 	private final static String FIND_BY_ID = "SELECT * FROM usuarios WHERE id = ?";
@@ -31,6 +35,33 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 	}
 
 	public UsuarioDAOMySQL(String string) {
+
+	}
+
+	public void alta(Usuario usuario) {
+		if (usuarios.containsKey(usuario.getNombre_completo()))
+			throw new UsuarioYaExistenteDAOException("Ya existe el usuario "
+					+ usuario.getNombre_completo());
+
+		usuarios.put(usuario.getNombre_completo(), usuario);
+
+	}
+
+	public boolean validar(Usuario usuario) {
+		return usuarios.containsValue(usuario);
+	}
+
+	public void modificar(Usuario usuario) {
+		if (!usuarios.containsKey(usuario.getNombre_completo()))
+			throw new DAOException("Intento de modificar usuario no existente "
+					+ usuario);
+
+		usuarios.put(usuario.getNombre_completo(), usuario);
+
+	}
+
+	public void borrar(Usuario usuario) {
+		usuarios.remove(usuario.getNombre_completo());
 
 	}
 
@@ -190,5 +221,4 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		}
 
 	}
-
 }
