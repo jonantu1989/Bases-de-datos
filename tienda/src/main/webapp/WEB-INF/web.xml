@@ -1,45 +1,48 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	      version="3.0">
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
-  	<display-name>LoginServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>AltaServlet</servlet-name>
-  	<display-name>AltaServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.AltaServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>ProductoCRUDServlet</servlet-name>
-  	<display-name>ProductoCRUDServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.ProductoCRUDServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>ProductoFormServlet</servlet-name>
-  	<display-name>ProductoFormServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.ProductoFormServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>UsuarioCRUDServlet</servlet-name>
-  	<display-name>UsuarioCRUDServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.UsuarioCRUDServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>UsuarioFORMServlet</servlet-name>
-  	<display-name>UsuarioFORMServlet</display-name>
-  	<description></description>
+  	
+  	
   	<servlet-class>com.ipartek.formacion.tienda.servlets.UsuarioFORMServlet</servlet-class>
   </servlet>
+  <description>
+  	
+  	</description>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/Login</url-pattern>
