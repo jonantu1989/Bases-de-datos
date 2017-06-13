@@ -13,7 +13,7 @@ import com.ipartek.formacion.tienda.dao.ProductoDAO;
 import com.ipartek.formacion.tienda.rutas.Rutas;
 import com.ipartek.formacion.tienda.tipos.Producto;
 
-public class ProductoFormServlet extends HttpServlet {
+public class ProductoFORMServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request,
