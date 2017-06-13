@@ -36,7 +36,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		try {
 			con = DriverManager.getConnection(url, mysqlUser, mysqlPass);
 		} catch (SQLException e) {
-			throw new DAOException("Error de conexión a la base de datos", e);
+			throw new DAOException("Error de conexion a la base de datos", e);
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
@@ -50,7 +50,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 			con = null;
 		} catch (SQLException e) {
 			throw new DAOException(
-					"Error de cierre de conexión a la base de datos", e);
+					"Error de cierre de conexion a la base de datos", e);
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
@@ -69,7 +69,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 			con.commit();
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
-			throw new DAOException("Error al confirmar transacción", e);
+			throw new DAOException("Error al confirmar transaccion", e);
 		}
 	}
 
@@ -78,7 +78,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 			con.rollback();
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
-			throw new DAOException("Error al deshacer transacción", e);
+			throw new DAOException("Error al deshacer transaccion", e);
 		}
 	}
 }
