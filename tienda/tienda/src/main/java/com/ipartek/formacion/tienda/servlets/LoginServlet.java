@@ -32,6 +32,8 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		// Recoger datos de vistas
 		String nombre = request.getParameter("nombre");
 		String pass = request.getParameter("pass");
 
@@ -45,11 +47,11 @@ public class LoginServlet extends HttpServlet {
 		// Llamada a lógica de negocio
 		ServletContext application = getServletContext();
 
-		UsuarioDAO usuarioDAO = (UsuarioDAO) application
-				.getAttribute(AltaServlet.USUARIO_DAO);
+		UsuarioDAO usuariosDAO = (UsuarioDAO) application
+				.getAttribute(AltaServlet.USUARIOS_DAO);
 
-		if (usuarioDAO == null) {
-			usuarioDAO = DAOUsuarioFactory.getUsuarioDAL();
+		if (usuariosDAO == null) {
+			usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
 		}
 
 		// Sólo para crear una base de datos falsa con el
@@ -71,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 		// }
 
 		// ESTADOS
-		boolean esValido = usuarioDAO.validar(usuario);
+		boolean esValido = usuariosDAO.validar(usuario);
 
 		boolean sinParametros = usuario.getNombre_completo() == null;
 

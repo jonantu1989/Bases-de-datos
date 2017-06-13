@@ -8,79 +8,78 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.tienda.dao.DAOUsuarioFactory;
+import com.ipartek.formacion.tienda.dao.UsuarioDAO;
+import com.ipartek.formacion.tienda.dao.UsuarioYaExistenteDAOException;
 import com.ipartek.formacion.tienda.tipos.Usuario;
 
 public class AltaServlet extends HttpServlet {
+	/* package */static final String USUARIOS_DAO = "dao";
+
 	private static final long serialVersionUID = 1L;
+
+	/* package */static final String RUTA_ALTA = LoginServlet.RUTA + "alta.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* package */static final String USUARIO_DAL = "dal";
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-		private static final long serialVersionUID = 1L;
+		String nombre = request.getParameter("nombre");
+		String pass = request.getParameter("pass");
+		String pass2 = request.getParameter("pass2");
 
-		/* package */static final String RUTA_ALTA = LoginServlet.RUTA + "alta.jsp";
+		// Inicio sin datos: mostrar formulario
+		// Datos incorrectos: sin rellenar, límite de caracteres, no coinciden
+		// contraseñas
+		// Las contraseñas deben ser iguales
+		// Datos correctos: guardar
 
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			doPost(request, response);
-		}
+		Usuario usuario = new Usuario(0, 0, nombre, pass, pass2);
 
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-				IOException1 {
-			String nombre = request.getParameter("nombre");
-			String pass = request.getParameter("pass");
-			String pass2 = request.getParameter("pass2");
+		boolean hayDatos = nombre != null && pass != null && pass2 != null;
+		boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass)
+				&& validarCampo(pass2);
+		boolean passIguales = pass != null && pass.equals(pass2);
 
-			// Inicio sin datos: mostrar formulario
-			// Datos incorrectos: sin rellenar, límite de caracteres, no coinciden
-			// contraseñas
-			// Las contraseñas deben ser iguales
-			// Datos correctos: guardar
+		if (hayDatos) {
+			if (!datosCorrectos) {
+				usuario.setErrores("Todos los campos son requeridos y con un mínimo de "
+						+ LoginServlet.MINIMO_CARACTERES + " caracteres");
+				request.setAttribute("usuario", usuario);
+			} else if (!passIguales) {
+				usuario.setErrores("Las contraseñas deben ser iguales");
+				request.setAttribute("usuario", usuario);
+			} else {
+				ServletContext application = getServletContext();
 
-			Usuario usuario = new Usuario(nombre, pass);
+				UsuarioDAO usuariosDAO = (UsuarioDAO) application
+						.getAttribute(USUARIOS_DAO);
 
-			boolean hayDatos = nombre != null && pass != null && pass2 != null;
-			boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass) && validarCampo(pass2);
-			boolean passIguales = pass != null && pass.equals(pass2);
-
-			if (hayDatos) {
-				if (!datosCorrectos) {
-					usuario.setErrores("Todos los campos son requeridos y con un mínimo de "
-							+ LoginServlet.MINIMO_CARACTERES + " caracteres");
-					request.setAttribute("usuario", usuario);
-				} else if (!passIguales) {
-					usuario.setErrores("Las contraseñas deben ser iguales");
-					request.setAttribute("usuario", usuario);
-				} else {
-					ServletContext application = getServletContext();
-
-					UsuarioDAL usuariosDAL = (UsuarioDAL) application.getAttribute(USUARIOS_DAL);
-
-					if (usuariosDAL == null) {
-						usuariosDAL = UsuarioDALFactory.getUsuariosDAL();
-					}
-
-					try {
-						usuariosDAL.alta(usuario);
-					} catch (UsuarioYaExistenteDALException de) {
-						usuario.setNombre("");
-						usuario.setErrores("El usuario ya existe. Elige otro");
-						request.setAttribute("usuario", usuario);
-					}
-
-					application.setAttribute(USUARIOS_DAL, usuariosDAL);
+				if (usuariosDAO == null) {
+					usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
 				}
+
+				try {
+					usuariosDAO.alta(usuario);
+				} catch (UsuarioYaExistenteDAOException de) {
+					usuario.setNombre_completo("");
+					usuario.setErrores("El usuario ya existe. Elige otro");
+					request.setAttribute("usuario", usuario);
+				}
+
+				application.setAttribute(USUARIOS_DAO, usuariosDAO);
 			}
-			request.getRequestDispatcher(RUTA_ALTA).forward(request, response);
 		}
-
-		private boolean validarCampo(String campo) {
-			return campo != null && campo.length() >= LoginCatalogoAppServlet.MINIMO_CARACTERES;
-		}
-
+		request.getRequestDispatcher(RUTA_ALTA).forward(request, response);
 	}
+
+	private boolean validarCampo(String campo) {
+		return campo != null
+				&& campo.length() >= LoginServlet.MINIMO_CARACTERES;
+	}
+
 }

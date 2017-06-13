@@ -115,14 +115,14 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		}
 	}
 
-	public Producto findById(int id) {
+	public Producto findById(String id) {
 		Producto producto = null;
 		ResultSet rs = null;
 
 		try {
 			psFindById = con.prepareStatement(FIND_BY_ID);
 
-			psFindById.setInt(1, id);
+			psFindById.setString(1, id);
 			rs = psFindById.executeQuery();
 
 			if (rs.next()) {

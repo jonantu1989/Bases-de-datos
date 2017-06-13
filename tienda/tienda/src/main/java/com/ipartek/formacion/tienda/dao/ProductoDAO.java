@@ -12,7 +12,7 @@ public interface ProductoDAO extends IpartekDAO {
 
 	public Producto[] findAll();
 
-	public Producto findById(int id);
+	public Producto findById(String id);
 
 	public int insert(Producto producto);
 

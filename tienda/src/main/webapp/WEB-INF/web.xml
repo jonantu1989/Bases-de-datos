@@ -16,6 +16,18 @@
   	<description></description>
   	<servlet-class>com.ipartek.formacion.tienda.servlets.AltaServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ProductoCRUDServlet</servlet-name>
+  	<display-name>ProductoCRUDServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.tienda.servlets.ProductoCRUDServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ProductoFormServlet</servlet-name>
+  	<display-name>ProductoFormServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.tienda.servlets.ProductoFormServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/Login</url-pattern>
@@ -23,5 +35,13 @@
   <servlet-mapping>
   	<servlet-name>AltaServlet</servlet-name>
   	<url-pattern>/Alta</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductoCRUDServlet</servlet-name>
+  	<url-pattern>/Productocrud</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductoFormServlet</servlet-name>
+  	<url-pattern>/Productoform</url-pattern>
   </servlet-mapping>
 </web-app>
