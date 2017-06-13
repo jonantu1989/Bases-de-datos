@@ -12,7 +12,7 @@ public interface UsuarioDAO extends IpartekDAO {
 
 	public Usuario[] findAll();
 
-	public Usuario findById(int id);
+	public Usuario findById(String id);
 
 	public int insert(Usuario usuario);
 
@@ -23,4 +23,5 @@ public interface UsuarioDAO extends IpartekDAO {
 	public void delete(int id);
 
 	public boolean validar(Usuario usuario);
+
 }

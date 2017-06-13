@@ -34,6 +34,12 @@
   	<description></description>
   	<servlet-class>com.ipartek.formacion.tienda.servlets.UsuarioCRUDServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>UsuarioFORMServlet</servlet-name>
+  	<display-name>UsuarioFORMServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.tienda.servlets.UsuarioFORMServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/Login</url-pattern>
@@ -53,5 +59,9 @@
   <servlet-mapping>
   	<servlet-name>UsuarioCRUDServlet</servlet-name>
   	<url-pattern>/Usuariocrud</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UsuarioFORMServlet</servlet-name>
+  	<url-pattern>/Usuarioform</url-pattern>
   </servlet-mapping>
 </web-app>

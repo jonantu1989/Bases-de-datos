@@ -113,14 +113,14 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		}
 	}
 
-	public Usuario findById(int id) {
+	public Usuario findById(String id) {
 		Usuario usuario = null;
 		ResultSet rs = null;
 
 		try {
 			psFindById = con.prepareStatement(FIND_BY_ID);
 
-			psFindById.setInt(1, id);
+			psFindById.setString(1, id);
 			rs = psFindById.executeQuery();
 
 			if (rs.next()) {
@@ -221,4 +221,5 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		}
 
 	}
+
 }
