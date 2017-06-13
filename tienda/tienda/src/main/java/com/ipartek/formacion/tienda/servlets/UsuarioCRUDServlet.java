@@ -15,7 +15,7 @@ import com.ipartek.formacion.tienda.tipos.Usuario;
 public class UsuarioCRUDServlet extends HttpServlet {
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/usuarioform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/usuariocrud.jsp";
-	static final String RUTA_SERVLET_LISTADO = "/usuariocrud";
+	static final String RUTA_SERVLET_LISTADO = "/usuario";
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,8 +32,8 @@ public class UsuarioCRUDServlet extends HttpServlet {
 		if (dao == null) {
 			dao = DAOUsuarioFactory.getUsuarioDAO();
 
-			dao.alta(new Usuario("usuario1", "pass1"));
-			dao.alta(new Usuario("usuario2", "pass2"));
+			dao.alta(new Usuario("usuario1", "pass1", null));
+			dao.alta(new Usuario("usuario2", "pass2", null));
 
 			application.setAttribute("dao", dao);
 		}
