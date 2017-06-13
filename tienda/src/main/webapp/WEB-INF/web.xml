@@ -46,26 +46,26 @@
   	</description>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
-  	<url-pattern>/Login</url-pattern>
+  	<url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>AltaServlet</servlet-name>
-  	<url-pattern>/Alta</url-pattern>
+  	<url-pattern>/alta</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ProductoCRUDServlet</servlet-name>
-  	<url-pattern>/Productocrud</url-pattern>
+  	<url-pattern>/productocrud</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ProductoFormServlet</servlet-name>
-  	<url-pattern>/Productoform</url-pattern>
+  	<url-pattern>/productoform</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>UsuarioCRUDServlet</servlet-name>
-  	<url-pattern>/Usuariocrud</url-pattern>
+  	<url-pattern>/usuariocrud</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>UsuarioFORMServlet</servlet-name>
-  	<url-pattern>/Usuarioform</url-pattern>
+  	<url-pattern>/usuarioform</url-pattern>
   </servlet-mapping>
 </web-app>

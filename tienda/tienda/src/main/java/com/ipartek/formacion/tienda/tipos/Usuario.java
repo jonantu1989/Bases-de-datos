@@ -3,7 +3,9 @@ package com.ipartek.formacion.tienda.tipos;
 public class Usuario {
 	// Contructores(normal y vacio), getters y setters, hashCode y equals y
 	// toString
-	private String nombre, pass, errores;
+	private String nombre;
+	private String pass;
+	private String errores;
 
 	@Override
 	public int hashCode() {
