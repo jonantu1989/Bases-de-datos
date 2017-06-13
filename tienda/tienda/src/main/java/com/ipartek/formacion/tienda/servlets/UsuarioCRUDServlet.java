@@ -15,7 +15,7 @@ import com.ipartek.formacion.tienda.tipos.Usuario;
 public class UsuarioCRUDServlet extends HttpServlet {
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/usuarioform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/usuariocrud.jsp";
-	static final String RUTA_SERVLET_LISTADO = "/usuario";
+	static final String RUTA_SERVLET_LISTADO = "/usuariocrud";
 
 	private static final long serialVersionUID = 1L;
 
