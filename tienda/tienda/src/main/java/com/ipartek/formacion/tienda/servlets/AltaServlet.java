@@ -38,7 +38,7 @@ public class AltaServlet extends HttpServlet {
 		// Las contraseñas deben ser iguales
 		// Datos correctos: guardar
 
-		Usuario usuario = new Usuario(0, 0, nombre, pass, pass2);
+		Usuario usuario = new Usuario(nombre, pass);
 
 		boolean hayDatos = nombre != null && pass != null && pass2 != null;
 		boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass)
@@ -66,7 +66,7 @@ public class AltaServlet extends HttpServlet {
 				try {
 					usuariosDAO.alta(usuario);
 				} catch (UsuarioYaExistenteDAOException de) {
-					usuario.setNombre_completo("");
+					usuario.setNombre("");
 					usuario.setErrores("El usuario ya existe. Elige otro");
 					request.setAttribute("usuario", usuario);
 				}
