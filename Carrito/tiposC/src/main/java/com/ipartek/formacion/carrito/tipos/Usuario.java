@@ -109,5 +109,10 @@ public class Usuario {
 		return "Usuario [id=" + id + ", id_roles=" + id_roles + ", nombre="
 				+ nombre + ", pass=" + pass + ", username=" + username + "]";
 	}
+
+	public void setErrores(String string) {
+		
+		
+	}
 	
 }

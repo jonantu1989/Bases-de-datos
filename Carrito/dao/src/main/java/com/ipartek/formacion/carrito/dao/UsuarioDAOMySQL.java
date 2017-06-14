@@ -188,5 +188,9 @@ ResultSet generatedKeys = null;
 			throw new DAOException("Error en el cierre de ps o rs", e);
 		}
 	}
+
+	public void alta(Usuario usuario) {
+		
+	}
 	
 }
