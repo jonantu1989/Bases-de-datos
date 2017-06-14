@@ -7,9 +7,9 @@
     <artifactId>Carrito</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.ipartek.formacion</groupId>
+  
   <artifactId>webC</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  
   <packaging>war</packaging>
   <name>webC Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -20,8 +20,32 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+     <dependency>
+        <groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>3.0.1</version>
+	<scope>provided</scope>
+        </dependency>
+     
+        <dependency>
+            <groupId>com.ipartek.formacion</groupId>
+            <artifactId>dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+    <groupId>jstl</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
+ 
+ 
   </dependencies>
   <build>
-    <finalName>webC</finalName>
+    <finalName>webC</finalName><plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
   </build>
 </project>
