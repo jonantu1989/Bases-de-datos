@@ -3,19 +3,17 @@ package com.ipartek.formacion.carrito.tipos;
 public class Producto {
 	private int id;
 	private String nombre;
-	private String descripcion;
-	private String precio;
-	
-	public Producto(int id, String nombre, String descripcion, String precio) {
+	private double precio;
+
+	public Producto(int id, String nombre, double precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.descripcion = descripcion;
 		this.precio = precio;
 	}
 
 	public Producto() {
-		super();
+		
 	}
 
 	public int getId() {
@@ -34,19 +32,11 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
@@ -54,11 +44,11 @@ public class Producto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((precio == null) ? 0 : precio.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(precio);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -71,11 +61,6 @@ public class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
-		if (descripcion == null) {
-			if (other.descripcion != null)
-				return false;
-		} else if (!descripcion.equals(other.descripcion))
-			return false;
 		if (id != other.id)
 			return false;
 		if (nombre == null) {
@@ -83,18 +68,14 @@ public class Producto {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (precio == null) {
-			if (other.precio != null)
-				return false;
-		} else if (!precio.equals(other.precio))
+		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion="
-				+ descripcion + ", precio=" + precio + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
 	}
-	
+
 }
