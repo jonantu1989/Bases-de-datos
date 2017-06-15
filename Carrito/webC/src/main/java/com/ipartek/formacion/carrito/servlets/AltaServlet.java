@@ -18,7 +18,8 @@ public class AltaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	/* package */static final String RUTA_ALTA = LoginServlet.RUTA + "alta.jsp";
+	/* package */static final String RUTA_ALTA = LoginServlet.RUTA
+			+ "alta2.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

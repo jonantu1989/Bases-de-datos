@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Alta de usuarios</title>
-
+<link rel="stylesheet" href="css/estilos2.css" />
 </head>
 <body>
 <h1>Alta de usuarios: </h1>
