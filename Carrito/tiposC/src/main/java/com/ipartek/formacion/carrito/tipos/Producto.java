@@ -4,6 +4,15 @@ public class Producto {
 	private String id;
 	private String nombre;
 	private double precio;
+	private String errores;
+
+	public String getErrores() {
+		return errores;
+	}
+
+	public void setErrores(String errores) {
+		this.errores = errores;
+	}
 
 	public Producto(String id, String nombre, double precio) {
 		super();

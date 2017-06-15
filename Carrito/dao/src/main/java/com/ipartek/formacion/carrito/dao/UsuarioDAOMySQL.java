@@ -201,4 +201,9 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	}
 
+	public boolean validar(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

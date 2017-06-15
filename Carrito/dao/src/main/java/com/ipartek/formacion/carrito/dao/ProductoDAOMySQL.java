@@ -182,4 +182,9 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	}
 
+	public void alta(Producto producto) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

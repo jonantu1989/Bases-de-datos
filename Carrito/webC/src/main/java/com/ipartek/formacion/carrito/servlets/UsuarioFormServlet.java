@@ -46,7 +46,7 @@ public class UsuarioFormServlet extends HttpServlet {
 			return;
 		}
 
-		Usuario usuario = new Usuario(0, 0, nombre, pass, pass2);
+		Usuario usuario = new Usuario(nombre, pass);
 
 		ServletContext application = getServletContext();
 		UsuarioDAO dao = (UsuarioDAO) application.getAttribute("dao");
