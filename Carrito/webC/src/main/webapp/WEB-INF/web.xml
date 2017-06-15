@@ -18,6 +18,34 @@
   	<servlet-name>AltaServlet</servlet-name>
   	<servlet-class>com.ipartek.formacion.carrito.servlets.AltaServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>UsuarioCrudServlet</display-name>
+  	<servlet-name>UsuarioCrudServlet</servlet-name>
+  	<servlet-class>com.ipartek.formacion.carrito.servlets.UsuarioCrudServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>ProductoCrudServlet</display-name>
+  	<servlet-name>ProductoCrudServlet</servlet-name>
+  	<servlet-class>com.ipartek.formacion.carrito.servlets.ProductoCrudServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>UsuarioFormServlet</display-name>
+  	<servlet-name>UsuarioFormServlet</servlet-name>
+  	<servlet-class>com.ipartek.formacion.carrito.servlets.UsuarioFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>ProductoFormServlet</display-name>
+  	<servlet-name>ProductoFormServlet</servlet-name>
+  	<servlet-class>com.ipartek.formacion.carrito.servlets.ProductoFormServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/login</url-pattern>
@@ -25,5 +53,21 @@
   <servlet-mapping>
   	<servlet-name>AltaServlet</servlet-name>
   	<url-pattern>/alta</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UsuarioCrudServlet</servlet-name>
+  	<url-pattern>/usuariocrud</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductoCrudServlet</servlet-name>
+  	<url-pattern>/productocrud</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UsuarioFormServlet</servlet-name>
+  	<url-pattern>/usuarioform</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductoFormServlet</servlet-name>
+  	<url-pattern>/productoform</url-pattern>
   </servlet-mapping>
 </web-app>

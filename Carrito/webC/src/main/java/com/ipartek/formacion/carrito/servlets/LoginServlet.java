@@ -14,10 +14,9 @@ import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
-
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/* package */static final String RUTA = "/WEB-INF/vistas/";
 	private static final String RUTA_PRINCIPAL = RUTA + "productocrud.jsp";
 	private static final String RUTA_LOGIN = RUTA + "login.jsp";
@@ -25,90 +24,91 @@ public class LoginServlet extends HttpServlet {
 	public static final int TIEMPO_INACTIVIDAD = 30 * 60;
 
 	/* package */static final int MINIMO_CARACTERES = 4;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-			// Recoger datos de vistas
-			String nombre = request.getParameter("nombre");
-			String pass = request.getParameter("pass");
+		// Recoger datos de vistas
+		String nombre = request.getParameter("nombre");
+		String pass = request.getParameter("pass");
 
-			String opcion = request.getParameter("opcion");
+		String opcion = request.getParameter("opcion");
 
-			// Crear modelos en base a los datos
-			Usuario usuario = new Usuario();
-			usuario.setNombre(nombre);
-			usuario.setPass(pass);
+		// Crear modelos en base a los datos
+		Usuario usuario = new Usuario();
+		usuario.setNombre(nombre);
+		usuario.setPass(pass);
 
-			// Llamada a lógica de negocio
-			ServletContext application = getServletContext();
+		// Llamada a lógica de negocio
+		ServletContext application = getServletContext();
 
-			UsuarioDAO usuariosDAL = (UsuarioDAO) application
-					.getAttribute(AltaServlet.USUARIOS_DAL);
+		UsuarioDAO usuariosDAO = (UsuarioDAO) application
+				.getAttribute(AltaServlet.USUARIOS_DAO);
 
-			if (usuariosDAL == null) {
-				usuariosDAL = DAOUsuarioFactory.getUsuarioDAO();
-			}
+		if (usuariosDAO == null) {
+			usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
+		}
 
-			// Sólo para crear una base de datos falsa con el
-			// contenido de un usuario "jon", "antunano"
-			// usuarioDAL.alta(new Usuario("jon", "antunano"));
+		// Sólo para crear una base de datos falsa con el
+		// contenido de un usuario "jon", "antunano"
+		// usuarioDAL.alta(new Usuario("jon", "antunano"));
 
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(TIEMPO_INACTIVIDAD);
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(TIEMPO_INACTIVIDAD);
 
-			Cookie cookie = new Cookie("JSESSIONID", session.getId());
-			cookie.setMaxAge(TIEMPO_INACTIVIDAD);
-			response.addCookie(cookie);
+		Cookie cookie = new Cookie("JSESSIONID", session.getId());
+		cookie.setMaxAge(TIEMPO_INACTIVIDAD);
+		response.addCookie(cookie);
 
-			// for (Cookie cookie : request.getCookies()) {
-			// if ("JSESSIONID".equals(cookie.getName())) {
-			// cookie.setMaxAge(TIEMPO_INACTIVIDAD);
-			// response.addCookie(cookie);
-			// }
-			// }
+		// for (Cookie cookie : request.getCookies()) {
+		// if ("JSESSIONID".equals(cookie.getName())) {
+		// cookie.setMaxAge(TIEMPO_INACTIVIDAD);
+		// response.addCookie(cookie);
+		// }
+		// }
 
-			// ESTADOS
-			boolean esValido = usuariosDAL.validar(usuario);
+		// ESTADOS
+		boolean esValido = usuariosDAO.validar(usuario);
 
-			boolean sinParametros = usuario.getNombre() == null;
+		boolean sinParametros = usuario.getNombre() == null;
 
-			boolean esUsuarioYaRegistrado = session.getAttribute("usuario") != null;
+		boolean esUsuarioYaRegistrado = session.getAttribute("usuario") != null;
 
-			boolean quiereSalir = "logout".equals(opcion);
+		boolean quiereSalir = "logout".equals(opcion);
 
-			boolean nombreValido = usuario.getNombre() != null
-					&& usuario.getNombre().length() >= MINIMO_CARACTERES;
-			boolean passValido = !(usuario.getPass() == null || usuario.getPass()
-					.length() < MINIMO_CARACTERES);
+		boolean nombreValido = usuario.getNombre() != null
+				&& usuario.getNombre().length() >= MINIMO_CARACTERES;
+		boolean passValido = !(usuario.getPass() == null || usuario.getPass()
+				.length() < MINIMO_CARACTERES);
 
-			// Redirigir a una nueva vista
-			if (quiereSalir) {
-				session.invalidate();
-				request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-			} else if (esUsuarioYaRegistrado) {
-				request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
-						response);
-			} else if (sinParametros) {
-				request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-			} else if (!nombreValido || !passValido) {
-				usuario.setErrores("El nombre y la pass deben tener como mínimo "
-						+ MINIMO_CARACTERES + " caracteres y son ambos requeridos");
-				request.setAttribute("usuario", usuario);
-				request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-			} else if (esValido) {
-				session.setAttribute("usuario", usuario);
-				// response.sendRedirect("principal.jsp");
-				request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
-						response);
-			} else {
-				usuario.setErrores("El usuario y contraseña introducidos no son válidos");
-				request.setAttribute("usuario", usuario);
-				request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-			}
+		// Redirigir a una nueva vista
+		if (quiereSalir) {
+			session.invalidate();
+			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+		} else if (esUsuarioYaRegistrado) {
+			request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
+					response);
+		} else if (sinParametros) {
+			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+		} else if (!nombreValido || !passValido) {
+			usuario.setErrores("El nombre y la pass deben tener como mínimo "
+					+ MINIMO_CARACTERES + " caracteres y son ambos requeridos");
+			request.setAttribute("usuario", usuario);
+			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+		} else if (esValido) {
+			session.setAttribute("usuario", usuario);
+			// response.sendRedirect("principal.jsp");
+			request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
+					response);
+		} else {
+			usuario.setErrores("El usuario y contraseña introducidos no son válidos");
+			request.setAttribute("usuario", usuario);
+			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+		}
 	}
 }
-

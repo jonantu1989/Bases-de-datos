@@ -8,18 +8,21 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.carrito.tipos.Producto;
 
-public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
+public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	private final static String FIND_ALL = "SELECT * FROM productos";
 	private final static String FIND_BY_ID = "SELECT * FROM productos WHERE id = ?";
-	private final static String INSERT = "INSERT INTO productos (nombre, precio)" + " VALUES (?, ?)";
-	private final static String UPDATE = "UPDATE productos " + "SET nombre = ?, precio = ?" + " WHERE id = ?";
+	private final static String INSERT = "INSERT INTO productos (nombre, precio)"
+			+ " VALUES (?, ?)";
+	private final static String UPDATE = "UPDATE productos "
+			+ "SET nombre = ?, precio = ?" + " WHERE id = ?";
 	private final static String DELETE = "DELETE FROM productos WHERE id = ?";
 
-	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate, psDelete;
-	
+	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate,
+			psDelete;
+
 	public Producto[] findAll() {
-		
+
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 		ResultSet rs = null;
 
@@ -33,7 +36,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 			while (rs.next()) {
 				producto = new Producto();
 
-				producto.setId(rs.getInt("id"));
+				producto.setId(rs.getString("id"));
 				producto.setNombre(rs.getString("nombre"));
 				producto.setPrecio(rs.getDouble("precio"));
 
@@ -48,21 +51,21 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 		return productos.toArray(new Producto[productos.size()]);
 	}
 
-	public Producto findById(int id) {
-		
+	public Producto findById(String id) {
+
 		Producto producto = null;
 		ResultSet rs = null;
 
 		try {
 			psFindById = con.prepareStatement(FIND_BY_ID);
 
-			psFindById.setInt(1, id);
+			psFindById.setString(1, id);
 			rs = psFindById.executeQuery();
 
 			if (rs.next()) {
 				producto = new Producto();
 
-				producto.setId(rs.getInt("id"));
+				producto.setId(rs.getString("id"));
 				producto.setNombre(rs.getString("nombre"));
 				producto.setPrecio(rs.getDouble("precio"));
 			}
@@ -73,15 +76,16 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 			cerrar(psFindById, rs);
 		}
 		return producto;
-		
+
 	}
 
 	public int insert(Producto producto) {
-		
+
 		ResultSet generatedKeys = null;
 
 		try {
-			psInsert = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			psInsert = con.prepareStatement(INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 
 			psInsert.setString(1, producto.getNombre());
 			psInsert.setDouble(2, producto.getPrecio());
@@ -89,7 +93,8 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 			int res = psInsert.executeUpdate();
 
 			if (res != 1) {
-				throw new DAOException("La inserción ha devuelto un valor " + res);
+				throw new DAOException("La inserción ha devuelto un valor "
+						+ res);
 			}
 			generatedKeys = psInsert.getGeneratedKeys();
 
@@ -104,65 +109,67 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 		} finally {
 			cerrar(psInsert, generatedKeys);
 		}
-		
+
 	}
 
 	public void update(Producto producto) {
-		
+
 		try {
 			psUpdate = con.prepareStatement(UPDATE);
 
 			psUpdate.setString(1, producto.getNombre());
 			psUpdate.setDouble(2, producto.getPrecio());
-			psUpdate.setInt(3, producto.getId());
+			psUpdate.setString(3, producto.getId());
 
 			int res = psUpdate.executeUpdate();
 
 			if (res != 1) {
-				throw new DAOException("La actualización ha devuelto un valor " + res);
+				throw new DAOException("La actualización ha devuelto un valor "
+						+ res);
 			}
 		} catch (Exception e) {
 			throw new DAOException("Error en el update", e);
 		} finally {
 			cerrar(psUpdate);
 		}
-		
+
 	}
 
 	public void delete(Producto producto) {
-		
+
 		delete(producto.getId());
-		
+
 	}
 
-	public void delete(int id) {
-		
+	public void delete(String id) {
+
 		try {
 			psDelete = con.prepareStatement(DELETE);
 
-			psDelete.setInt(1, id);
+			psDelete.setString(1, id);
 
 			int res = psDelete.executeUpdate();
 
 			if (res != 1) {
-				throw new DAOException("La eliminación por ID ha devuelto un valor " + res);
+				throw new DAOException(
+						"La eliminación por ID ha devuelto un valor " + res);
 			}
 		} catch (Exception e) {
 			throw new DAOException("Error en el deleteID", e);
 		} finally {
 			cerrar(psDelete);
 		}
-		
+
 	}
-	
+
 	private void cerrar(PreparedStatement ps) {
-		
+
 		cerrar(ps, null);
-		
+
 	}
 
 	private void cerrar(PreparedStatement ps, ResultSet rs) {
-		
+
 		try {
 			if (rs != null)
 				rs.close();
@@ -170,10 +177,9 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO  {
 				ps.close();
 		} catch (Exception e) {
 			throw new DAOException("Error en el cierre de ps o rs", e);
-			
+
 		}
-		
+
 	}
 
-	
 }

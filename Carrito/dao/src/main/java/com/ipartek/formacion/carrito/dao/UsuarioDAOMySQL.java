@@ -12,22 +12,26 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	private final static String FIND_ALL = "SELECT * FROM usuarios";
 	private final static String FIND_BY_ID = "SELECT * FROM usuarios WHERE id = ?";
-	private final static String INSERT = "INSERT INTO usuarios (username, password, nombre_completo, id_roles)" + " VALUES (?, ?, ?, ?)";
-	private final static String UPDATE = "UPDATE usuarios " + "SET username = ?, password = ?, nombre_completo = ?, id_roles = ? " + "WHERE id = ?";
+	private final static String INSERT = "INSERT INTO usuarios (username, password, nombre_completo, id_roles)"
+			+ " VALUES (?, ?, ?, ?)";
+	private final static String UPDATE = "UPDATE usuarios "
+			+ "SET username = ?, password = ?, nombre_completo = ?, id_roles = ? "
+			+ "WHERE id = ?";
 	private final static String DELETE = "DELETE FROM usuarios WHERE id = ?";
 
-	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate, psDelete;
+	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate,
+			psDelete;
 
 	public UsuarioDAOMySQL(String url, String mysqlUser, String mysqlPass) {
 		super(url, mysqlUser, mysqlPass);
 	}
-	
+
 	public UsuarioDAOMySQL() {
-		
+
 	}
 
 	public Usuario[] findAll() {
-		
+
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		ResultSet rs = null;
 
@@ -42,8 +46,8 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 				// System.out.println(rs.getString("username"));
 				usuario = new Usuario();
 
-				usuario.setId(rs.getInt("id"));
-				usuario.setId_roles(rs.getInt("id_roles"));
+				usuario.setId(rs.getString("id"));
+				usuario.setId_roles(rs.getString("id_roles"));
 				usuario.setNombre(rs.getString("nombre_completo"));
 				usuario.setPass(rs.getString("password"));
 				usuario.setUsername(rs.getString("username"));
@@ -57,25 +61,25 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			cerrar(psFindAll, rs);
 		}
 		return usuarios.toArray(new Usuario[usuarios.size()]);
-		
+
 	}
 
-	public Usuario findById(int id) {
-		
+	public Usuario findById(String id) {
+
 		Usuario usuario = null;
 		ResultSet rs = null;
-		
+
 		try {
 			psFindById = con.prepareStatement(FIND_BY_ID);
 
-			psFindById.setInt(1, id);
+			psFindById.setString(1, id);
 			rs = psFindById.executeQuery();
 
 			if (rs.next()) {
 				usuario = new Usuario();
 
-				usuario.setId(rs.getInt("id"));
-				usuario.setId_roles(rs.getInt("id_roles"));
+				usuario.setId(rs.getString("id"));
+				usuario.setId_roles(rs.getString("id_roles"));
 				usuario.setNombre(rs.getString("nombre_completo"));
 				usuario.setPass(rs.getString("password"));
 				usuario.setUsername(rs.getString("username"));
@@ -88,27 +92,29 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		}
 
 		return usuario;
-		
+
 	}
 
 	public int insert(Usuario usuario) {
-		
-ResultSet generatedKeys = null;
-		
+
+		ResultSet generatedKeys = null;
+
 		try {
-			psInsert = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			psInsert = con.prepareStatement(INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 
 			psInsert.setString(1, usuario.getUsername());
 			psInsert.setString(2, usuario.getPass());
 			psInsert.setString(3, usuario.getNombre());
-			psInsert.setInt(4, usuario.getId_roles());
+			psInsert.setString(4, usuario.getId_roles());
 
 			int res = psInsert.executeUpdate();
 
 			if (res != 1)
-				throw new DAOException("La inserción ha devuelto un valor " + res);
+				throw new DAOException("La inserción ha devuelto un valor "
+						+ res);
 
-			 generatedKeys = psInsert.getGeneratedKeys();
+			generatedKeys = psInsert.getGeneratedKeys();
 
 			if (generatedKeys.next())
 				return generatedKeys.getInt(1);
@@ -120,69 +126,71 @@ ResultSet generatedKeys = null;
 		} finally {
 			cerrar(psInsert, generatedKeys);
 		}
-		
+
 	}
 
 	public void update(Usuario usuario) {
-		
+
 		try {
 			psUpdate = con.prepareStatement(UPDATE);
 
 			psUpdate.setString(1, usuario.getUsername());
 			psUpdate.setString(2, usuario.getPass());
 			psUpdate.setString(3, usuario.getNombre());
-			psUpdate.setInt(4, usuario.getId_roles());
+			psUpdate.setString(4, usuario.getId_roles());
 
-			psUpdate.setInt(5, usuario.getId());
+			psUpdate.setString(5, usuario.getId());
 
 			int res = psUpdate.executeUpdate();
 
 			if (res != 1)
-				throw new DAOException("La actualización ha devuelto un valor " + res);
+				throw new DAOException("La actualización ha devuelto un valor "
+						+ res);
 
 		} catch (Exception e) {
 			throw new DAOException("Error en update", e);
 		} finally {
 			cerrar(psUpdate);
 		}
-			
+
 	}
 
 	public void delete(Usuario usuario) {
-		
+
 		delete(usuario.getId());
-		
+
 	}
 
-	public void delete(int id) {
-		
+	public void delete(String id) {
+
 		try {
 			psDelete = con.prepareStatement(DELETE);
 
-			psDelete.setInt(1, id);
+			psDelete.setString(1, id);
 
 			int res = psDelete.executeUpdate();
 
 			if (res != 1)
-				throw new DAOException("La actualización ha devuelto un valor " + res);
+				throw new DAOException("La actualización ha devuelto un valor "
+						+ res);
 
 		} catch (Exception e) {
 			throw new DAOException("Error en update", e);
 		} finally {
 			cerrar(psDelete);
 		}
-		
+
 	}
-	
+
 	private void cerrar(PreparedStatement ps) {
 		cerrar(ps, null);
 	}
-	
+
 	private void cerrar(PreparedStatement ps, ResultSet rs) {
 		try {
 			if (rs != null)
 				rs.close();
-			if(ps != null)
+			if (ps != null)
 				ps.close();
 		} catch (Exception e) {
 			throw new DAOException("Error en el cierre de ps o rs", e);
@@ -190,7 +198,7 @@ ResultSet generatedKeys = null;
 	}
 
 	public void alta(Usuario usuario) {
-		
+
 	}
-	
+
 }

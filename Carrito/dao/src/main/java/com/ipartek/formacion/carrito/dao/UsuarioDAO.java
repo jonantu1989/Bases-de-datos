@@ -3,12 +3,12 @@ package com.ipartek.formacion.carrito.dao;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 public interface UsuarioDAO extends IpartekDAO {
-	
+
 	public void alta(Usuario usuario);
-	
+
 	public Usuario[] findAll();
 
-	public Usuario findById(int id);
+	public Usuario findById(String id);
 
 	public int insert(Usuario usuario);
 
@@ -16,7 +16,6 @@ public interface UsuarioDAO extends IpartekDAO {
 
 	public void delete(Usuario usuario);
 
-	public void delete(int id);
+	public void delete(String id);
 
-	
 }

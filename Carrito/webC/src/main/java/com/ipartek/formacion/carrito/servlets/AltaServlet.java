@@ -13,20 +13,21 @@ import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.dao.UsuarioYaExistenteDAOException;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
-
 public class AltaServlet extends HttpServlet {
-	/* package */static final String USUARIOS_DAL = "dal";
+	/* package */static final String USUARIOS_DAO = "dao";
 
 	private static final long serialVersionUID = 1L;
 
 	/* package */static final String RUTA_ALTA = LoginServlet.RUTA + "alta.jsp";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		String nombre = request.getParameter("nombre");
 		String pass = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
@@ -40,7 +41,8 @@ public class AltaServlet extends HttpServlet {
 		Usuario usuario = new Usuario(0, 0, nombre, pass, pass2);
 
 		boolean hayDatos = nombre != null && pass != null && pass2 != null;
-		boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass) && validarCampo(pass2);
+		boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass)
+				&& validarCampo(pass2);
 		boolean passIguales = pass != null && pass.equals(pass2);
 
 		if (hayDatos) {
@@ -54,7 +56,8 @@ public class AltaServlet extends HttpServlet {
 			} else {
 				ServletContext application = getServletContext();
 
-				UsuarioDAO usuariosDAO = (UsuarioDAO) application.getAttribute(USUARIOS_DAL);
+				UsuarioDAO usuariosDAO = (UsuarioDAO) application
+						.getAttribute(USUARIOS_DAO);
 
 				if (usuariosDAO == null) {
 					usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
@@ -68,14 +71,15 @@ public class AltaServlet extends HttpServlet {
 					request.setAttribute("usuario", usuario);
 				}
 
-				application.setAttribute(USUARIOS_DAL, usuariosDAO);
+				application.setAttribute(USUARIOS_DAO, usuariosDAO);
 			}
 		}
 		request.getRequestDispatcher(RUTA_ALTA).forward(request, response);
 	}
 
 	private boolean validarCampo(String campo) {
-		return campo != null && campo.length() >= LoginServlet.MINIMO_CARACTERES;
+		return campo != null
+				&& campo.length() >= LoginServlet.MINIMO_CARACTERES;
 	}
 
 }

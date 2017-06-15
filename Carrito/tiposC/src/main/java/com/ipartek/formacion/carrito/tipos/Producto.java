@@ -1,11 +1,11 @@
 package com.ipartek.formacion.carrito.tipos;
 
 public class Producto {
-	private int id;
+	private String id;
 	private String nombre;
 	private double precio;
 
-	public Producto(int id, String nombre, double precio) {
+	public Producto(String id, String nombre, double precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -13,27 +13,27 @@ public class Producto {
 	}
 
 	public Producto() {
-		
+		super();
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public double getPrecio() {
 		return precio;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public void setPrecio(double precio) {
@@ -44,7 +44,7 @@ public class Producto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(precio);
@@ -61,21 +61,26 @@ public class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
+		if (Double.doubleToLongBits(precio) != Double
+				.doubleToLongBits(other.precio))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio="
+				+ precio + "]";
 	}
 
 }

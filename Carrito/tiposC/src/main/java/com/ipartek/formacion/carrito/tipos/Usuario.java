@@ -1,75 +1,78 @@
 package com.ipartek.formacion.carrito.tipos;
 
 public class Usuario {
-	private int id;
-	private int id_roles;
+
+	private String id;
+	private String id_roles;
 	private String nombre;
 	private String pass;
 	private String username;
-	public Usuario(int id, int id_roles, String nombre, String pass,
-			String username) {
+	private String errores;
+
+	public Usuario(String nombre, String pass) {
 		super();
-		this.id = id;
-		this.id_roles = id_roles;
 		this.nombre = nombre;
 		this.pass = pass;
-		this.username = username;
 	}
-	
+
 	public Usuario() {
 		super();
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getId_roles() {
+	public String getId_roles() {
 		return id_roles;
-	}
-
-	public void setId_roles(int id_roles) {
-		this.id_roles = id_roles;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getPass() {
 		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
+	public String getErrores() {
+		return errores;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setId_roles(String id_roles) {
+		this.id_roles = id_roles;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public void setErrores(String errores) {
+		this.errores = errores;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
-		result = prime * result + id_roles;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((pass == null) ? 0 : pass.hashCode());
-		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -82,10 +85,6 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (id != other.id)
-			return false;
-		if (id_roles != other.id_roles)
-			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -96,23 +95,12 @@ public class Usuario {
 				return false;
 		} else if (!pass.equals(other.pass))
 			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", id_roles=" + id_roles + ", nombre="
-				+ nombre + ", pass=" + pass + ", username=" + username + "]";
+		return "Usuario [nombre=" + nombre + ", pass=" + pass + "]";
 	}
 
-	public void setErrores(String string) {
-		
-		
-	}
-	
 }
