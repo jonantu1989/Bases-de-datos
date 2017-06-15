@@ -21,6 +21,7 @@ public class ProductoFormServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	// @SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// La "application"
@@ -45,9 +46,6 @@ public class ProductoFormServlet extends HttpServlet {
 		if (precio == null) {
 			precio = "Sin precio";
 		}
-
-		String stock = request.getParameter("stock");
-		String rutaImagen = request.getParameter("rutaImagen");
 
 		// Miramos si op es null.
 		if (op == null) {

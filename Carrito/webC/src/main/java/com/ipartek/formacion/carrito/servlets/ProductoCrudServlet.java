@@ -26,14 +26,14 @@ public class ProductoCrudServlet extends HttpServlet {
 		// Primero recogemos los datos...??
 		ServletContext applicationProductos = getServletContext();
 		ProductoDAO daoProductos = (ProductoDAO) applicationProductos
-				.getAttribute("dalProductos");
+				.getAttribute("daoProductos");
 
 		if (daoProductos == null) {
 
 			daoProductos = DAOProductoFactory.getProductoDAO();
 
 			// Creamos unos productos de prueba.
-			// dalProductos.altaProducto(new ProductoStockImagen());
+			// dalProductos.altaProducto(new Producto);
 
 			applicationProductos.setAttribute("daoProductos", daoProductos);
 		}
