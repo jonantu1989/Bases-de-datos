@@ -101,7 +101,7 @@ static {
       }
       out.write("\r\n");
       out.write("\r\n");
-      out.write("\t<form action=\"tiendaform\" method=\"post\">\r\n");
+      out.write("\t<form action=\"productoform\" method=\"post\">\r\n");
       out.write("\t\t<fieldset>\r\n");
       out.write("\t\t\t<label for=\"id\">ID</label> \r\n");
       out.write("\t\t\t\r\n");
@@ -116,10 +116,6 @@ static {
       out.write("\t\t<fieldset>\r\n");
       out.write("\t\t\t<label for=\"nombre\">Nombre</label> <input type=\"text\" id=\"nombre\"\r\n");
       out.write("\t\t\t\tname=\"nombre\" />\r\n");
-      out.write("\t\t</fieldset>\r\n");
-      out.write("\t\t<fieldset>\r\n");
-      out.write("\t\t\t<label for=\"descripcion\">Descripcion</label> <input type=\"text\" id=\"descripcion\"\r\n");
-      out.write("\t\t\t\tname=\"descripcion\" />\r\n");
       out.write("\t\t</fieldset>\r\n");
       out.write("\t\t<fieldset>\r\n");
       out.write("\t\t\t<label for=\"precio\">Precio</label> <input type=\"text\" id=\"precio\"\r\n");
