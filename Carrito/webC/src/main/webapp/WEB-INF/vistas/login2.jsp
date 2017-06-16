@@ -14,7 +14,7 @@
 			<input type="submit" value="Login" />
 		</fieldset>
 		<a href="alta">ALTA</a>
-		<a href="tienda">TIENDA</a>
+		<a href="productocrud">TIENDA</a>
 		
 			
 	</form>
