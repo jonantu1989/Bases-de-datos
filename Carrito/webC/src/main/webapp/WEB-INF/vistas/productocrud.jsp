@@ -23,7 +23,6 @@
 				</td>
 				<td>${producto.id}</td>
 				<td>${producto.nombre}</td>
-				<td>${producto.descripcion}</td>
 				<td>${producto.precio}</td>
 				
 				

@@ -23,10 +23,6 @@
 				name="nombre" />
 		</fieldset>
 		<fieldset>
-			<label for="descripcion">Descripcion</label> <input type="text" id="descripcion"
-				name="descripcion" />
-		</fieldset>
-		<fieldset>
 			<label for="precio">Precio</label> <input type="text" id="precio"
 				name="precio" />
 		</fieldset>
