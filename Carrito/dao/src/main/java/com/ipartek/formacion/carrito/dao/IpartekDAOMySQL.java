@@ -7,19 +7,19 @@ import java.sql.SQLException;
 public class IpartekDAOMySQL implements IpartekDAO {
 
 	protected Connection con;
-	
+
 	private String url = "jdbc:mysql://localhost/catalogoapp";
 	private String mysqlUser = "root";
 	private String mysqlPass = "";
-	
+
 	public IpartekDAOMySQL(String url, String mysqlUser, String mysqlPass) {
 		this();
 		this.url = url;
 		this.mysqlUser = mysqlUser;
 		this.mysqlPass = mysqlPass;
 	}
-	
-	public IpartekDAOMySQL () {
+
+	public IpartekDAOMySQL() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
@@ -41,21 +41,22 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
-		
+
 	}
 
 	public void cerrar() {
 		try {
-			if(con != null && !con.isClosed()) {
+			if (con != null && !con.isClosed()) {
 				con.close();
 			}
 			con = null;
 		} catch (SQLException e) {
-			throw new DAOException("Error de cierre de conexión a la base de datos", e);
+			throw new DAOException(
+					"Error de cierre de conexión a la base de datos", e);
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
-		
+
 	}
 
 	public void iniciarTransaccion() {
@@ -64,7 +65,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al desactivar AutoCommit", e);
 		}
-		
+
 	}
 
 	public void confirmarTransaccion() {
@@ -74,7 +75,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al confirmar transacción", e);
 		}
-		
+
 	}
 
 	public void deshacerTransaccion() {
@@ -84,12 +85,12 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al deshacer transacción", e);
 		}
-		
+
 	}
-	
+
 	public void reutilizarConexion(IpartekDAO dao) {
-		con = ((IpartekDAOMySQL)dao).con;
-		
+		con = ((IpartekDAOMySQL) dao).con;
+
 	}
-		
+
 }
