@@ -15,7 +15,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 	private final static String INSERT = "INSERT INTO productos (id, nombre, precio)"
 			+ " VALUES (?, ?, ?)";
 	private final static String UPDATE = "UPDATE productos "
-			+ "SET nombre = ?, precio = ?" + " WHERE id = ?";
+			+ "SET id = ?, nombre = ?, precio = ?" + " WHERE id = ?";
 	private final static String DELETE = "DELETE FROM productos WHERE id = ?";
 
 	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate,
@@ -45,6 +45,8 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 		} catch (SQLException e) {
 			throw new DAOException("Error en findAll", e);
+		} catch (Exception e) {
+			e.getStackTrace();
 		} finally {
 			cerrar(psFindAll, rs);
 		}

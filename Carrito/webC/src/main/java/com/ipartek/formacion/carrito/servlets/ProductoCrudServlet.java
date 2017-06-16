@@ -33,7 +33,7 @@ public class ProductoCrudServlet extends HttpServlet {
 			daoProductos = DAOProductoFactory.getProductoDAO();
 
 			// Creamos unos productos de prueba.
-			// dalProductos.altaProducto(new Producto);
+			// daoProductos.altaProducto(new Producto);
 
 			applicationProductos.setAttribute("daoProductos", daoProductos);
 		}

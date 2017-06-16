@@ -10,7 +10,6 @@
 			<th>Operaciones</th>
 			<th>ID producto</th>
 			<th>Nombre</th>
-			<th>Descripcion</th>
 			<th>Precio</th>
 			
 		</tr>

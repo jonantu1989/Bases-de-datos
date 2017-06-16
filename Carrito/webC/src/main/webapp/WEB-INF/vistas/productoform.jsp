@@ -8,7 +8,7 @@
 	<jsp:useBean id="productos" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Producto" />
 
-	<form action="tiendaform" method="post">
+	<form action="productoform" method="post">
 		<fieldset>
 			<label for="id">ID</label> 
 			

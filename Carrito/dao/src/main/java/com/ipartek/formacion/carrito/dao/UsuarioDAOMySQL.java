@@ -33,6 +33,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 	public Usuario[] findAll() {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
 		ResultSet rs = null;
 
 		try {
@@ -57,6 +58,8 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 		} catch (SQLException e) {
 			throw new DAOException("Error en findAll", e);
+		} catch (Exception e) {
+			e.getStackTrace();
 		} finally {
 			cerrar(psFindAll, rs);
 		}
@@ -107,6 +110,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			psInsert.setString(2, usuario.getPass());
 			psInsert.setString(3, usuario.getNombre());
 			psInsert.setString(4, usuario.getId_roles());
+			psInsert.setString(5, usuario.getId());
 
 			int res = psInsert.executeUpdate();
 
