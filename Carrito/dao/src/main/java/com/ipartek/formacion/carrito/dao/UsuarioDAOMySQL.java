@@ -88,8 +88,10 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 				usuario.setUsername(rs.getString("username"));
 			}
 
+		} catch (SQLException e) {
+			throw new DAOException("Error en FindById", e);
 		} catch (Exception e) {
-			throw new DAOException("Error en findById", e);
+			e.getStackTrace();
 		} finally {
 			cerrar(psFindById, rs);
 		}
@@ -206,7 +208,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 	}
 
 	public boolean validar(Usuario usuario) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

@@ -10,7 +10,6 @@
 			<th>Operaciones</th>
 			<th>ID producto</th>
 			<th>Nombre</th>
-			<th>Descripcion</th>
 			<th>Precio</th>
 			
 		</tr>
@@ -24,7 +23,6 @@
 				</td>
 				<td>${producto.id}</td>
 				<td>${producto.nombre}</td>
-				<td>${producto.descripcion}</td>
 				<td>${producto.precio}</td>
 				
 				

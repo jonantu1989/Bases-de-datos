@@ -74,6 +74,8 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 		} catch (SQLException e) {
 			throw new DAOException("Error en FindById", e);
+		} catch (Exception e) {
+			e.getStackTrace();
 		} finally {
 			cerrar(psFindById, rs);
 		}
@@ -81,7 +83,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	}
 
-	public int insert(Producto producto) {
+	public void insert(Producto producto) {
 
 		ResultSet generatedKeys = null;
 
@@ -101,13 +103,15 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 			generatedKeys = psInsert.getGeneratedKeys();
 
 			if (generatedKeys.next()) {
-				return generatedKeys.getInt(1);
+				return;
 			} else {
 				throw new DAOException("No se ha recibido la clave generada");
 			}
 
 		} catch (SQLException e) {
 			throw new DAOException("Error en el insert", e);
+		} catch (Exception e) {
+			e.getStackTrace();
 		} finally {
 			cerrar(psInsert, generatedKeys);
 		}
@@ -185,7 +189,6 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 	}
 
 	public void alta(Producto producto) {
-		// TODO Auto-generated method stub
 
 	}
 

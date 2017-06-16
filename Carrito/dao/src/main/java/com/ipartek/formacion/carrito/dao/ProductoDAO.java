@@ -8,7 +8,7 @@ public interface ProductoDAO extends IpartekDAO {
 
 	public Producto findById(String id);
 
-	public int insert(Producto producto);
+	public void insert(Producto producto);
 
 	public void update(Producto producto);
 
