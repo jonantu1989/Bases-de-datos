@@ -21,7 +21,6 @@ public class ProductoFormServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	// @SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// La "application"
@@ -41,8 +40,8 @@ public class ProductoFormServlet extends HttpServlet {
 														// id.
 		// String id = request.getParameter("id");
 		String id = String.valueOf(productos.length + 1);
-		String descripcion = request.getParameter("descripcion");
 		String precio = request.getParameter("precio");
+
 		if (precio == null) {
 			precio = "Sin precio";
 		}
@@ -68,7 +67,6 @@ public class ProductoFormServlet extends HttpServlet {
 				request.setAttribute("producto", producto);
 				request.getRequestDispatcher("?op=alta").forward(request,
 						response);
-				return;
 
 			}
 			request.getRequestDispatcher(Rutas.RUTA_SERVLET_LISTADO).forward(
