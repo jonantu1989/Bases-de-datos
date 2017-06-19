@@ -33,8 +33,9 @@ public class UsuarioCrudServlet extends HttpServlet {
 		if (dao == null) {
 			dao = DAOUsuarioFactory.getUsuarioDAO();
 
-			// dao.alta(new Usuario("usuario1", "pass1"));
-			// dao.alta(new Usuario("usuario2", "pass2"));
+			dao.alta(new Usuario("usuario1", "pass1"));
+			dao.alta(new Usuario("usuario2", "pass2"));
+			dao.alta(new Usuario("usuario3", "pass3"));
 
 			application.setAttribute("dao", dao);
 		}
