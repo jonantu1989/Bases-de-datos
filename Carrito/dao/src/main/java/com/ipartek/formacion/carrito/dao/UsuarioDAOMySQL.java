@@ -100,7 +100,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	}
 
-	public int insert(Usuario usuario) {
+	public void insert(Usuario usuario) {
 
 		ResultSet generatedKeys = null;
 
@@ -123,7 +123,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			generatedKeys = psInsert.getGeneratedKeys();
 
 			if (generatedKeys.next())
-				return generatedKeys.getInt(1);
+				return;
 			else
 				throw new DAOException("No se ha recibido la clave generada");
 

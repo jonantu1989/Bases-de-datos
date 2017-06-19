@@ -8,7 +8,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 
 	protected Connection con;
 
-	private String url = "jdbc:mysql://localhost/catalogo";
+	private String url = "jdbc:mysql://localhost/ipartek";
 	private String mysqlUser = "root";
 	private String mysqlPass = "";
 
@@ -41,7 +41,6 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
-
 	}
 
 	public void cerrar() {
@@ -56,7 +55,6 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (Exception e) {
 			throw new DAOException("ERROR NO ESPERADO", e);
 		}
-
 	}
 
 	public void iniciarTransaccion() {
@@ -65,7 +63,6 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al desactivar AutoCommit", e);
 		}
-
 	}
 
 	public void confirmarTransaccion() {
@@ -75,7 +72,6 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al confirmar transacción", e);
 		}
-
 	}
 
 	public void deshacerTransaccion() {
@@ -85,12 +81,6 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error al deshacer transacción", e);
 		}
-
-	}
-
-	public void reutilizarConexion(IpartekDAO dao) {
-		con = ((IpartekDAOMySQL) dao).con;
-
 	}
 
 }

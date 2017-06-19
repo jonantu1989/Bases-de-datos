@@ -10,7 +10,7 @@ public interface UsuarioDAO extends IpartekDAO {
 
 	public Usuario findById(String id);
 
-	public int insert(Usuario usuario);
+	public void insert(Usuario usuario);
 
 	public void update(Usuario usuario);
 
