@@ -46,7 +46,7 @@ public class UsuarioFormServlet extends HttpServlet {
 			return;
 		}
 
-		Usuario usuario = new Usuario(nombre, pass);
+		Usuario usuario = new Usuario(0, 0, nombre, pass, pass2);
 
 		ServletContext application = getServletContext();
 		UsuarioDAO dao = (UsuarioDAO) application.getAttribute("dao");
@@ -57,7 +57,7 @@ public class UsuarioFormServlet extends HttpServlet {
 				dao.insert(usuario);
 				rutaListado.forward(request, response);
 			} else {
-				usuario.setErrores("Las contraseñas no coinciden");
+
 				request.setAttribute("usuario", usuario);
 				rutaFormulario.forward(request, response);
 			}
@@ -68,14 +68,14 @@ public class UsuarioFormServlet extends HttpServlet {
 				try {
 					dao.update(usuario);
 				} catch (DAOException de) {
-					usuario.setErrores(de.getMessage());
+
 					request.setAttribute("usuario", usuario);
 					rutaFormulario.forward(request, response);
 					return;
 				}
 				rutaListado.forward(request, response);
 			} else {
-				usuario.setErrores("Las contraseñas no coinciden");
+
 				request.setAttribute("usuario", usuario);
 				rutaFormulario.forward(request, response);
 			}

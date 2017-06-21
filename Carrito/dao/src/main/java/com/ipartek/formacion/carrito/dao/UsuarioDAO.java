@@ -8,6 +8,8 @@ public interface UsuarioDAO extends IpartekDAO {
 
 	public Usuario findById(int id);
 
+	public Usuario findByName(String username);
+
 	public int insert(Usuario usuario);
 
 	public void update(Usuario usuario);

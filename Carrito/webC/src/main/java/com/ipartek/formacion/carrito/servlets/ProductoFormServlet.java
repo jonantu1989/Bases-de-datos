@@ -63,7 +63,7 @@ public class ProductoFormServlet extends HttpServlet {
 			try {
 				daoProductos.insert(producto);
 			} catch (DAOException de) {
-				producto.setErrores("El producto ya existe");
+
 				request.setAttribute("producto", producto);
 				request.getRequestDispatcher("?op=alta").forward(request,
 						response);
@@ -77,7 +77,7 @@ public class ProductoFormServlet extends HttpServlet {
 			try {
 				daoProductos.update(producto);
 			} catch (DAOException de) {
-				producto.setErrores(de.getMessage());
+
 				request.setAttribute("producto", producto);
 				request.getRequestDispatcher(Rutas.RUTA_FORMULARIO).forward(
 						request, response);

@@ -12,6 +12,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	private final static String FIND_ALL = "SELECT * FROM usuarios";
 	private final static String FIND_BY_ID = "SELECT * FROM usuarios WHERE id = ?";
+	private final static String FIND_BY_NAME = "SELECT * FROM usuarios WHERE username = ?";
 	private final static String INSERT = "INSERT INTO usuarios (id, username, password, nombre_completo, id_roles)"
 			+ " VALUES (?, ?, ?, ?, ?)";
 	private final static String UPDATE = "UPDATE usuarios "
@@ -19,8 +20,8 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			+ "WHERE id = ?";
 	private final static String DELETE = "DELETE FROM usuarios WHERE id = ?";
 
-	private PreparedStatement psFindAll, psFindById, psInsert, psUpdate,
-			psDelete;
+	private PreparedStatement psFindAll, psFindById, psFindByName, psInsert,
+			psUpdate, psDelete;
 
 	public UsuarioDAOMySQL(String url, String mysqlUser, String mysqlPass) {
 		super(url, mysqlUser, mysqlPass);
@@ -104,6 +105,34 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 			cerrar(psFindById, rs);
 		}
 
+		return usuario;
+	}
+
+	public Usuario findByName(String username) {
+		Usuario usuario = null;
+		ResultSet rs = null;
+
+		try {
+			psFindByName = con.prepareStatement(FIND_BY_NAME);
+
+			psFindByName.setString(1, username);
+			rs = psFindByName.executeQuery();
+
+			if (rs.next()) {
+				usuario = new Usuario();
+
+				usuario.setId(rs.getInt("id"));
+				usuario.setId_roles(rs.getInt("id_roles"));
+				usuario.setNombre_completo(rs.getString("nombre_completo"));
+				usuario.setPassword(rs.getString("password"));
+				usuario.setUsername(rs.getString("username"));
+			}
+
+		} catch (Exception e) {
+			throw new DAOException("Error en findByName", e);
+		} finally {
+			cerrar(psFindByName, rs);
+		}
 		return usuario;
 	}
 

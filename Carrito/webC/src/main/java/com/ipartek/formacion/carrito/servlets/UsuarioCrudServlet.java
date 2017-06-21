@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
@@ -27,38 +26,34 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		ServletContext application = getServletContext();
-		UsuarioDAO dao = (UsuarioDAO) application.getAttribute("dao");
-
-		if (dao == null) {
-			dao = DAOUsuarioFactory.getUsuarioDAO();
-
-			dao.alta(new Usuario("usuario1", "pass1"));
-			dao.alta(new Usuario("usuario2", "pass2"));
-			dao.alta(new Usuario("usuario3", "pass3"));
-
-			application.setAttribute("dao", dao);
-		}
+		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
 
 		String op = request.getParameter("op");
 
 		if (op == null) {
 
-			Usuario[] usuarios = dao.findAll();
+			usuarios.abrir();
+			Usuario[] usuariosArr = usuarios.findAll();
+			usuarios.cerrar();
 
-			request.setAttribute("usuarios", usuarios);
+			application.setAttribute("usuariosArr", usuariosArr);
 
 			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 					response);
+
 		} else {
-			String id = request.getParameter("id");
 
 			Usuario usuario;
 
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				usuario = dao.findById(id);
+				String username = request.getParameter("username");
+				usuarios.abrir();
+				usuario = usuarios.findByName(username);
+				usuarios.cerrar();
 				request.setAttribute("usuario", usuario);
 			case "alta":
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,

@@ -8,64 +8,66 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.carrito.dao.DAOProductoFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
-import com.ipartek.formacion.carrito.rutas.Rutas;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
 public class ProductoCrudServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/productoform.jsp";
+	static final String RUTA_LISTADO = "/WEB-INF/vistas/productocrud.jsp";
+	static final String RUTA_SERVLET_LISTADO = "/admin/productocrud";
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// Primero recogemos los datos...??
-		ServletContext applicationProductos = getServletContext();
-		ProductoDAO daoProductos = (ProductoDAO) applicationProductos
-				.getAttribute("daoProductos");
 
-		if (daoProductos == null) {
+		ServletContext application = getServletContext();
 
-			daoProductos = DAOProductoFactory.getProductoDAO();
+		ProductoDAO productos = (ProductoDAO) application
+				.getAttribute("productos");
 
-			// Creamos unos productos de prueba.
-			// daoProductos.altaProducto(new Producto);
-
-			applicationProductos.setAttribute("daoProductos", daoProductos);
-		}
-
-		// Creamos op.
 		String op = request.getParameter("op");
 
 		if (op == null) {
 
-			Producto[] productos = daoProductos.findAll();
-			request.setAttribute("productos", productos);
-			request.getRequestDispatcher(Rutas.RUTA_LISTADO).forward(request,
-					response);
-		} else {
+			productos.abrir();
 
-			String id = request.getParameter("id");
+			Producto[] productosArr = productos.findAll();
+
+			productos.cerrar();
+
+			application.setAttribute("productosArr", productosArr);
+
+			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+					response);
+
+		} else {
 
 			Producto producto;
 
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				producto = daoProductos.findById(id);
+				int id = Integer.parseInt(request.getParameter("id"));
+				productos.abrir();
+				producto = productos.findById(id);
+				productos.cerrar();
 				request.setAttribute("producto", producto);
 			case "alta":
-				request.getRequestDispatcher(Rutas.RUTA_FORMULARIO).forward(
-						request, response);
+				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
+						response);
 				break;
 			default:
-				request.getRequestDispatcher(Rutas.RUTA_LISTADO).forward(
-						request, response);
+				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+						response);
 			}
 		}
 	}
+
 }
