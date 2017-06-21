@@ -1,20 +1,12 @@
 package com.ipartek.formacion.carrito.tipos;
 
 public class Producto {
-	private String id;
+	// Constructores, getters y setters, hashCode y equals y toString
+	private int id;
 	private String nombre;
 	private double precio;
-	private String errores;
 
-	public String getErrores() {
-		return errores;
-	}
-
-	public void setErrores(String errores) {
-		this.errores = errores;
-	}
-
-	public Producto(String id, String nombre, double precio) {
+	public Producto(int id, String nombre, double precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -22,27 +14,27 @@ public class Producto {
 	}
 
 	public Producto() {
-		super();
+		System.out.println("CONSTRUCTOR PRODUCTO VACIO");
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public double getPrecio() {
+		return precio;
 	}
 
 	public void setPrecio(double precio) {
@@ -53,7 +45,7 @@ public class Producto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(precio);
@@ -70,10 +62,7 @@ public class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)

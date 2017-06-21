@@ -54,8 +54,7 @@ public class UsuarioFormServlet extends HttpServlet {
 		switch (op) {
 		case "alta":
 			if (pass.equals(pass2)) {
-				dao.alta(usuario);
-
+				dao.insert(usuario);
 				rutaListado.forward(request, response);
 			} else {
 				usuario.setErrores("Las contraseñas no coinciden");

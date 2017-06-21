@@ -61,7 +61,7 @@ public class ProductoFormServlet extends HttpServlet {
 		switch (op) {
 		case "alta":
 			try {
-				daoProductos.alta(producto);
+				daoProductos.insert(producto);
 			} catch (DAOException de) {
 				producto.setErrores("El producto ya existe");
 				request.setAttribute("producto", producto);

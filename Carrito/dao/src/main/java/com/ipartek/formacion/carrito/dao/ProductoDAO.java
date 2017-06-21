@@ -6,15 +6,13 @@ public interface ProductoDAO extends IpartekDAO {
 
 	public Producto[] findAll();
 
-	public Producto findById(String id);
+	public Producto findById(int id);
 
-	public void insert(Producto producto);
+	public int insert(Producto producto);
 
 	public void update(Producto producto);
 
 	public void delete(Producto producto);
 
-	public void delete(String id);
-
-	public void alta(Producto producto);
+	public void delete(int id);
 }
