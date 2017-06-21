@@ -26,13 +26,14 @@ public class LoginServlet extends HttpServlet {
 
 	private final String RUTA = "/WEB-INF/vistas";
 	private final String RUTA_LOGIN = RUTA + "/login.jsp";
-	private final String RUTA_CATALOGO = "/productocrud";
+	private final String RUTA_CATALOGO = "/catalogo";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -49,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 				.getAttribute("productos");
 		CarritoDAO carrito = (CarritoDAO) session.getAttribute("carrito");
 		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
-		@SuppressWarnings("unchecked")
 		LinkedList<Usuario> usuariosLogueados = (LinkedList<Usuario>) application
 				.getAttribute("usuariosLogueados");
 		Usuario usuario;
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 			usuario = (Usuario) session.getAttribute("usuario");
 
 		} else
-			usuario = new Usuario(0, 0, username, password, op);
+			usuario = new Usuario(0, 0, username, password, null);
 
 		// Declaración e inicialización de las booleanas que representan las
 		// diferentes posibilidades de entrada
