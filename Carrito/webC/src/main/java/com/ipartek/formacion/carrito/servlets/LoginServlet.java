@@ -41,8 +41,8 @@ public class LoginServlet extends HttpServlet {
 
 		// Crear modelos en base a los datos
 		Usuario usuario = new Usuario();
-		usuario.setNombre(nombre);
-		usuario.setPass(pass);
+		usuario.setNombre_completo(nombre);
+		usuario.setPassword(pass);
 
 		// Llamada a lógica de negocio
 		ServletContext application = getServletContext();
@@ -75,16 +75,16 @@ public class LoginServlet extends HttpServlet {
 		// ESTADOS
 		boolean esValido = usuariosDAO.validar(usuario);
 
-		boolean sinParametros = usuario.getNombre() == null;
+		boolean sinParametros = usuario.getNombre_completo() == null;
 
 		boolean esUsuarioYaRegistrado = session.getAttribute("usuario") != null;
 
 		boolean quiereSalir = "logout".equals(opcion);
 
-		boolean nombreValido = usuario.getNombre() != null
-				&& usuario.getNombre().length() >= MINIMO_CARACTERES;
-		boolean passValido = !(usuario.getPass() == null || usuario.getPass()
-				.length() < MINIMO_CARACTERES);
+		boolean nombreValido = usuario.getNombre_completo() != null
+				&& usuario.getNombre_completo().length() >= MINIMO_CARACTERES;
+		boolean passValido = !(usuario.getPassword() == null || usuario
+				.getPassword().length() < MINIMO_CARACTERES);
 
 		// Redirigir a una nueva vista
 		if (quiereSalir) {
@@ -96,8 +96,7 @@ public class LoginServlet extends HttpServlet {
 		} else if (sinParametros) {
 			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
 		} else if (!nombreValido || !passValido) {
-			usuario.setErrores("El nombre y la pass deben tener como mínimo "
-					+ MINIMO_CARACTERES + " caracteres y son ambos requeridos");
+
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
 		} else if (esValido) {
@@ -106,7 +105,7 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
 					response);
 		} else {
-			usuario.setErrores("El usuario y contraseña introducidos no son válidos");
+
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
 		}

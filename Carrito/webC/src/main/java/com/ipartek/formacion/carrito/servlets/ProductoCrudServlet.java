@@ -16,7 +16,7 @@ public class ProductoCrudServlet extends HttpServlet {
 
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/productoform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/productocrud.jsp";
-	static final String RUTA_SERVLET_LISTADO = "/admin/productocrud";
+	static final String RUTA_SERVLET_LISTADO = "/productocrud";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

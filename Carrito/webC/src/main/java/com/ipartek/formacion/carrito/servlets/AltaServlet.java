@@ -20,6 +20,8 @@ public class AltaServlet extends HttpServlet {
 
 	private static Logger log = Logger.getLogger(AltaServlet.class);
 
+	public static String USUARIOS_DAO;
+
 	private final String RUTA = "/WEB-INF/vistas/";
 	private final String RUTA_LOGIN = RUTA + "login.jsp";
 	private final String RUTA_ALTA = RUTA + "alta.jsp";
