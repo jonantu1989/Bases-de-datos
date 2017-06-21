@@ -21,6 +21,7 @@ public class ProductoFormServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// La "application"
