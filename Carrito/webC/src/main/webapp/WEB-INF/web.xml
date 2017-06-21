@@ -46,6 +46,13 @@
   	<servlet-name>ProductoFormServlet</servlet-name>
   	<servlet-class>com.ipartek.formacion.carrito.servlets.ProductoFormServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>CatalogoServlet</display-name>
+  	<servlet-name>CatalogoServlet</servlet-name>
+  	<servlet-class>com.ipartek.formacion.carrito.servlets.CatalogoServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/login</url-pattern>
@@ -69,5 +76,9 @@
   <servlet-mapping>
   	<servlet-name>ProductoFormServlet</servlet-name>
   	<url-pattern>/productoform</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CatalogoServlet</servlet-name>
+  	<url-pattern>/catalogo</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.ipartek.formacion.carrito.tipos.Producto;
 
@@ -155,6 +158,44 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	}
 
+	public Producto[] getCatalogo() {
+
+		Producto[] catalogo = new Producto[this.getAlmacen().size()];
+		int i = 0;
+
+		for (List<Producto> grupoProductos : this.getAlmacen().values()) {
+
+			Producto muestra = grupoProductos.get(0);
+			catalogo[i] = muestra;
+			i++;
+
+		}
+
+		return catalogo;
+
+	}
+
+	public Map<Integer, List<Producto>> getAlmacen() {
+
+		Map<Integer, List<Producto>> almacen = new HashMap<>();
+
+		Producto[] productosArr = this.findAll();
+
+		for (Producto p : productosArr) {
+			if (!almacen.containsKey(p.getId())) {
+				List<Producto> grupo = new ArrayList<>();
+				grupo.add(p);
+				almacen.put(p.getId(), grupo);
+			} else {
+				List<Producto> grupo = almacen.get(p.getId());
+				grupo.add(p);
+				almacen.put(p.getId(), grupo);
+			}
+		}
+
+		return almacen;
+	}
+
 	private void cerrar(PreparedStatement ps) {
 		cerrar(ps, null);
 	}
@@ -169,4 +210,5 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 			throw new DAOException("Error en el cierre de ps o rs", e);
 		}
 	}
+
 }

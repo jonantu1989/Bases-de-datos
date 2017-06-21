@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Ejemplo MVC</title>
+<title>TIENDA DE BICIS</title>
 <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
 	<header>
-		<h1>TIENDA</h1>
-		<p>Tienda</p>
+		<h1>TIENDA DE BICIS</h1>
 	</header>
 	<nav>
 		<ul>
