@@ -63,7 +63,7 @@ public class AltaServlet extends HttpServlet {
 		boolean usuarioExistente = false;
 		// Se considera que el usuario ya existe sólo con que coincida el
 		// username, de ahí el método validarNombre()
-		usuarios.abrir();
+		usuarios.abrir();// NullPointerException
 		usuarioExistente = usuarios.validarNombre(usuario);
 		usuarios.cerrar();
 		boolean sinDatos = username == null || username == ""

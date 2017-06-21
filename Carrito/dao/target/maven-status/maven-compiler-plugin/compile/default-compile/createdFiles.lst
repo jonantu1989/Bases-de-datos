@@ -1,12 +1,15 @@
 com\ipartek\formacion\carrito\dao\DAOProductoFactory.class
-com\ipartek\formacion\carrito\dao\ProductoDAO.class
 com\ipartek\formacion\carrito\dao\DAOUsuarioFactory.class
 com\ipartek\formacion\carrito\dao\ProductoYaExistenteDAOException.class
+com\ipartek\formacion\carrito\dao\UsuarioDAO.class
+com\ipartek\formacion\carrito\dao\ProductoDAO.class
+com\ipartek\formacion\carrito\dao\CarritoDAO.class
 com\ipartek\formacion\App.class
+com\ipartek\formacion\carrito\dao\CarritoDAOColeccion.class
 com\ipartek\formacion\carrito\dao\DAOException.class
 com\ipartek\formacion\carrito\dao\IpartekDAO.class
-com\ipartek\formacion\carrito\dao\UsuarioDAO.class
 com\ipartek\formacion\carrito\dao\UsuarioDAOMySQL.class
+com\ipartek\formacion\carrito\dao\CarritoDAOFactory.class
 com\ipartek\formacion\carrito\dao\IpartekDAOMySQL.class
 com\ipartek\formacion\carrito\dao\ProductoDAOMySQL.class
 com\ipartek\formacion\carrito\dao\UsuarioYaExistenteDAOException.class

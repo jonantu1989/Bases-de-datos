@@ -34,11 +34,7 @@ public class ProductoFormServlet extends HttpServlet {
 		// Cogiendo los datos
 		String nombre = request.getParameter("nombre");
 		// Para sacar la id.
-		Producto[] productos = daoProductos.findAll(); // Solo
-														// sirve
-														// para
-														// el
-														// id.
+		Producto[] productos = daoProductos.findAll(); // NullPointerException
 		// String id = request.getParameter("id");
 		String id = String.valueOf(productos.length + 1);
 		String precio = request.getParameter("precio");

@@ -1,29 +1,32 @@
 package com.ipartek.formacion.carrito.servlets;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.carrito.dao.CarritoDAO;
+import com.ipartek.formacion.carrito.dao.ProductoDAO;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
+import com.ipartek.formacion.carrito.tipos.Producto;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/* package */static final String RUTA = "/WEB-INF/vistas/";
-	private static final String RUTA_PRINCIPAL = RUTA + "productoform.jsp";
-	private static final String RUTA_LOGIN = RUTA + "login.jsp";
+	private static Logger log = Logger.getLogger(LoginServlet.class);
 
-	public static final int TIEMPO_INACTIVIDAD = 30 * 60;
-
-	/* package */static final int MINIMO_CARACTERES = 4;
+	private final String RUTA = "/WEB-INF/vistas";
+	private final String RUTA_LOGIN = RUTA + "/login.jsp";
+	private final String RUTA_CATALOGO = "/productocrud";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -33,81 +36,119 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// Recoger datos de vistas
-		String nombre = request.getParameter("nombre");
-		String pass = request.getParameter("pass");
-
-		String opcion = request.getParameter("opcion");
-
-		// Crear modelos en base a los datos
-		Usuario usuario = new Usuario();
-		usuario.setNombre_completo(nombre);
-		usuario.setPassword(pass);
-
-		// Llamada a lógica de negocio
-		ServletContext application = getServletContext();
-
-		UsuarioDAO usuariosDAO = (UsuarioDAO) application
-				.getAttribute(AltaServlet.USUARIOS_DAO);
-
-		if (usuariosDAO == null) {
-			usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
-		}
-
-		// Sólo para crear una base de datos falsa con el
-		// contenido de un usuario "jon", "antunano"
-		// usuarioDAL.alta(new Usuario("jon", "antunano"));
-
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(TIEMPO_INACTIVIDAD);
+		ServletContext application = request.getServletContext();
 
-		Cookie cookie = new Cookie("JSESSIONID", session.getId());
-		cookie.setMaxAge(TIEMPO_INACTIVIDAD);
-		response.addCookie(cookie);
+		// Recogida de datos de la request
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String op = request.getParameter("op");
 
-		// for (Cookie cookie : request.getCookies()) {
-		// if ("JSESSIONID".equals(cookie.getName())) {
-		// cookie.setMaxAge(TIEMPO_INACTIVIDAD);
-		// response.addCookie(cookie);
-		// }
-		// }
+		// Recogida de datos de aplicación y de sesión
+		ProductoDAO productos = (ProductoDAO) application
+				.getAttribute("productos");
+		CarritoDAO carrito = (CarritoDAO) session.getAttribute("carrito");
+		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
+		@SuppressWarnings("unchecked")
+		LinkedList<Usuario> usuariosLogueados = (LinkedList<Usuario>) application
+				.getAttribute("usuariosLogueados");
+		Usuario usuario;
 
-		// ESTADOS
-		boolean esValido = usuariosDAO.validar(usuario);
+		if (session.getAttribute("usuario") != null) {
 
-		boolean sinParametros = usuario.getNombre_completo() == null;
+			usuario = (Usuario) session.getAttribute("usuario");
 
-		boolean esUsuarioYaRegistrado = session.getAttribute("usuario") != null;
+		} else
+			usuario = new Usuario(0, 0, username, password, op);
 
-		boolean quiereSalir = "logout".equals(opcion);
+		// Declaración e inicialización de las booleanas que representan las
+		// diferentes posibilidades de entrada
+		boolean yaLogueado = ("si").equals(session.getAttribute("logueado"));
+		boolean sinDatos = username == null || username == "" || password == ""
+				|| password == null;
+		boolean uInexistente = false;
+		usuarios.abrir(); // NullPointerException
+		uInexistente = !((UsuarioDAO) usuarios).validarNombre(usuario);
+		usuarios.cerrar();
+		boolean esValido = false;
+		usuarios.abrir();
+		esValido = usuarios.validar(usuario);
+		usuarios.cerrar();
+		boolean quiereSalir = ("logout").equals(op);
 
-		boolean nombreValido = usuario.getNombre_completo() != null
-				&& usuario.getNombre_completo().length() >= MINIMO_CARACTERES;
-		boolean passValido = !(usuario.getPassword() == null || usuario
-				.getPassword().length() < MINIMO_CARACTERES);
+		// Declaración e inicialización de los dispatcher ya que en un momento
+		// dado me daba problemas inicializarlos
+		// directamente cuando son requeridos.
+		RequestDispatcher login = request.getRequestDispatcher(RUTA_LOGIN);
+		RequestDispatcher catalogo = request
+				.getRequestDispatcher(RUTA_CATALOGO);
 
-		// Redirigir a una nueva vista
+		// Lógica del servlet según opciones
 		if (quiereSalir) {
+			// Si se desloguea se vacía el carrito y los productos vuelven a la
+			// base de datos
+
+			productos.abrir();
+			productos.iniciarTransaccion();
+			if (!(carrito == null)) {
+
+				for (Producto p : carrito.buscarTodosLosProductos()) {
+					productos.insert(p);
+				}
+			}
+			productos.confirmarTransaccion();
+			productos.cerrar();
+			usuariosLogueados.remove(usuario);
+			// Se invalida la sesión y se le envía al catálogo que es donde se
+			// le creará un nuevo carrito si no lo tiene
 			session.invalidate();
-			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-		} else if (esUsuarioYaRegistrado) {
-			request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
-					response);
-		} else if (sinParametros) {
-			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
-		} else if (!nombreValido || !passValido) {
 
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+			catalogo.forward(request, response);
+
+		} else if (yaLogueado) {
+			// Si ya está logueado el login le deja pasar directamente a la
+			// página principal, el catálogo
+			session.removeAttribute("errorLogin");
+			catalogo.forward(request, response);
+
+		} else if (sinDatos) {
+			// Si no se rellenan los datos se le envía al jsp del login con el
+			// mensaje de error. Da el fallo de que un usuario
+			// que entra por primera vez a esta página no ha podido rellenar aún
+			// ningún dato por lo que se le mostrará el mensaje
+			// de error sin que haya interactuado con la página.
+			session.setAttribute("errorLogin",
+					"Debes rellenar todos los campos");
+			login.forward(request, response);
+
+		} else if (uInexistente) {
+			// Si el username no existe en la base de datos se le reenvía a la
+			// jsp de login con el correspondiente mensaje de error
+			session.setAttribute("errorLogin", "Usuario no encontrado");
+			login.forward(request, response);
+
 		} else if (esValido) {
+			// Si nombre y contraseña son válidos se busca el usuario
+			// correspondiente en la base de datos para rellenar el resto de
+			// datos
+			// como su id_roles
+			log.info("Usuario " + usuario.getUsername() + " logueado");
+			usuarios.abrir();
+			usuario = usuarios.findByName(usuario.getUsername());
+			usuarios.cerrar();
+			usuariosLogueados.add(usuario);
+			application.setAttribute("usuariosLogueados", usuariosLogueados);
+			session.removeAttribute("errorLogin");
+			session.setAttribute("logueado", "si");
 			session.setAttribute("usuario", usuario);
-			// response.sendRedirect("principal.jsp");
-			request.getRequestDispatcher(RUTA_PRINCIPAL).forward(request,
-					response);
-		} else {
+			// Se le envía al catálogo donde se le proporcionará un carrito
+			catalogo.forward(request, response);
 
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher(RUTA_LOGIN).forward(request, response);
+		} else {
+			// En principio la posibilidad que queda es que el usuario exista
+			// pero la password sea incorrecta
+			session.setAttribute("errorLogin", "Contraseña incorrecta");
+			login.forward(request, response);
 		}
 	}
 }
