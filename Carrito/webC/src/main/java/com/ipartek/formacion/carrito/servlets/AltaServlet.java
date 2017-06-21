@@ -2,84 +2,125 @@ package com.ipartek.formacion.carrito.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
-import com.ipartek.formacion.carrito.dao.UsuarioYaExistenteDAOException;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 public class AltaServlet extends HttpServlet {
-	/* package */static final String USUARIOS_DAO = "dao";
-
 	private static final long serialVersionUID = 1L;
 
-	/* package */static final String RUTA_ALTA = LoginServlet.RUTA + "alta.jsp";
+	private static Logger log = Logger.getLogger(AltaServlet.class);
+
+	private final String RUTA = "/WEB-INF/vistas/";
+	private final String RUTA_LOGIN = RUTA + "login.jsp";
+	private final String RUTA_ALTA = RUTA + "alta.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String nombre = request.getParameter("nombre");
-		String pass = request.getParameter("pass");
-		String pass2 = request.getParameter("pass2");
+		// Se recogen los objetos sesión y aplicación
+		HttpSession session = request.getSession();
+		ServletContext application = request.getServletContext();
 
-		// Inicio sin datos: mostrar formulario
-		// Datos incorrectos: sin rellenar, límite de caracteres, no coinciden
-		// contraseñas
-		// Las contraseñas deben ser iguales
-		// Datos correctos: guardar
+		// Se recogen los valores de los atributos de usuario introducidos en el
+		// formulario de alta
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String password2 = request.getParameter("password2");
+		String nombre_completo = request.getParameter("nombre_completo");
+		// id_roles se asigna directamente como usuario estándar
+		int id_roles = 2;
+		// Se crea un objeto usuario con el que trabajar a partir de esos datos
+		Usuario usuario = new Usuario(id_roles, 2, nombre_completo, password,
+				username);
+		// Se extrae el conjunto de usuarios extraído de la BBDD e introducido
+		// en el objeto application en el listener
+		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
 
-		Usuario usuario = new Usuario(nombre, pass);
-
-		boolean hayDatos = nombre != null && pass != null && pass2 != null;
-		boolean datosCorrectos = validarCampo(nombre) && validarCampo(pass)
-				&& validarCampo(pass2);
-		boolean passIguales = pass != null && pass.equals(pass2);
-
-		if (hayDatos) {
-			if (!datosCorrectos) {
-				usuario.setErrores("Todos los campos son requeridos y con un mínimo de "
-						+ LoginServlet.MINIMO_CARACTERES + " caracteres");
-				request.setAttribute("usuario", usuario);
-			} else if (!passIguales) {
-				usuario.setErrores("Las contraseñas deben ser iguales");
-				request.setAttribute("usuario", usuario);
-			} else {
-				ServletContext application = getServletContext();
-
-				UsuarioDAO usuariosDAO = (UsuarioDAO) application
-						.getAttribute(USUARIOS_DAO);
-
-				if (usuariosDAO == null) {
-					usuariosDAO = DAOUsuarioFactory.getUsuarioDAO();
-				}
-
-				try {
-					usuariosDAO.alta(usuario);
-				} catch (UsuarioYaExistenteDAOException de) {
-					usuario.setNombre("");
-					usuario.setErrores("El usuario ya existe. Elige otro");
-					request.setAttribute("usuario", usuario);
-				}
-
-				application.setAttribute(USUARIOS_DAO, usuariosDAO);
-			}
+		// Se declara e inicializan las booleanas a partir de las cuales se
+		// desarrollará la lógica del servlet
+		boolean nombreDemasiadoLargo = false;
+		if (username != null) {
+			nombreDemasiadoLargo = username.length() > 16;
 		}
-		request.getRequestDispatcher(RUTA_ALTA).forward(request, response);
-	}
+		boolean usuarioExistente = false;
+		// Se considera que el usuario ya existe sólo con que coincida el
+		// username, de ahí el método validarNombre()
+		usuarios.abrir();
+		usuarioExistente = usuarios.validarNombre(usuario);
+		usuarios.cerrar();
+		boolean sinDatos = username == null || username == ""
+				|| password == null || password == "" || password2 == null
+				|| password2 == "";
+		// Se considera que en un principio, sin datos, ambas pass son iguales
+		// (igual a null)
+		boolean passIguales = true;
+		if (password != null) {
+			passIguales = password.equals(password2);
+		}
+		boolean esCorrecto = false;
+		if (!sinDatos) {
+			esCorrecto = !usuarioExistente && passIguales;
+		}
 
-	private boolean validarCampo(String campo) {
-		return campo != null
-				&& campo.length() >= LoginServlet.MINIMO_CARACTERES;
-	}
+		// Declaro los dispatcher aquí porque en un momento me dieron un extraño
+		// error al declararlos en el momento de necesitarlos
+		RequestDispatcher login = request.getRequestDispatcher(RUTA_LOGIN);
+		RequestDispatcher alta = request.getRequestDispatcher(RUTA_ALTA);
 
+		// Lógica de la aplicación
+		if (sinDatos) {
+
+			session.setAttribute("errorSignup",
+					"Debes rellenar todos los campos");
+			alta.forward(request, response);
+
+		} else if (nombreDemasiadoLargo) {
+
+			session.setAttribute("errorSignup",
+					"El nombre de usuario debe tener un máximo de 16 caracteres");
+			alta.forward(request, response);
+
+		} else if (usuarioExistente) {
+
+			session.setAttribute("errorSignup", "Usuario ya existente");
+			alta.forward(request, response);
+
+		} else if (!passIguales) {
+
+			session.setAttribute("errorSignup", "Las contraseñas no coinciden");
+			alta.forward(request, response);
+
+		} else if (esCorrecto) {
+
+			session.removeAttribute("errorSignup");
+
+			usuarios.abrir();
+			usuarios.insert(usuario);
+			usuarios.cerrar();
+
+			log.info("Usuario " + usuario.getUsername() + " dado de alta");
+			login.forward(request, response);
+
+		} else {
+
+			session.setAttribute("errorSignup", "Inténtalo de nuevo, por favor");
+			alta.forward(request, response);
+		}
+	}
 }
