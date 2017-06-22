@@ -17,4 +17,6 @@ public interface ProductoDAO extends IpartekDAO {
 	public void delete(int id);
 
 	public Producto[] getCatalogo();
+
+	public boolean validar(Producto producto);
 }

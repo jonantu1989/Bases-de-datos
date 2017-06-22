@@ -211,4 +211,18 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		}
 	}
 
+	public boolean validar(Producto producto) {
+
+		this.abrir();
+		Producto[] ProductosArr = this.findAll();
+		this.cerrar();
+
+		for (Producto p : ProductosArr) {
+			if (p.getId() == producto.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
