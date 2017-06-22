@@ -17,6 +17,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		this.url = url;
 		this.mysqlUser = mysqlUser;
 		this.mysqlPass = mysqlPass;
+
 	}
 
 	public IpartekDAOMySQL() {

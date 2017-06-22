@@ -1,9 +1,11 @@
 package com.ipartek.formacion.carrito.dao;
 
 public class DAOProductoFactory {
-	
+
 	public static ProductoDAO getProductoDAO() {
-		return new ProductoDAOMySQL();
+		ProductoDAO productos = new ProductoDAOMySQL();
+
+		return productos;
 	}
 
 }

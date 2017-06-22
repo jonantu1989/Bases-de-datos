@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 			usuario = (Usuario) session.getAttribute("usuario");
 
 		} else
-			usuario = new Usuario(0, 0, username, password, null);
+			usuario = new Usuario(0, 0, username, password, op);
 
 		// Declaración e inicialización de las booleanas que representan las
 		// diferentes posibilidades de entrada
