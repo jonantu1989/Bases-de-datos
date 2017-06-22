@@ -34,7 +34,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 		if (op == null) {
 
-			usuarios.abrir(); // NullPointerException
+			usuarios.abrir();
 			Usuario[] usuariosArr = usuarios.findAll();
 			usuarios.cerrar();
 

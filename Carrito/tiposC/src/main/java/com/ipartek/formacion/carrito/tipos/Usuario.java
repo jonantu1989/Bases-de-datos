@@ -19,6 +19,14 @@ public class Usuario {
 		this.username = username;
 	}
 
+	public Usuario(String username, String password) {
+		super();
+		this.id_roles = 2;
+		this.nombre_completo = username;
+		this.password = password;
+		this.username = username;
+	}
+
 	public Usuario() {
 
 	}
