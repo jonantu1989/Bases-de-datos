@@ -61,7 +61,6 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t<th>ID producto</th>\n");
       out.write("\t\t\t<th>Nombre</th>\n");
       out.write("\t\t\t<th>Precio</th>\n");
-      out.write("\t\t\t<th>Imagen</th>\n");
       out.write("\t\t\t\n");
       out.write("\t\t</tr>\n");
       out.write("\t</thead>\n");
@@ -90,13 +89,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t\t<td>");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${producto.precio}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("</td>\n");
-      out.write("\t\t\t\t<td>");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${producto.imagen}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</td>\n");
-      out.write("\t\t\t\t\n");
-      out.write("\t\t\t\t\n");
-      out.write("\t\t\t\t\n");
-      out.write("\t\t\t\t\n");
+      out.write("\t\t\n");
       out.write("\t\t\t</tr>\n");
       out.write("\t\t\t\n");
       out.write("\t\t</c:forEach>\n");

@@ -18,7 +18,7 @@
 			<th>ID producto</th>
 			<th>Nombre</th>
 			<th>Precio</th>
-			<th>Imagen</th>
+			
 			
 		</tr>
 	</thead>
@@ -32,12 +32,7 @@
 				</td>
 				<td>${producto.id}</td>
 				<td>${producto.nombre}</td>
-				<td>${producto.precio}</td>
-				<td>${producto.imagen}</td>
-				
-				
-				
-				
+				<td>${producto.precio}</td>		
 			</tr>
 			
 		</c:forEach>

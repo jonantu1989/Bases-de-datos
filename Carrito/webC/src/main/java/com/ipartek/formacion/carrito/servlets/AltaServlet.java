@@ -20,8 +20,6 @@ public class AltaServlet extends HttpServlet {
 
 	private static Logger log = Logger.getLogger(AltaServlet.class);
 
-	public static String USUARIOS_DAO;
-
 	private final String RUTA = "/WEB-INF/vistas/";
 	private final String RUTA_LOGIN = RUTA + "login.jsp";
 	private final String RUTA_ALTA = RUTA + "alta.jsp";
@@ -88,19 +86,19 @@ public class AltaServlet extends HttpServlet {
 		// Lógica de la aplicación
 		if (sinDatos) {
 
-			session.setAttribute("errorSignup",
+			session.setAttribute("error en alta",
 					"Debes rellenar todos los campos");
 			alta.forward(request, response);
 
 		} else if (nombreDemasiadoLargo) {
 
-			session.setAttribute("errorSignup",
-					"El nombre de usuario debe tener un máximo de 16 caracteres");
+			session.setAttribute("error en alta",
+					"El nombre de usuario debe tener un máximo de 8 caracteres");
 			alta.forward(request, response);
 
 		} else if (usuarioExistente) {
 
-			session.setAttribute("errorSignup", "Usuario ya existente");
+			session.setAttribute("error en alta", "Usuario ya existente");
 			alta.forward(request, response);
 
 		} else if (!passIguales) {
@@ -110,7 +108,7 @@ public class AltaServlet extends HttpServlet {
 
 		} else if (esCorrecto) {
 
-			session.removeAttribute("errorSignup");
+			session.removeAttribute("error en alta");
 
 			usuarios.abrir();
 			usuarios.insert(usuario);
