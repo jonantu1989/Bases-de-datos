@@ -2,29 +2,35 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<div>
 <h2>Mantenimiento de usuarios</h2>
+</div>
 
-<table border="1">
+<table>
 	<thead>
 		<tr>
-			<th>Operaciones</th>
-			<th>Usuario</th>
+			<th>Rol</th>
+			<th>Username</th>
 			<th>Contraseña</th>
+			<th>Nombre completo</th>
+			<th>Operaciones</th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${requestScope.usuarios}" var="usuario">
+		<c:forEach items="${applicationScope.usuariosArr}" var="usuario">
 			<tr>
+				<td>${usuario.id_roles}</td>	
+				<td>${usuario.username}</td>
+				<td>${usuario.password}</td>
+				<td>${usuario.nombre_completo}</td>
 				<td>
-					<a href="?op=modificar&id=${usuario.nombre}">Modificar</a>
-					<a href="?op=borrar&id=${usuario.nombre}">Borrar</a>
+					<a href="?op=modificar&id=${usuario.id}">Modificar</a>
+					<a href="?op=borrar&id=${usuario.id}">Borrar</a>
 				</td>
-				<td>${usuario.nombre}</td>
-				<td>${usuario.pass}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-<a href="?op=alta">Alta</a>
+
 
 <%@ include file="includes/pie.jsp"%>

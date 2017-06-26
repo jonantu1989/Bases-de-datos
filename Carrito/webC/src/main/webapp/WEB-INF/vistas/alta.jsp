@@ -17,10 +17,6 @@
 <input id="password2" name="password2" type="password"/>
 </fieldset>
 <fieldset>
-<label for="nombre_completo">Nombre completo</label>
-<input id="nombre_completo" name="nombre_completo"/>
-</fieldset>
-<fieldset>
 <input type="submit" value="ALTA">
 </fieldset>
 </form>
