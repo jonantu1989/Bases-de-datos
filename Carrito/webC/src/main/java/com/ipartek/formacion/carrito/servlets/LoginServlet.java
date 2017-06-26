@@ -64,16 +64,20 @@ public class LoginServlet extends HttpServlet {
 		// Declaración e inicialización de las booleanas que representan las
 		// diferentes posibilidades de entrada
 		boolean yaLogueado = ("si").equals(session.getAttribute("logueado"));
+
 		boolean sinDatos = username == null || username == "" || password == ""
 				|| password == null;
+
 		boolean usuarioInexistente = false;
 		usuarios.abrir(); // NullPointerException
 		usuarioInexistente = !((UsuarioDAO) usuarios).validarNombre(usuario);
 		usuarios.cerrar();
+
 		boolean esValido = false;
 		usuarios.abrir();
 		esValido = usuarios.validar(usuario);
 		usuarios.cerrar();
+
 		boolean quiereSalir = ("logout").equals(op);
 
 		// Declaración e inicialización de los dispatcher ya que en un momento
