@@ -66,9 +66,9 @@ public class LoginServlet extends HttpServlet {
 		boolean yaLogueado = ("si").equals(session.getAttribute("logueado"));
 		boolean sinDatos = username == null || username == "" || password == ""
 				|| password == null;
-		boolean uInexistente = false;
+		boolean usuarioInexistente = false;
 		usuarios.abrir(); // NullPointerException
-		uInexistente = !((UsuarioDAO) usuarios).validarNombre(usuario);
+		usuarioInexistente = !((UsuarioDAO) usuarios).validarNombre(usuario);
 		usuarios.cerrar();
 		boolean esValido = false;
 		usuarios.abrir();
@@ -121,7 +121,7 @@ public class LoginServlet extends HttpServlet {
 					"Debes rellenar todos los campos");
 			login.forward(request, response);
 
-		} else if (uInexistente) {
+		} else if (usuarioInexistente) {
 			// Si el username no existe en la base de datos se le reenvía a la
 			// jsp de login con el correspondiente mensaje de error
 			session.setAttribute("errorLogin", "Usuario no encontrado");
