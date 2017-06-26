@@ -196,6 +196,20 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		return almacen;
 	}
 
+	public boolean validar(Producto producto) {
+
+		this.abrir();
+		Producto[] ProductosArr = this.findAll();
+		this.cerrar();
+
+		for (Producto p : ProductosArr) {
+			if (p.getId() == producto.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void cerrar(PreparedStatement ps) {
 		cerrar(ps, null);
 	}
@@ -209,20 +223,6 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		} catch (Exception e) {
 			throw new DAOException("Error en el cierre de ps o rs", e);
 		}
-	}
-
-	public boolean validar(Producto producto) {
-
-		this.abrir();
-		Producto[] ProductosArr = this.findAll();
-		this.cerrar();
-
-		for (Producto p : ProductosArr) {
-			if (p.getId() == producto.getId()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 }
