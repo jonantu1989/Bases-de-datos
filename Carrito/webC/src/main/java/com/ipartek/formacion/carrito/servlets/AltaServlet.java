@@ -30,11 +30,10 @@ public class AltaServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// Se recogen los objetos sesión y aplicación
-		String error = null;
+		
 		HttpSession session = request.getSession();
 		log.info("Comenzamos el POST");
 		// Declaro los dispatcher aquí porque en un momento me dieron un extraño
