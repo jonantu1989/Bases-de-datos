@@ -1,32 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Alta de usuarios</title>
+<%@ include file="includes/cabecera.jsp"%>
+<div>
+	<h2>Alta</h2>
+</div>
 
-</head>
-<body>
-<h1>Alta de usuarios: </h1>
-	<form action="alta" method="post">
-		<fieldset> <!-- Esto es un cuadro de texto para nombre -->
-			<label for="nombre">Nombre</label>
-			<input id="nombre" name="nombre"  value="${username}"/>
-		</fieldset>
-		<fieldset>
-			<label for="pass">Contraseña</label>
-			<input type="password" id="pass" name="pass">${password}</input>
-		</fieldset>
-		<fieldset>
-			<label for="pass2">Contraseña</label>
-			<input type="password" id="pass2" name="pass2" >${password2}</input>
-		</fieldset>
-		<fieldset>
-			<input type="submit" value="alta" />
-		</fieldset>
-		${mensaje}
-		
-	</form>
-</body>
-</html>
+<form action="alta" method="post">
+<fieldset>
+<label for="username">Username</label>
+<input id="username" name="username"/>
+</fieldset>
+<fieldset>
+<label for="password">Password</label>
+<input id="password" name="password" type="password"/>
+</fieldset>
+<fieldset>
+<label for="password2">Repita el password</label>
+<input id="password2" name="password2" type="password"/>
+</fieldset>
+<fieldset>
+<label for="nombre_completo">Nombre completo</label>
+<input id="nombre_completo" name="nombre_completo"/>
+</fieldset>
+<fieldset>
+<input type="submit" value="ALTA">
+</fieldset>
+</form>
+<div>
+<p class="mensaje">${sessionScope.alta}</p>
+</div>
+<%@ include file="includes/pie.jsp"%>
