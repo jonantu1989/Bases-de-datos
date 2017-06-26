@@ -28,6 +28,8 @@ public class LoginServlet extends HttpServlet {
 	private final String RUTA_LOGIN = RUTA + "/login.jsp";
 	private final String RUTA_CATALOGO = "/catalogo";
 
+	public static UsuarioDAO usuarios = null;
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

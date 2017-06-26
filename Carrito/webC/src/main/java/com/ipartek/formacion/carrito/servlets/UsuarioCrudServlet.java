@@ -62,6 +62,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 			default:
 				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 						response);
+
 			}
 		}
 	}

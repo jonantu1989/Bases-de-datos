@@ -47,9 +47,9 @@ public class UsuarioFormServlet extends HttpServlet {
 
 		RequestDispatcher rutaListado = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_SERVLET_LISTADO);
+
 		RequestDispatcher rutaFormulario = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_FORMULARIO);
-
 		if (op == null) {
 			rutaListado.forward(request, response); // NullPointerException
 			return;

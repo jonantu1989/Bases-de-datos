@@ -119,7 +119,7 @@ public class AltaServlet extends HttpServlet {
 
 		} else {
 
-			session.setAttribute("errorSignup", "Inténtalo de nuevo, por favor");
+			session.setAttribute("errorAlta", "Inténtalo de nuevo, por favor");
 			alta.forward(request, response);
 		}
 	}
