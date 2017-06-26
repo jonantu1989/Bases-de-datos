@@ -28,8 +28,6 @@ public class LoginServlet extends HttpServlet {
 	private final String RUTA_LOGIN = RUTA + "/login.jsp";
 	private final String RUTA_CATALOGO = "/catalogo";
 
-	public static UsuarioDAO usuarios = null;
-
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -61,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 			usuario = (Usuario) session.getAttribute("usuario");
 
 		} else
-			usuario = new Usuario(0, 0, username, password, op);
+			usuario = new Usuario(username, password);
 
 		// Declaración e inicialización de las booleanas que representan las
 		// diferentes posibilidades de entrada
