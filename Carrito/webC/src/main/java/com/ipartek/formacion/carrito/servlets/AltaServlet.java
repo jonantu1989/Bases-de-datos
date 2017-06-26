@@ -103,7 +103,8 @@ public class AltaServlet extends HttpServlet {
 
 		} else if (!passIguales) {
 
-			session.setAttribute("errorSignup", "Las contraseñas no coinciden");
+			session.setAttribute("error en alta",
+					"Las contraseñas no coinciden");
 			alta.forward(request, response);
 
 		} else if (esCorrecto) {
@@ -119,7 +120,8 @@ public class AltaServlet extends HttpServlet {
 
 		} else {
 
-			session.setAttribute("errorAlta", "Inténtalo de nuevo, por favor");
+			session.setAttribute("error en alta",
+					"Inténtalo de nuevo, por favor");
 			alta.forward(request, response);
 		}
 	}
