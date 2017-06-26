@@ -47,7 +47,6 @@ public class UsuarioFormServlet extends HttpServlet {
 
 		RequestDispatcher rutaListado = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_SERVLET_LISTADO);
-
 		RequestDispatcher rutaFormulario = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_FORMULARIO);
 
