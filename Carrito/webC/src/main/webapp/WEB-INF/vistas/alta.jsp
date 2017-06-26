@@ -12,21 +12,21 @@
 	<form action="alta" method="post">
 		<fieldset> <!-- Esto es un cuadro de texto para nombre -->
 			<label for="nombre">Nombre</label>
-			<input id="nombre" name="nombre" />
+			<input id="nombre" name="nombre"  value="${username}"/>
 		</fieldset>
 		<fieldset>
 			<label for="pass">Contraseña</label>
-			<input type="password" id="pass" name="pass" />
+			<input type="password" id="pass" name="pass">${password}</input>
 		</fieldset>
 		<fieldset>
 			<label for="pass2">Contraseña</label>
-			<input type="password" id="pass2" name="pass2" />
+			<input type="password" id="pass2" name="pass2" >${password2}</input>
 		</fieldset>
 		<fieldset>
-			<input type="submit" value="Alta" />
+			<input type="submit" value="alta" />
 		</fieldset>
-	
-			
+		${mensaje}
+		
 	</form>
 </body>
 </html>

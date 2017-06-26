@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class IpartekDAOMySQL implements IpartekDAO {
+import org.apache.log4j.Logger;
 
+
+
+public class IpartekDAOMySQL implements IpartekDAO {
+	private static Logger log = Logger.getLogger(IpartekDAOMySQL.class);
 	protected Connection con;
 
 	private String url = "jdbc:mysql://localhost/ipartek";
@@ -17,12 +21,14 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		this.url = url;
 		this.mysqlUser = mysqlUser;
 		this.mysqlPass = mysqlPass;
+		log.info("constructor Mysql");
 
 	}
 
 	public IpartekDAOMySQL() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			log.info("hemos encontrado la Mysql");
 		} catch (InstantiationException e) {
 			throw new DAOException(e.getMessage(), e);
 		} catch (IllegalAccessException e) {
@@ -37,6 +43,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 	public void abrir() {
 		try {
 			con = DriverManager.getConnection(url, mysqlUser, mysqlPass);
+			log.info("hemos abierto la Mysql");
 		} catch (SQLException e) {
 			throw new DAOException("Error de conexión a la base de datos", e);
 		} catch (Exception e) {

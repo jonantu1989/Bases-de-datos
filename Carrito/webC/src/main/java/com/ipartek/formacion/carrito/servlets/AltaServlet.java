@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
+
 public class AltaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,16 +27,29 @@ public class AltaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 		// Se recogen los objetos sesión y aplicación
+		String error = null;
 		HttpSession session = request.getSession();
+		log.info("Comenzamos el POST");
+		// Declaro los dispatcher aquí porque en un momento me dieron un extraño
+		// error al declararlos en el momento de necesitarlos
 		ServletContext application = request.getServletContext();
+		RequestDispatcher login = request.getRequestDispatcher(RUTA_LOGIN);
+		RequestDispatcher alta = request.getRequestDispatcher(RUTA_ALTA);
+	//	if (error==null){
+	//		session.setAttribute("mensaje",
+	//				"Inténtalo de nuevo, por favor");
+	//		alta.forward(request, response);
+	//		return;
+	//	}
+		
+	
 
 		// Se recogen los valores de los atributos de usuario introducidos en el
 		// formulario de alta
@@ -51,7 +65,7 @@ public class AltaServlet extends HttpServlet {
 		// Se extrae el conjunto de usuarios extraído de la BBDD e introducido
 		// en el objeto application en el listener
 		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
-
+		
 		// Se declara e inicializan las booleanas a partir de las cuales se
 		// desarrollará la lógica del servlet
 		boolean nombreDemasiadoLargo = false;
@@ -59,14 +73,10 @@ public class AltaServlet extends HttpServlet {
 			nombreDemasiadoLargo = username.length() > 16;
 		}
 		boolean usuarioExistente = false;
-		// Se considera que el usuario ya existe sólo con que coincida el
-		// username, de ahí el método validarNombre()
-		usuarios.abrir();// NullPointerException
-		usuarioExistente = usuarios.validarNombre(usuario);
-		usuarios.cerrar();
-		boolean sinDatos = username == null || username == ""
+		
+		boolean sinDatos = (username == null || username == ""
 				|| password == null || password == "" || password2 == null
-				|| password2 == "";
+				|| password2 == "");
 		// Se considera que en un principio, sin datos, ambas pass son iguales
 		// (igual a null)
 		boolean passIguales = true;
@@ -78,51 +88,68 @@ public class AltaServlet extends HttpServlet {
 			esCorrecto = !usuarioExistente && passIguales;
 		}
 
-		// Declaro los dispatcher aquí porque en un momento me dieron un extraño
-		// error al declararlos en el momento de necesitarlos
-		RequestDispatcher login = request.getRequestDispatcher(RUTA_LOGIN);
-		RequestDispatcher alta = request.getRequestDispatcher(RUTA_ALTA);
+	
 
 		// Lógica de la aplicación
-		if (sinDatos) {
-
-			session.setAttribute("error en alta",
+		if(sinDatos) {
+					session.setAttribute("mensaje",
 					"Debes rellenar todos los campos");
 			alta.forward(request, response);
+			return;
 
 		} else if (nombreDemasiadoLargo) {
 
-			session.setAttribute("error en alta",
+			session.setAttribute("mensaje",
 					"El nombre de usuario debe tener un máximo de 8 caracteres");
 			alta.forward(request, response);
+			return;
 
-		} else if (usuarioExistente) {
-
-			session.setAttribute("error en alta", "Usuario ya existente");
+		}
+		// Se considera que el usuario ya existe sólo con que coincida el
+		// username, de ahí el método validarNombre()
+		if (usuarios!=null){
+			usuarios.abrir();// NullPointerException
+			usuarioExistente = usuarios.validarNombre(usuario);
+			usuarios.cerrar();
+			if( usuarioExistente){
+				session.setAttribute("mensaje", "Usuario ya existente");
+				alta.forward(request, response);
+				return;
+				
+			}
+		} else{
+			session.setAttribute("mensaje", "No hemos podido contactar con la base.");
 			alta.forward(request, response);
+			return;
+		}
 
-		} else if (!passIguales) {
+		
+	    if (!passIguales) {
 
-			session.setAttribute("error en alta",
+			session.setAttribute("mensaje",
 					"Las contraseñas no coinciden");
 			alta.forward(request, response);
 
 		} else if (esCorrecto) {
 
-			session.removeAttribute("error en alta");
-
-			usuarios.abrir();
-			usuarios.insert(usuario);
-			usuarios.cerrar();
-
+		//	session.removeAttribute("mensaje");
+			session.setAttribute("mensaje",
+					"todo correcto");
+			if (usuarios!=null){
+				usuarios.abrir();
+				usuarios.insert(usuario);
+				usuarios.cerrar();
+			}
 			log.info("Usuario " + usuario.getUsername() + " dado de alta");
 			login.forward(request, response);
 
 		} else {
 
-			session.setAttribute("error en alta",
+			session.setAttribute("mensaje",
 					"Inténtalo de nuevo, por favor");
 			alta.forward(request, response);
 		}
 	}
+	
+	
 }
