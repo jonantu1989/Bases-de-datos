@@ -11,7 +11,7 @@
 	<jsp:useBean id="producto" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Producto" />
 
-	<form action="${applicationScope.rutaBase}/admin/productoform" method="post">
+	<form action="${applicationScope.rutaBase}/productoform" method="post">
 		<fieldset 
 			<c:if test="${param.op == 'alta'}">
 				style="display:none;"

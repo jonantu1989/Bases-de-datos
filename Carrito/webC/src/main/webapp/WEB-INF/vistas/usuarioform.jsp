@@ -8,7 +8,7 @@
 	<jsp:useBean id="usuario" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
-	<form action="${applicationScope.rutaBase}/admin/usuarioform" method="post">
+	<form action="${applicationScope.rutaBase}/usuarioform" method="post">
 		
 		<fieldset style="display:none;">
 			<label for="id">Id</label> 
