@@ -1,21 +1,29 @@
 <%@ include file="includes/cabecera.jsp"%>
 
-<h1>Login de usuarios: </h1>
-	<form action="login" method="post">
-		<fieldset> <!-- Esto es un cuadro de texto para nombre -->
-			<label for="nombre">Nombre</label>
-			<input id="nombre" name="nombre" />
+<div>
+	<h2>Login</h2>
+</div>
+
+
+<form action="login" method="post">
+	<fieldset>
+		<label for="username">Username</label>
+		<input id="username" name="username"/>
+	</fieldset>
+	<fieldset>
+		<label for="password">Password</label>
+		<input id="password" name="password" type="password"/>
 		</fieldset>
-		<fieldset>
-			<label for="pass">Contraseña</label>
-			<input type="password" id="pass" name="pass" />
-		</fieldset>
-		<fieldset>
-			<input type="submit" value="Login" />
-		</fieldset>
-		<a href="alta">ALTA</a>
-		<a href="tienda">TIENDA</a>
-		
-			
-	</form>
-<%@ include file="includes/pie.jsp" %>
+	<fieldset>
+		<input type="submit" value="LOGIN"/>
+	</fieldset>
+</form>
+
+<div id="signup">
+	<a href="${applicationScope.rutaBase}/alta">Alta</a>
+</div>
+
+<div>
+	<p class="errores">${sessionScope.errorLogin }</p>
+</div>
+<%@ include file="includes/pie.jsp"%>
