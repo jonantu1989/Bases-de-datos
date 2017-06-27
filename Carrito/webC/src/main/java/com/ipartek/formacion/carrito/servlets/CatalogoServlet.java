@@ -31,7 +31,7 @@ public class CatalogoServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext application = getServletContext();
-
+		log.info("Comenzamos el POST");
 		ProductoDAO productos = (ProductoDAO) application
 				.getAttribute("productos");
 
@@ -39,9 +39,11 @@ public class CatalogoServlet extends HttpServlet {
 		// es, a su vez, el primer elemento de la lista de productos
 		// de un determinado grupo de productos.
 
-		productos.abrir(); // NullPointerException
-		application.setAttribute("catalogo", productos.getCatalogo());
-		productos.cerrar();
+		if (productos != null) {
+			productos.abrir(); // NullPointerException
+			application.setAttribute("catalogo", productos.getCatalogo());
+			productos.cerrar();
+		}
 
 		HttpSession session = request.getSession();
 
