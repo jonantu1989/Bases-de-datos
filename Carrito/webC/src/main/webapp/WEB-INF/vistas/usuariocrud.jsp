@@ -6,7 +6,7 @@
 <h2>Mantenimiento de usuarios</h2>
 </div>
 
-<table>
+<table border=1>
 	<thead>
 		<tr>
 			<th>Rol</th>

@@ -1,4 +1,4 @@
-%@ include file="includes/cabecera.jsp"%>
+<%@ include file="includes/cabecera.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,7 +7,7 @@
 	<h2>Mantenimiento de productos</h2>
 </div>
 
-<table>
+<table border=1>
 	<thead>
 		<tr>
 			<th>Id</th>

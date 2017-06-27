@@ -47,10 +47,10 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 				application.setAttribute("usuariosArr", usuariosArr);
 
-				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
-						response);
-
 			}
+
+			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+					response);
 
 		} else {
 
@@ -73,7 +73,9 @@ public class UsuarioCrudServlet extends HttpServlet {
 						response);
 
 			}
+
 		}
+
 	}
 
 }

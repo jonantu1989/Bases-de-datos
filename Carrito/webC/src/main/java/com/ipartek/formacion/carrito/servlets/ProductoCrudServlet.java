@@ -50,9 +50,10 @@ public class ProductoCrudServlet extends HttpServlet {
 
 				application.setAttribute("productosArr", productosArr);
 
-				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
-						response);
 			}
+
+			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+					response);
 
 		} else {
 
