@@ -64,14 +64,7 @@ public final class alta_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\r\n");
       out.write("\t<html>\r\n");
       out.write("\t\t<head>\r\n");
-      out.write("\t\t\t<meta charset=\"UTF-8\" />\r\n");
       out.write("\t\t\t<title>Bicis</title>\r\n");
-      out.write("\t\t\t<link rel=\"shortcut icon\" href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${applicationScope.rutaBase}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/img/favicon.png\" type=\"image/png\">\r\n");
-      out.write("\t\t\t<link rel=\"stylesheet\" href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${applicationScope.rutaBase}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/css/estilos.css\" />\r\n");
       out.write("\t\t</head>\r\n");
       out.write("\t\t\r\n");
       out.write("\t\t<body>\r\n");
