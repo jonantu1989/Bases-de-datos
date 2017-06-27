@@ -12,11 +12,11 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 
 	private final static String FIND_ALL = "SELECT * FROM usuarios";
 	private final static String FIND_BY_ID = "SELECT * FROM usuarios WHERE id = ?";
+	private final static String INSERT = "INSERT INTO usuarios (username, password, nombre_completo, id_roles)"
+			+ " VALUES (?, ?, ?, ?)";
 	private final static String FIND_BY_NAME = "SELECT * FROM usuarios WHERE username = ?";
-	private final static String INSERT = "INSERT INTO usuarios (id, username, password, nombre_completo, id_roles)"
-			+ " VALUES (?, ?, ?, ?, ?)";
 	private final static String UPDATE = "UPDATE usuarios "
-			+ "SET id = ?, username = ?, password = ?, nombre_completo = ?, id_roles = ? "
+			+ "SET username = ?, password = ?, nombre_completo = ?, id_roles = ? "
 			+ "WHERE id = ?";
 	private final static String DELETE = "DELETE FROM usuarios WHERE id = ?";
 
