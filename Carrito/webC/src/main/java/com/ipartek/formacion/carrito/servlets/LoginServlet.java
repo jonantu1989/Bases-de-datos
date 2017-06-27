@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 		boolean yaLogueado = ("si").equals(session.getAttribute("logueado"));
 		boolean yaEnUsuariosLogueados = false;
 
-		if (usuario.getUsername() != null && !usuariosLogueados.isEmpty()) {
+		if (usuario.getUsername() != null) {
 			for (Usuario u : usuariosLogueados) {
 				if (usuario.getUsername().equals(u.getUsername())) {
 					yaEnUsuariosLogueados = true;

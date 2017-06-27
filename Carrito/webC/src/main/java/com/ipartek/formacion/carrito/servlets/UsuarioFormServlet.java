@@ -50,6 +50,7 @@ public class UsuarioFormServlet extends HttpServlet {
 
 		RequestDispatcher rutaFormulario = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_FORMULARIO);
+
 		if (op == null) {
 			rutaListado.forward(request, response);
 			return;
