@@ -78,7 +78,6 @@ public class UsuarioFormServlet extends HttpServlet {
 					e.printStackTrace();
 					rutaFormulario.forward(request, response);
 				}
-				rutaListado.forward(request, response);
 			} else {
 				request.setAttribute("usuario", usuario);
 				rutaFormulario.forward(request, response);
@@ -109,7 +108,7 @@ public class UsuarioFormServlet extends HttpServlet {
 				usuarios.delete(usuario);
 				usuarios.cerrar();
 				log.info("Usuario borrado");
-				rutaListado.forward(request, response);
+				rutaFormulario.forward(request, response);
 			} else {
 				rutaListado.forward(request, response);
 			}

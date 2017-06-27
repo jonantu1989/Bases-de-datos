@@ -52,7 +52,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 			}
 
-			request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
+			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 					response);
 
 		} else {
