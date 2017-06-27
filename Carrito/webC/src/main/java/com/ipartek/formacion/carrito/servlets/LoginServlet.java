@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 		boolean esValido = false;
 
 		if (usuarios != null) {
-			usuarios.abrir();// NullPointerException
+			usuarios.abrir();
 			usuarioInexistente = usuarios.validarNombre(usuario);
 			usuarios.cerrar();
 			if (usuarioInexistente) {

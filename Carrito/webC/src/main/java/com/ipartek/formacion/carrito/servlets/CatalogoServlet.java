@@ -40,7 +40,7 @@ public class CatalogoServlet extends HttpServlet {
 		// de un determinado grupo de productos.
 
 		if (productos != null) {
-			productos.abrir(); // NullPointerException
+			productos.abrir();
 			application.setAttribute("catalogo", productos.getCatalogo());
 			productos.cerrar();
 		}

@@ -42,7 +42,7 @@ public class ProductoCrudServlet extends HttpServlet {
 
 			if (productos != null) {
 
-				productos.abrir(); // NullPointerException
+				productos.abrir();
 
 				Producto[] productosArr = productos.findAll();
 
