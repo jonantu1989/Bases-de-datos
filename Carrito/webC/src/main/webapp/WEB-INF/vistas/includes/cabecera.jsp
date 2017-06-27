@@ -6,10 +6,7 @@
 <!DOCTYPE html>
 	<html>
 		<head>
-			<meta charset="UTF-8" />
 			<title>Bicis</title>
-			<link rel="shortcut icon" href="${applicationScope.rutaBase}/img/favicon.png" type="image/png">
-			<link rel="stylesheet" href="${applicationScope.rutaBase}/css/estilos.css" />
 		</head>
 		
 		<body>
