@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
 public class ProductoCrudServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static Logger log = Logger.getLogger(ProductoCrudServlet.class);
 
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/productoform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/productocrud.jsp";
@@ -28,7 +32,7 @@ public class ProductoCrudServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext application = getServletContext();
-
+		log.info("Comenzamos el POST");
 		ProductoDAO productos = (ProductoDAO) application
 				.getAttribute("productos");
 
@@ -36,16 +40,19 @@ public class ProductoCrudServlet extends HttpServlet {
 
 		if (op == null) {
 
-			productos.abrir(); // NullPointerException
+			if (productos != null) {
 
-			Producto[] productosArr = productos.findAll();
+				productos.abrir(); // NullPointerException
 
-			productos.cerrar();
+				Producto[] productosArr = productos.findAll();
 
-			application.setAttribute("productosArr", productosArr);
+				productos.cerrar();
 
-			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
-					response);
+				application.setAttribute("productosArr", productosArr);
+
+				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+						response);
+			}
 
 		} else {
 
