@@ -134,7 +134,7 @@ public final class alta_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</form>\r\n");
       out.write("<div>\r\n");
       out.write("<p class=\"mensaje\">");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${sessionScope.alta}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${sessionScope.login}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("</p>\r\n");
       out.write("</div>\r\n");
       out.write("\r\n");
