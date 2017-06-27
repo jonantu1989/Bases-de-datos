@@ -8,7 +8,7 @@
 	<h2>Formulario de productos</h2>
 </div>
 	
-	<jsp:useBean id="producto" scope="request"
+	<jsp:useBean id="productos" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Producto" />
 
 	<form action="${applicationScope.rutaBase}/productoform" method="post">
@@ -20,7 +20,7 @@
 			<label for="id">Id</label> 
 			
 			<input id="id" name="id" type="number"
-			  required="required"  value="${producto.id}" 
+			  required="required"  value="${productos.id}" 
 			  
 				<c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
 					readonly="readonly"
@@ -33,7 +33,7 @@
 			<input <c:if test="${param.op == 'borrar'}">
 					readonly="readonly"
 					</c:if> id="nombre" name="nombre"  
-				required="required"  value="${producto.nombre}"/>
+				required="required"  value="${productos.nombre}"/>
 		</fieldset>
 		<fieldset 
 			<c:if test="${param.op == 'borrar'}">
@@ -56,7 +56,7 @@
 			  		style="display:none;"
 			  	</c:if>
 			/>
-			<p class="errores">${producto.errores}</p>
+			<p class="errores">${productos.errores}</p>
 			
 			<input type="hidden" name="opform" value="${param.op}" />
 		</fieldset>

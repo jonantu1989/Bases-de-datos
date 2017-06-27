@@ -6,7 +6,7 @@
 <h2>Mantenimiento de usuarios</h2>
 </div>
 
-<table>
+<table border=1>
 	<thead>
 		<tr>
 			<th>Rol</th>
@@ -17,15 +17,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${applicationScope.usuariosArr}" var="usuario">
+		<c:forEach items="${applicationScope.usuariosArr}" var="usuarios">
 			<tr>
-				<td>${usuario.id_roles}</td>	
-				<td>${usuario.username}</td>
-				<td>${usuario.password}</td>
-				<td>${usuario.nombre_completo}</td>
+				<td>${usuarios.id_roles}</td>	
+				<td>${usuarios.username}</td>
+				<td>${usuarios.password}</td>
+				<td>${usuarios.nombre_completo}</td>
 				<td>
-					<a href="?op=modificar&id=${usuario.id}">Modificar</a>
-					<a href="?op=borrar&id=${usuario.id}">Borrar</a>
+					<a href="?op=modificar&id=${usuarios.id}">Modificar</a>
+					<a href="?op=borrar&id=${usuarios.id}">Borrar</a>
 				</td>
 			</tr>
 		</c:forEach>

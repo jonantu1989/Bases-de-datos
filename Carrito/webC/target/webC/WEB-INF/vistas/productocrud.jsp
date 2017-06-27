@@ -1,4 +1,4 @@
-%@ include file="includes/cabecera.jsp"%>
+<%@ include file="includes/cabecera.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,7 +7,7 @@
 	<h2>Mantenimiento de productos</h2>
 </div>
 
-<table>
+<table border=1>
 	<thead>
 		<tr>
 			<th>Id</th>
@@ -17,14 +17,14 @@
 			</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${applicationScope.productosArr}" var="producto">
+		<c:forEach items="${applicationScope.productosArr}" var="productos">
 			<tr>
-				<td>${producto.id}</td>
-				<td>${producto.nombre}</td>
-				<td>${producto.precio} €</td>
+				<td>${productos.id}</td>
+				<td>${productos.nombre}</td>
+				<td>${productos.precio} €</td>
 				<td>
-					<a href="?op=modificar&id=${producto.id}">Modificar</a>
-					<a href="?op=borrar&id=${producto.id}">Borrar</a>
+					<a href="?op=modificar&id=${productos.id}">Modificar</a>
+					<a href="?op=borrar&id=${productos.id}">Borrar</a>
 				</td>
 			</tr>
 		</c:forEach>

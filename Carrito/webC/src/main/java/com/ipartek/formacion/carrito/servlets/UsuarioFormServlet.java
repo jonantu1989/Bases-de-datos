@@ -62,8 +62,7 @@ public class UsuarioFormServlet extends HttpServlet {
 
 		switch (op) {
 		case "alta":
-			if (password != null && password != ""
-					&& password.equals(password2)) {
+			if (password.equals(password2)) {
 				try {
 					usuarios.abrir();
 					usuarios.insert(usuario);
@@ -85,8 +84,7 @@ public class UsuarioFormServlet extends HttpServlet {
 			}
 			break;
 		case "modificar":
-			if (password != null && password != ""
-					&& password.equals(password2)) {
+			if (password.equals(password2)) {
 				try {
 					usuarios.abrir();
 					usuarios.update(usuario);
@@ -105,7 +103,7 @@ public class UsuarioFormServlet extends HttpServlet {
 			}
 			break;
 		case "borrar":
-			if (!usuario.getUsername().equals(usuario.getUsername())) {
+			if (usuario.getUsername().equals(usuario.getUsername())) {
 				usuarios.abrir();
 				usuarios.delete(usuario);
 				usuarios.cerrar();

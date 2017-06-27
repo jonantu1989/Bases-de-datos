@@ -5,7 +5,7 @@
 	<div>
 		<h2>Formulario de usuarios</h2>
 	</div>
-	<jsp:useBean id="usuario" scope="request"
+	<jsp:useBean id="usuarios" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
 	<form action="${applicationScope.rutaBase}/usuarioform" method="post">
@@ -14,13 +14,13 @@
 			<label for="id">Id</label> 
 			
 			<input id="id" name="id" type="number"
-			  required="required"  value="${usuario.id}"/>
+			  required="required"  value="${usuarios.id}"/>
 		</fieldset>
 		<fieldset>
 			<label for="username">Nombre</label> 
 			
 			<input id="username" name="username"
-			  required="required" value="${usuario.username}" 
+			  required="required" value="${usuarios.username}" 
 			  
 			  <c:if test="${param.op == 'borrar'}">
 			  	readonly="readonly"

@@ -18,6 +18,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/usuarioform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/usuariocrud.jsp";
+	static final String RUTA_DADO_ALTA = "/WEB-INF/vistas/dadoalta.jsp";
 	static final String RUTA_SERVLET_LISTADO = "/usuariocrud";
 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +53,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 			}
 
-			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+			request.getRequestDispatcher(RUTA_DADO_ALTA).forward(request,
 					response);
 
 		} else {
