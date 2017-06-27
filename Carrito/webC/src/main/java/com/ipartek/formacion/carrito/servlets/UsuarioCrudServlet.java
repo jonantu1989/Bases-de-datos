@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
@@ -19,6 +21,8 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private static Logger log = Logger.getLogger(UsuarioCrudServlet.class);
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -28,20 +32,25 @@ public class UsuarioCrudServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext application = getServletContext();
+		log.info("Comenzamos el POST");
 		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
 
 		String op = request.getParameter("op");
 
 		if (op == null) {
 
-			usuarios.abrir(); // NullPointerException
-			Usuario[] usuariosArr = usuarios.findAll();
-			usuarios.cerrar();
+			if (usuarios != null) {
 
-			application.setAttribute("usuariosArr", usuariosArr);
+				usuarios.abrir(); // NullPointerException
+				Usuario[] usuariosArr = usuarios.findAll();
+				usuarios.cerrar();
 
-			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
-					response);
+				application.setAttribute("usuariosArr", usuariosArr);
+
+				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
+						response);
+
+			}
 
 		} else {
 

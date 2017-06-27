@@ -17,6 +17,7 @@ import com.ipartek.formacion.carrito.tipos.Producto;
 
 public class ProductoFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private static Logger log = Logger.getLogger(ProductoFormServlet.class);
 
 	protected void doGet(HttpServletRequest request,
@@ -29,7 +30,7 @@ public class ProductoFormServlet extends HttpServlet {
 		// La "application"
 		// Recoger el objeto application del ServletContext
 		ServletContext application = getServletContext();
-
+		log.info("Comenzamos el POST");
 		// Regocoger la opción elegida por el usuario en el formulario enviada
 		// por url
 		String op = request.getParameter("opform");
@@ -84,7 +85,7 @@ public class ProductoFormServlet extends HttpServlet {
 		// por el navegador
 		// encapsulada en opform.
 		if (op == null) {
-			rutaListado.forward(request, response); // NullPointerException
+			rutaListado.forward(request, response);
 			return;
 		}
 

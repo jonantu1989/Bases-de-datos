@@ -29,7 +29,7 @@ public class UsuarioFormServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		ServletContext application = getServletContext();
-
+		log.info("Comenzamos el POST");
 		String op = request.getParameter("opform");
 
 		String username = request.getParameter("username");
