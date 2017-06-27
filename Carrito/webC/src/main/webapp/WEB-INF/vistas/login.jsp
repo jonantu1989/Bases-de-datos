@@ -24,6 +24,6 @@
 </div>
 
 <div>
-	<p class="errores">${sessionScope.errorLogin }</p>
+	<p class="mensaje">${sessionScope.mensaje }</p>
 </div>
 <%@ include file="includes/pie.jsp"%>
