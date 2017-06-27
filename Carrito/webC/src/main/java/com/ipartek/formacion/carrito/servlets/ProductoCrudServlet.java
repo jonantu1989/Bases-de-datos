@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.carrito.dao.DAOProductoFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
@@ -41,6 +42,8 @@ public class ProductoCrudServlet extends HttpServlet {
 		if (op == null) {
 
 			if (productos != null) {
+
+				productos = DAOProductoFactory.getProductoDAO();
 
 				productos.abrir();
 

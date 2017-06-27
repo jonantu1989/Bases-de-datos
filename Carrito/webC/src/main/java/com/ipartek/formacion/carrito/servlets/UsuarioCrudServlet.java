@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
@@ -40,6 +41,8 @@ public class UsuarioCrudServlet extends HttpServlet {
 		if (op == null) {
 
 			if (usuarios != null) {
+
+				usuarios = DAOUsuarioFactory.getUsuarioDAO();
 
 				usuarios.abrir();
 				Usuario[] usuariosArr = usuarios.findAll();
