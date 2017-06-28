@@ -115,6 +115,16 @@ public final class alta_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t<h2>Alta</h2>\r\n");
       out.write("</div>\r\n");
       out.write("\r\n");
+      com.ipartek.formacion.carrito.tipos.Usuario usuario = null;
+      synchronized (request) {
+        usuario = (com.ipartek.formacion.carrito.tipos.Usuario) _jspx_page_context.getAttribute("usuario", PageContext.REQUEST_SCOPE);
+        if (usuario == null){
+          usuario = new com.ipartek.formacion.carrito.tipos.Usuario();
+          _jspx_page_context.setAttribute("usuario", usuario, PageContext.REQUEST_SCOPE);
+        }
+      }
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<form action=\"alta\" method=\"post\">\r\n");
       out.write("<fieldset>\r\n");
       out.write("<label for=\"username\">Username</label>\r\n");

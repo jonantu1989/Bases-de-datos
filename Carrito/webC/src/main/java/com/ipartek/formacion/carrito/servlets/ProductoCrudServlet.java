@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import com.ipartek.formacion.carrito.dao.DAOProductoFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
+@WebServlet("/productocrud")
 public class ProductoCrudServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -3,6 +3,9 @@
 	<h2>Alta</h2>
 </div>
 
+<jsp:useBean id="usuario" scope="request"
+		class="com.ipartek.formacion.carrito.tipos.Usuario" />
+
 <form action="alta" method="post">
 <fieldset>
 <label for="username">Username</label>

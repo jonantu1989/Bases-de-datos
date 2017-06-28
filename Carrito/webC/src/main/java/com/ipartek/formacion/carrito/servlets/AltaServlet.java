@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
+@WebServlet("/alta")
 public class AltaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,8 +33,6 @@ public class AltaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// Se recogen los objetos sesión y aplicación
-
 		HttpSession session = request.getSession();
 		log.info("Comenzamos el POST");
 		// Declaro los dispatcher aquí porque en un momento me dieron un extraño
