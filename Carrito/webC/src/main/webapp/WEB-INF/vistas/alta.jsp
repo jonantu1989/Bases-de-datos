@@ -20,6 +20,9 @@
 <input type="submit" value="ALTA">
 </fieldset>
 </form>
+<div id="login">
+	<a href="${applicationScope.rutaBase}/login">Login</a>
+</div>
 <div>
 <p class="mensaje">${sessionScope.alta}</p>
 </div>

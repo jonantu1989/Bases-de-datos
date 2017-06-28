@@ -135,7 +135,7 @@ public class AltaServlet extends HttpServlet {
 
 		} else {
 
-			session.setAttribute("mensaje", "Inténtalo de nuevo, por favor");
+			session.setAttribute("mensaje", "Inténtalo de nuevo");
 			alta.forward(request, response);
 		}
 	}

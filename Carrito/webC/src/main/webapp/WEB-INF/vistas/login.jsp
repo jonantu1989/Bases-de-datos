@@ -1,8 +1,11 @@
 <%@ include file="includes/cabecera.jsp"%>
 
-<div>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 	<h2>Login</h2>
-</div>
+	
+	<jsp:useBean id="usuario" scope="request"
+		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
 
 <form action="login" method="post">
@@ -19,7 +22,7 @@
 	</fieldset>
 </form>
 
-<div id="signup">
+<div id="alta">
 	<a href="${applicationScope.rutaBase}/alta">Alta</a>
 </div>
 

@@ -66,9 +66,11 @@ public class LoginServlet extends HttpServlet {
 		boolean yaEnUsuariosLogueados = false;
 
 		if (usuario.getUsername() != null) {
-			for (Usuario u : usuariosLogueados) {
-				if (usuario.getUsername().equals(u.getUsername())) {
-					yaEnUsuariosLogueados = true;
+			if (usuarios != null) {
+				for (Usuario u : usuariosLogueados) {
+					if (usuario.getUsername().equals(u.getUsername())) {
+						yaEnUsuariosLogueados = true;
+					}
 				}
 			}
 		}
@@ -159,7 +161,7 @@ public class LoginServlet extends HttpServlet {
 			// En principio, la posibilidad que queda es que el usuario
 			// exista pero la password sea incorrecta
 			session.setAttribute("mensaje",
-					"Contraseña incorrecta, intentalo de nueno");
+					"Contraseña incorrecta, intentalo de nuevo");
 			login.forward(request, response);
 		}
 	}
