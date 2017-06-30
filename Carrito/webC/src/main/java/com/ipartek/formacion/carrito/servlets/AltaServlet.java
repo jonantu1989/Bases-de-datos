@@ -1,5 +1,6 @@
 package com.ipartek.formacion.carrito.servlets;
 
+//TODO Mirar en casa en mi repositorio de javaweb el proyecto de catalogoapp el alta, el login y todas las servlets.
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -122,22 +123,18 @@ public class AltaServlet extends HttpServlet {
 			alta.forward(request, response);
 
 		} else if (esCorrecto) {
-
 			// session.removeAttribute("mensaje");
 			session.setAttribute("mensaje", "todo correcto");
 			if (usuarios != null) {
 				usuarios.abrir();
 				usuarios.insert(usuario);
 				usuarios.cerrar();
-
 				log.info("Usuario " + usuario.getUsername() + " dado de alta");
 				login.forward(request, response);
 			}
 		} else {
-
 			session.setAttribute("mensaje", "Inténtalo de nuevo");
 			alta.forward(request, response);
 		}
 	}
-
 }
