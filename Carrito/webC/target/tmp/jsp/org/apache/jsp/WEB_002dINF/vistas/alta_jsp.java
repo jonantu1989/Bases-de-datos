@@ -125,7 +125,7 @@ public final class alta_jsp extends org.apache.jasper.runtime.HttpJspBase
       }
       out.write("\r\n");
       out.write("\r\n");
-      out.write("<form action=\"alta\" method=\"post\">\r\n");
+      out.write("<form action=\"/alta\" method=\"post\">\r\n");
       out.write("<fieldset>\r\n");
       out.write("<label for=\"username\">Username</label>\r\n");
       out.write("<input id=\"username\" name=\"username\"/>\r\n");

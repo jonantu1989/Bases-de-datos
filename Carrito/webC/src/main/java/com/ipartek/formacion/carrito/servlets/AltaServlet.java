@@ -129,10 +129,10 @@ public class AltaServlet extends HttpServlet {
 				usuarios.abrir();
 				usuarios.insert(usuario);
 				usuarios.cerrar();
-			}
-			log.info("Usuario " + usuario.getUsername() + " dado de alta");
-			login.forward(request, response);
 
+				log.info("Usuario " + usuario.getUsername() + " dado de alta");
+				login.forward(request, response);
+			}
 		} else {
 
 			session.setAttribute("mensaje", "Inténtalo de nuevo");
