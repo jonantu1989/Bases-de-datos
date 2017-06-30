@@ -30,7 +30,12 @@
     	<groupId>javax.servlet</groupId>
     	<artifactId>jstl</artifactId>
     	<version>1.2</version>
-	</dependency> 
+	</dependency>
+	<dependency>
+            <groupId>com.ipartek.formacion</groupId>
+            <artifactId>dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
   </dependencies>
   <build>
     <finalName>webC</finalName><plugins>
