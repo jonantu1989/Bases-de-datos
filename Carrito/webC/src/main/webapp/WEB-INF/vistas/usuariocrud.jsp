@@ -11,7 +11,7 @@
 		<tr>
 			<th>Rol</th>
 			<th>Username</th>
-			<th>Contraseña</th>
+			<th>ContraseÃ±a</th>
 			<th>Nombre completo</th>
 			<th>Operaciones</th>
 		</tr>

@@ -10,19 +10,21 @@
 <table border=1>
 	<thead>
 		<tr>
+			<th>Operaciones</th>
 			<th>Id</th>
 			<th>Nombre producto</th>
 			<th>Precio</th>
-			<th>Operaciones</th>
+			
 			</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${applicationScope.productosArr}" var="productos">
+		<c:forEach items="${applicationScope.productos}" var="productos">
 			<tr>
 				<td>${productos.id}</td>
 				<td>${productos.nombre}</td>
 				<td>${productos.precio} €</td>
-				<td>
+				<td>${productos.operaciones} €
+				
 					<a href="?op=modificar&id=${productos.id}">Modificar</a>
 					<a href="?op=borrar&id=${productos.id}">Borrar</a>
 				</td>
