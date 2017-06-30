@@ -8,7 +8,7 @@
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
 
-<form action="/login" method="post">
+<form action="login" method="post">
 	<fieldset>
 		<label for="username">Username</label>
 		<input id="username" name="username"/>

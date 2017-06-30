@@ -107,7 +107,9 @@ public class LoginServlet extends HttpServlet {
 			// Se invalida la sesión y se le envía al catálogo que es el
 			// punto de partida de la aplicación
 			session.invalidate();
-			usuariosLogueados.remove(usuario);
+			if (usuariosLogueados != null) {
+				usuariosLogueados.remove(usuario);
+			}
 			session = request.getSession();
 			session.setAttribute("usuariosLogueados", usuariosLogueados);
 			catalogo.forward(request, response);
