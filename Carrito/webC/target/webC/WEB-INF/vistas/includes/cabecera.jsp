@@ -29,9 +29,9 @@
 						style = "display:none"
 					</c:if>
 				>
-					<li><a href="${applicationScope.rutaBase}/productocrud">Mantenimiento de productos</a></li>
-					<li><a href="${applicationScope.rutaBase}/productoform?op=alta">Alta de productos</a></li>
-					<li><a href="${applicationScope.rutaBase}/usuariocrud">Mantenimiento de usuarios</a></li>
-					<li><a href="${applicationScope.rutaBase}/usuarioform?op=alta">Alta de usuarios</a></li>
+					<li><a href="/productocrud">Mantenimiento de productos</a></li>
+					<li><a href="/productoform?op=alta">Alta de productos</a></li>
+					<li><a href="/usuariocrud">Mantenimiento de usuarios</a></li>
+					<li><a href="/usuarioform?op=alta">Alta de usuarios</a></li>
 				</ul>
 			</nav>
