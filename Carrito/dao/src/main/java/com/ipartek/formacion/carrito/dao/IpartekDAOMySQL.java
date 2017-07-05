@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-
-
 public class IpartekDAOMySQL implements IpartekDAO {
 	private static Logger log = Logger.getLogger(IpartekDAOMySQL.class);
 	protected Connection con;
