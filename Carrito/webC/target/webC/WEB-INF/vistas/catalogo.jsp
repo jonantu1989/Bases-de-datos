@@ -1,17 +1,6 @@
-<html>
-<head>
-<title>TIENDA DE BICIS</title>
-</head>
-<body>
-<h1>TIENDA DE BICIS</h1>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-</body>
-<h2>CATALOGO DE BICIS</h2>
-	<ul>
-			<li><a href="login">Login</a></li>
-			<li><a href="alta">Alta</a></li>
-			<li><a href="login?opcion=logout">Salir</a></li>
-		</ul>
+<%@ include file="includes/cabecera.jsp"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<table border="1">
 	<thead>
 		<tr>

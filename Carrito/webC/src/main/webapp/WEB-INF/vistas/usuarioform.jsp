@@ -1,7 +1,6 @@
 <%@ include file="includes/cabecera.jsp" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 	<div>
 		<h2>Formulario de usuarios</h2>
 	</div>
