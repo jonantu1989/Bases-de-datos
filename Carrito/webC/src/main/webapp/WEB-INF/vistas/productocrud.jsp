@@ -18,10 +18,7 @@
 			<th>Operaciones</th>
 			<th>Id</th>
 			<th>Nombre</th>
-			
 			<th>Precio</th>
-			
-
 		</tr>
 	</thead>
 	<tbody>

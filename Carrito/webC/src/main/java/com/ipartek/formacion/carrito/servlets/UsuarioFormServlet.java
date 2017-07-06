@@ -80,7 +80,7 @@ public class UsuarioFormServlet extends HttpServlet {
 						// usuario que traía metido en la request
 						request.setAttribute("usuario", usuario);
 						e.printStackTrace();
-						rutaFormulario.forward(request, response);
+						rutaListado.forward(request, response);
 					}
 				} else {
 					request.setAttribute("usuario", usuario);
