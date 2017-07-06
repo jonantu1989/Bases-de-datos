@@ -8,25 +8,21 @@
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
 
-<form action="login" method="post">
-	<fieldset>
-		<label for="username">Username</label>
-		<input id="username" name="username" value="${usuarios.username}"/>
-	</fieldset>
-	<fieldset>
-		<label for="password">Password</label>
-		<input id="password" name="password" type="password" value="${usuarios.password}"/>
+<form class="form-group" action="login" method="post">
+		<fieldset>
+			<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+			  required="required" minlength="4"  />
 		</fieldset>
-	<fieldset>
-		<input type="submit" value="LOGIN"/>
-	</fieldset>
-</form>
-
-<div id="alta">
-	<a href="${applicationScope.rutaBase}/alta">Alta</a>
-</div>
-
-<div>
-	<p class="mensaje">${sessionScope.mensaje }</p>
-</div>
-<%@ include file="includes/pie.jsp"%>
+		<fieldset>
+			<label for="pass">Contraseña</label> <input type="password" id="pass"
+				name="pass" />
+		</fieldset>
+		<fieldset>
+			<input type="submit" value="Login" />
+			<!-- <p class="errores">${usuario.errores}</p>-->
+		</fieldset>		
+	</form>
+	
+	
+<%--El pie de la pagina. --%>	
+<%@ include file="includes/pie.jsp" %>
