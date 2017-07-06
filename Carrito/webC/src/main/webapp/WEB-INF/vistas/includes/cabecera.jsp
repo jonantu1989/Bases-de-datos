@@ -19,10 +19,20 @@
 			
 			<nav>
 				<ul>
-				 	 <li><a href="${applicationScope.rutaBase}/catalogo">Catálogo</a></li>
-				 	 <li><a href="${applicationScope.rutaBase}/login">Login</a></li>
-					 <li><a href="${applicationScope.rutaBase}/login?op=logout">Logout</a></li>
+				 	 <li><a href="${applicationScope.catalogo}/catalogo">Catálogo</a></li>
+				 	 <li><a href="${applicationScope.login}/login">Login</a></li>
+					 <li><a href="${applicationScope.login}/login?op=logout">Logout</a></li>
 					 
+				</ul>
+				
+				<ul <c:if test="${sessionScope.usuario.id_roles != '1'}">
+						style = "display:none"
+					</c:if>
+				>
+					<li><a href="/productocrud">Mantenimiento de productos</a></li>
+					<li><a href="/productoform?op=alta">Alta de productos</a></li>
+					<li><a href="/usuariocrud">Mantenimiento de usuarios</a></li>
+					<li><a href="/usuarioform?op=alta">Alta de usuarios</a></li>
 				</ul>
 				
 				<ul <c:if test="${sessionScope.usuario.id_roles != '1'}">

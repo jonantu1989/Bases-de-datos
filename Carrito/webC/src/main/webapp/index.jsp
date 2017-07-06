@@ -11,7 +11,13 @@
 			<li><a href="alta">Alta</a></li>
 			<li><a href="login?opcion=logout">Salir</a></li>
 		</ul>
-		<table border="1">
+		<ul>
+					<li><a href="/productocrud">Mantenimiento de productos</a></li>
+					<li><a href="/productoform?op=alta">Alta de productos</a></li>
+					<li><a href="/usuariocrud">Mantenimiento de usuarios</a></li>
+					<li><a href="/usuarioform?op=alta">Alta de usuarios</a></li>
+				</ul>
+		<table>
 	<thead>
 		<tr>
 			<th>Operaciones</th>

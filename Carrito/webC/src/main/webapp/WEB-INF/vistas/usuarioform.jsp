@@ -28,8 +28,8 @@
 		  	/>
 		</fieldset>
 		<fieldset>
-			<label for="nombreCompleto">Nombre Completo</label> <input id="nombreCompleto"
-				name="nombreCompleto"  value="${usuario.nombreCompleto}"
+			<label for="nombre_completo">Nombre Completo</label> <input id="nombre_completo"
+				name="nombre_completo"  value="${usuario.nombre_completo}"
 				
 				/>
 				

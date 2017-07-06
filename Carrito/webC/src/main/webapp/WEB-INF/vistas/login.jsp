@@ -19,7 +19,7 @@
 		</fieldset>
 		<fieldset>
 			<input type="submit" value="Login" />
-			<!-- <p class="errores">${usuario.errores}</p>-->
+			
 		</fieldset>		
 	</form>
 	

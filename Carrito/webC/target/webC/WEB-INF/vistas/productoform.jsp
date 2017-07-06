@@ -1,67 +1,112 @@
 <%@ include file="includes/cabecera.jsp" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
+<%--Para el encoding. --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%--Cargamos las librerias. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div>
 	<h2>Formulario de productos</h2>
-</div>
 	
-	<jsp:useBean id="productos" scope="request"
+	<%--Llamamos a clases. --%>
+	<jsp:useBean id="producto" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Producto" />
 
-	<form action="productoform" method="post">
-		<fieldset 
-			<c:if test="${param.op == 'alta'}">
-				style="display:none;"
-			</c:if> 
-		>
-			<label for="id">Id</label> 
-			
-			<input id="id" name="id" type="number"
-			  required="required"  value="${productos.id}" 
-			  
-				<c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
-					readonly="readonly"
-			  	</c:if> 
-		  	/>
-		</fieldset>
+		
+
+   <%--"Creacion" de los formularios. --%>
+	<form action="productosform" method="post">
+	 
+	    <%--Nombre. --%>
 		<fieldset>
 			<label for="nombre">Nombre</label> 
 			
-			<input <c:if test="${param.op == 'borrar'}">
-					readonly="readonly"
-					</c:if> id="nombre" name="nombre"  
-				required="required"  value="${productos.nombre}"/>
+			<input id="nombre" name="nombre"
+			  required="required"  value="${producto.nombre}" 
+			  
+			  <c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
+			  	readonly="readonly"
+			  </c:if>   
+		  	/>
+		  	
+		  	<%--Que solo se vea el dato de nombre a la hora de borrar. --%>
+		  	
+		  	<c:if test="${param.op != 'borrar' }">
 		</fieldset>
-		<fieldset 
-			<c:if test="${param.op == 'borrar'}">
-				style="display:none;"
-			</c:if>
-		>
-		</fieldset>	
 		
-		<fieldset 
-			<c:if test="${param.op == 'borrar'}">
-				style="display:none;"
-			</c:if>
-		>
-			<label for="precio">Precio</label> 
-			<input id="precio" name="precio" value="${producto.precio}"/>
-		</fieldset>
+		
+		<%--id, en el alta no aparece por que se crea automaticamente. --%>
+		<c:if test="{param.op != 'alta'">
 		<fieldset>
-			<input type="submit" value="${fn:toUpperCase(param.op)}" 
-				<c:if test="${param.op == null or param.op == ''}">
-			  		style="display:none;"
-			  	</c:if>
+			<label for="id">id</label> 
+			<input  id="id" name="id" 
+			<c:if test="${param.op=='modificar' }">
+			readonly="readonly"
+			value="${producto.id}"
+			</c:if>
 			/>
-			<p class="errores">${productos.errores}</p>
+		</fieldset>
+		</c:if>
+		
+		<%--Descripcion. --%>
+		<fieldset>
+			<label for="descripcion">Descripcion</label> 
+			<input  id="descripcion" name="descripcion"  
+			<c:if test="${param.op=='modificar' }">
+			value="${producto.descripcion}"
+			</c:if>
+			/>
+		</fieldset>
+		
+		<%--Precio --%>
+		<fieldset>
+			<label for="precio">Precio</label> 
+			<input  id="precio" name="precio" 
+			<c:if test="${param.op=='modificar' }">
+			value="${producto.precio}"
+			</c:if>
+			/>
+		</fieldset>		
+		
+		<%--Stock. --%>
+		<fieldset>
+			<label for="stock">Stock</label> 
+			<input  id="stock" name="stock" 
+			<c:if test="${param.op=='modificar' }">
+			value="${producto.stock}"
+			</c:if>
+			/>
+		</fieldset>
+		
+		<%--Ruta de la imagen. --%>
+		<fieldset>
+			<label for="rutaImagen">Imagen</label> 
+			<input  id="rutaImagen" name="rutaImagen" 
+			<c:if test="${param.op=='modificar' }">
+			value="${producto.rutaImagen}"
+			</c:if>
+			/>
+		</fieldset>
+		
+		 </c:if>  
+		
+		<%--El BOTON para validar el formulario. --%>
+		<fieldset>
+			<input type="submit" value="${fn:toUpperCase(param.op)}" />
+			
 			
 			<input type="hidden" name="opform" value="${param.op}" />
 		</fieldset>
 	</form>
 	
-
 	
+	<%--Para que se crea una ventana que hay que validar la operacion de borrado. --%>
+	<c:if test="${param.op == 'borrar'}">
+		<script>
+			document.forms[0].onsubmit = confirmarBorrado;
+		</script>
+	</c:if>
+
+<%--pie --%>
 <%@ include file="includes/pie.jsp" %>

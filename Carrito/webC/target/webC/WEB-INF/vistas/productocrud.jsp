@@ -1,34 +1,51 @@
 <%@ include file="includes/cabecera.jsp"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%--Para el encoding. --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%--Cargamos la libreria core de jstl --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div>
-	<h2>Mantenimiento de productos</h2>
-</div>
 
-<table border=1>
+
+<%--Titulo --%>
+<h2>Mantenimiento de productos.</h2>
+<%--Tabla --%>
+<table class="table table-hover text-centered">
+
+<%--Titulos de las columnas. --%>
 	<thead>
 		<tr>
-			<th>Id</th>
-			<th>Nombre producto</th>
-			<th>Precio</th>
 			<th>Operaciones</th>
-			</tr>
+			<th>Id</th>
+			<th>Nombre</th>
+			
+			<th>Precio</th>
+			
+
+		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${applicationScope.productosArr}" var="productos">
+	
+	<%--Bucle de lectura de elementos de la tienda. --%>
+		<c:forEach items="${requestScope.productos}" var="producto">
 			<tr>
-				<td>${productos.id}</td>
-				<td>${productos.nombre}</td>
-				<td>${productos.precio} €</td>
 				<td>
-					<a href="?op=modificar&id=${productos.id}">Modificar</a>
-					<a href="?op=borrar&id=${productos.id}">Borrar</a>
+					<a href="?op=modificar&id=${producto.id}">Modificar</a>
+					<a href="?op=borrar&id=${producto.id}">Borrar</a>
 				</td>
+				<td>${producto.id}</td>
+				<td>${producto.nombre}</td>
+				
+				<td>${producto.precio} €</td>
+				
+				
+				
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 
+
+
+<%--pie --%>
 <%@ include file="includes/pie.jsp"%>
