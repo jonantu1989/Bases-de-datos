@@ -112,12 +112,13 @@ public class UsuarioFormServlet extends HttpServlet {
 		case "borrar":
 			if (username != null) {
 				if (usuario.getUsername().equals(usuario.getUsername())) {
-					if (usuarios != null)
+					if (usuarios != null) {
 						usuarios.abrir();
-					usuarios.delete(usuario);
-					usuarios.cerrar();
-					log.info("Usuario borrado");
-					rutaFormulario.forward(request, response);
+						usuarios.delete(usuario);
+						usuarios.cerrar();
+						log.info("Usuario borrado");
+						rutaFormulario.forward(request, response);
+					}
 				} else {
 					rutaListado.forward(request, response);
 				}

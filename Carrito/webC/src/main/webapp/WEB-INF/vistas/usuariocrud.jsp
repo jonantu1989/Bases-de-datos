@@ -24,15 +24,14 @@
 	
 	<%--Fila de las tablas. --%>
 	<tbody>
-		<c:forEach var="usuario" items="${usuarios}" >
+		<c:forEach items="${requestScope.usuarios}" var="usuario">
 			<tr>
 				<td>
-					<a href="?op=modificar&id=${usuario.id}">Modificar</a>
-					<a href="?op=borrar&id=${usuario.id}">Borrar</a>
+					<a href="?op=modificar&id=${usuarios.nombre}">Modificar</a>
+					<a href="?op=borrar&id=${usuarios.nombre}">Borrar</a>
 				</td>
-				<td>${usuario.username}</td>
-				<td>${usuario.password}</td>
-				<td>${usuario.nombreCompleto}</td>
+				<td>${usuarios.nombre}</td>
+				<td>${usuarios.pass}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

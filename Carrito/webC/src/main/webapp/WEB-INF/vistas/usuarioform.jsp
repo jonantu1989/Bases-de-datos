@@ -27,20 +27,15 @@
 			  </c:if>   
 		  	/>
 		</fieldset>
-		<fieldset>
-			<label for="nombre_completo">Nombre Completo</label> <input id="nombre_completo"
-				name="nombre_completo"  value="${usuario.nombre_completo}"
-				
-				/>
-				
-		</fieldset>
+		
+	
 		<fieldset>
 			<label for="pass">Contraseña</label> <input type="password" id="pass"
-				name="pass" />
+				name="pass" value="${usuario.password}" />
 		</fieldset>
 		<fieldset>
 			<label for="pass2">Contraseña otra vez</label> <input type="password" id="pass2"
-				name="pass2" />
+				name="pass2" value="${usuario.password}" />
 		</fieldset>
 		<fieldset>
 			<input type="submit" value="${fn:toUpperCase(param.op)}" />
