@@ -1,70 +1,61 @@
 <%@ include file="includes/cabecera.jsp" %>
 
 
-	<div>
-		<h2>Formulario de usuarios</h2>
-	</div>
-	<jsp:useBean id="usuarios" scope="request"
+<%--Para el encoding. --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<%--Cargamos las librerias de jstl. --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+	<h2>Formulario de usuarios</h2>
+	
+	<%--Cargamos la clase usuario. --%>
+	<jsp:useBean id="usuario" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
+<%--Formulario dependiente de la opcion elegida. --%>
 	<form action="usuarioform" method="post">
-		
-		<fieldset style="display:none;">
-			<label for="id">Id</label> 
-			
-			<input id="id" name="id" type="number"
-			  required="required"  value="${usuarios.id}"/>
-		</fieldset>
 		<fieldset>
-			<label for="username">Nombre</label> 
+			<label for="username">Username</label> 
 			
 			<input id="username" name="username"
-			  required="required" value="${usuarios.username}" 
+			  required="required" minlength="4" value="${usuario.username}" 
 			  
-			  <c:if test="${param.op == 'borrar'}">
+			  <c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
 			  	readonly="readonly"
 			  </c:if>   
 		  	/>
 		</fieldset>
-		
-		<fieldset <c:if test="${param.op == 'borrar'}">
-			style="display:none;"
-			</c:if>
-			
-		>
-			<label for="password">Contraseña</label> <input type="password" id="pass"
-				name="password"/>
-		</fieldset>
-		<fieldset <c:if test="${param.op == 'borrar'}">
-			style="display:none;"
-			</c:if>
-		>
-			<label for="password2">Contraseña otra vez</label> <input type="password" id="password2"
-				name="password2"/>
-		</fieldset>
-		<fieldset <c:if test="${param.op == 'borrar'}">
-			style="display:none;"
-			</c:if>
-			
-		>
-			<label for="nombre_completo">Nombre completo</label> <input id="nombre_completo"
-				name="nombre_completo"/>
-		</fieldset>
-		<fieldset <c:if test="${param.op == 'borrar'}">
-			style="display:none;"
-			</c:if>
-		>
-			<label for="id_roles">Permiso de administrador</label> 
-			<input type="checkbox" id="id_roles" name="id_roles" value="1" />
+		<fieldset>
+			<label for="nombreCompleto">Nombre Completo</label> <input id="nombreCompleto"
+				name="nombreCompleto"  value="${usuario.nombreCompleto}"
+				
+				/>
+				
 		</fieldset>
 		<fieldset>
-			<input type="submit" value="${fn:toUpperCase(param.op)}" 
-				<c:if test="${param.op == null or param.op == ''}">
-			  		style="display:none;"
-			  	</c:if>
-			/>
+			<label for="pass">ContraseÃ±a</label> <input type="password" id="pass"
+				name="pass" />
+		</fieldset>
+		<fieldset>
+			<label for="pass2">ContraseÃ±a otra vez</label> <input type="password" id="pass2"
+				name="pass2" />
+		</fieldset>
+		<fieldset>
+			<input type="submit" value="${fn:toUpperCase(param.op)}" />
+			
+			
 			<input type="hidden" name="opform" value="${param.op}" />
 		</fieldset>
 	</form>
+	
+	<c:if test="${param.op == 'borrar'}">
+		<script>
+			document.forms[0].onsubmit = confirmarBorrado;
+		</script>
+	</c:if>
 
+
+<%--Pie de la pagina. --%>	
 <%@ include file="includes/pie.jsp" %>
