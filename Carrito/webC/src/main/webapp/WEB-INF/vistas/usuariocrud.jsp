@@ -26,18 +26,19 @@
 	
 	<%--Fila de las tablas. --%>
 	<tbody>
-		<c:forEach items="${requestScope.usuarios}" var="usuario">
+		<c:forEach items="${requestScope.productos}" var="producto">
 			<tr>
 				<td>
-					<a href="?op=alta&id=${usuario.nombre}">Alta</a>
-					<a href="?op=modificar&id=${usuario.nombre}">Modificar</a>
-					<a href="?op=borrar&id=${usuario.nombre}">Borrar</a>
+					<a href="?op=modificar&id=${producto.id}">Modificar</a>
+					<a href="?op=borrar&id=${producto.id}">Borrar</a>
 				</td>
-				<td>${usuario.id}</td>
-				<td>${usuario.id_roles}</td>
-				<td>${usuario.username}</td>
-				<td>${usuario.password}</td>
-				<td>${usuario.nombre_completo}</td>
+				<td>${producto.id}</td>
+				<td>${producto.nombre}</td>
+				
+				<td>${producto.precio} €</td>
+				
+				
+				
 			</tr>
 		</c:forEach>
 	</tbody>

@@ -23,7 +23,7 @@
 			<label for="nombre">Nombre</label> 
 			
 			<input id="nombre" name="nombre"
-			  required="required"  value="${productos.nombre}" 
+			  required="required"  value="${producto.nombre}" 
 			  
 			  <c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
 			  	readonly="readonly"
@@ -43,7 +43,7 @@
 			<input  id="id" name="id" 
 			<c:if test="${param.op=='modificar' }">
 			readonly="readonly"
-			value="${productos.id}"
+			value="${producto.id}"
 			</c:if>
 			/>
 		</fieldset>
@@ -51,16 +51,16 @@
 		
 		
 		
+		
 		<%--Precio --%>
 		<fieldset>
 			<label for="precio">Precio</label> 
-			<input  id="precio" name="precio" value="${productos.precio}"
+			<input  id="precio" name="precio" 
 			<c:if test="${param.op=='modificar' }">
-			value="${productos.precio}"
+			value="${producto.precio}"
 			</c:if>
 			/>
 		</fieldset>		
-		
 		
 		
 		
