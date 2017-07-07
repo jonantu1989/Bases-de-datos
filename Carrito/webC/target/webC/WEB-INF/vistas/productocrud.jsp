@@ -16,9 +16,11 @@
 	<thead>
 		<tr>
 			<th>Operaciones</th>
-			<th>Id</th>
+			<th>ID producto</th>
 			<th>Nombre</th>
 			<th>Precio</th>
+			
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -31,8 +33,7 @@
 				</td>
 				<td>${producto.id}</td>
 				<td>${producto.nombre}</td>
-				<td>${producto.precio}</td>
-		
+				<td>${producto.precio}</td>		
 			</tr>
 			
 		</c:forEach>

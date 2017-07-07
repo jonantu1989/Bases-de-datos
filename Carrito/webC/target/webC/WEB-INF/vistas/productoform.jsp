@@ -56,7 +56,7 @@
 			<label for="precio">Precio</label> 
 			<input  id="precio" name="precio" value="${productos.precio}"
 			<c:if test="${param.op=='modificar' }">
-			value="${producto.precio}"
+			value="${productos.precio}"
 			</c:if>
 			/>
 		</fieldset>		
