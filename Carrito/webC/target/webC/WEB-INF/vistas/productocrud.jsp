@@ -10,7 +10,7 @@
 <%--Titulo --%>
 <h2>Mantenimiento de productos.</h2>
 <%--Tabla --%>
-<table class="table table-hover text-centered">
+<table border="1" class="table table-hover text-centered">
 
 <%--Titulos de las columnas. --%>
 	<thead>
@@ -18,26 +18,25 @@
 			<th>Operaciones</th>
 			<th>Id</th>
 			<th>Nombre</th>
-			
 			<th>Precio</th>
-			
-
 		</tr>
 	</thead>
 	<tbody>
-	
-	<%--Bucle de lectura de elementos de la tienda. --%>
-		<c:forEach items="${requestScope.producto}" var="producto">
+		<c:forEach items="${requestScope.productos}" var="producto">
 			<tr>
 				<td>
-				<a href="?op=modificar&id=${producto.id}">Modificar</a>
-				<a href="?op=borrar&id=${producto.id}">Borrar</a>
+					<a href="?op=alta&id=${producto.id}">Alta</a>
+					<a href="?op=modificar&id=${producto.id}">Modificar</a>
+					<a href="?op=borrar&id=${producto.id}">Borrar</a>
 				</td>
 				<td>${producto.id}</td>
 				<td>${producto.nombre}</td>
-				<td>${producto.precio} €</td>
+				<td>${producto.precio}</td>
+		
 			</tr>
+			
 		</c:forEach>
+				
 	</tbody>
 </table>
 

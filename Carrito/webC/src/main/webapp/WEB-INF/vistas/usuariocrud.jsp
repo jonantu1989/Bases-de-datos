@@ -10,12 +10,14 @@
 
 
 <%--Tabla que muestra los usuarios --%>
-<table class="table table-hover text-centered">
+<table border=1 class="table table-hover text-centered">
 
 <%--Cabecera de la tabla. --%>
 	<thead>
 		<tr>
 			<th>Operaciones</th>
+			<td>Id</td>
+			<td>Id_Roles</td>
 			<th>Usuario</th>
 			<th>Contraseña</th>
 			<th>Nombre Completo</th>
@@ -27,11 +29,15 @@
 		<c:forEach items="${requestScope.usuarios}" var="usuario">
 			<tr>
 				<td>
-					<a href="?op=modificar&id=${usuarios.nombre}">Modificar</a>
-					<a href="?op=borrar&id=${usuarios.nombre}">Borrar</a>
+					<a href="?op=alta&id=${usuario.nombre}">Alta</a>
+					<a href="?op=modificar&id=${usuario.nombre}">Modificar</a>
+					<a href="?op=borrar&id=${usuario.nombre}">Borrar</a>
 				</td>
-				<td>${usuarios.nombre}</td>
-				<td>${usuarios.pass}</td>
+				<td>${usuario.id}</td>
+				<td>${usuario.id_roles}</td>
+				<td>${usuario.username}</td>
+				<td>${usuario.password}</td>
+				<td>${usuario.nombre_completo}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
