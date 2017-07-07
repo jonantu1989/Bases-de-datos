@@ -49,15 +49,8 @@
 		</fieldset>
 		</c:if>
 		
-		<%--Descripcion. --%>
-		<fieldset>
-			<label for="descripcion">Descripcion</label> 
-			<input  id="descripcion" name="descripcion"  
-			<c:if test="${param.op=='modificar' }">
-			value="${producto.descripcion}"
-			</c:if>
-			/>
-		</fieldset>
+		
+		
 		
 		<%--Precio --%>
 		<fieldset>
@@ -69,25 +62,7 @@
 			/>
 		</fieldset>		
 		
-		<%--Stock. --%>
-		<fieldset>
-			<label for="stock">Stock</label> 
-			<input  id="stock" name="stock" 
-			<c:if test="${param.op=='modificar' }">
-			value="${producto.stock}"
-			</c:if>
-			/>
-		</fieldset>
 		
-		<%--Ruta de la imagen. --%>
-		<fieldset>
-			<label for="rutaImagen">Imagen</label> 
-			<input  id="rutaImagen" name="rutaImagen" 
-			<c:if test="${param.op=='modificar' }">
-			value="${producto.rutaImagen}"
-			</c:if>
-			/>
-		</fieldset>
 		
 		 </c:if>  
 		
