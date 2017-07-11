@@ -12,10 +12,10 @@
 			<li><a href="login?opcion=logout">Salir</a></li>
 		</ul>
 		<ul>
-					<li style="display:inline;"><a href="/productocrud">Mantenimiento de productos</a></li>
-					<li style="display:inline;"><a href="/productoform?op=alta">Alta de productos</a></li>
 					<li style="display:inline;"><a href="/usuariocrud">Mantenimiento de usuarios</a></li>
 					<li style="display:inline;"><a href="/usuarioform?op=alta">Alta de usuarios</a></li>
+					<li style="display:inline;"><a href="/productocrud">Mantenimiento de productos</a></li>
+					<li style="display:inline;"><a href="/productoform?op=alta">Alta de productos</a></li>
 				</ul>
 		<table>
 	<thead>
