@@ -58,16 +58,15 @@ public class UsuarioFormServlet extends HttpServlet {
 			return;
 		}
 
-		Usuario usuario = new Usuario(id_roles, 2, nombre_completo, password,
-				username);
+		Usuario usuario = null;
 
 		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
 
 		switch (op) {
 		case "alta":
 
-			usuario = new Usuario(id_roles, 0, nombre_completo, password,
-					username);
+			usuario = new Usuario(id_roles, 0, password, username,
+					nombre_completo);
 
 			if (password != null && password2 != null) {
 				if (password.equals(password2)) {

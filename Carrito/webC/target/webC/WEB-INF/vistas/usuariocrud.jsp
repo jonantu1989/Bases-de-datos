@@ -29,6 +29,7 @@
 		<c:forEach items="${requestScope.usuarios}" var="usuario">
 			<tr>
 				<td>
+					<a href="?op=alta&id=${usuario.nombre}">Alta</a>
 					<a href="?op=modificar&id=${usuario.nombre}">Modificar</a>
 					<a href="?op=borrar&id=${usuario.nombre}">Borrar</a>
 				</td>
