@@ -39,7 +39,7 @@ public class UsuarioFormServlet extends HttpServlet {
 		String password2 = request.getParameter("password2");
 		String nombre_completo = request.getParameter("nombre_completo");
 
-		int id_roles;
+		int id_roles; // id_roles siempre se le asigna 2
 
 		if (request.getParameter("id_roles") == null) {
 			id_roles = 2;
@@ -65,6 +65,10 @@ public class UsuarioFormServlet extends HttpServlet {
 
 		switch (op) {
 		case "alta":
+
+			usuario = new Usuario(id_roles, 0, nombre_completo, password,
+					username);
+
 			if (password != null && password2 != null) {
 				if (password.equals(password2)) {
 					try {
@@ -77,7 +81,7 @@ public class UsuarioFormServlet extends HttpServlet {
 						// Si falla el insert se coge la excepción que lanza y
 						// se le
 						// reenvía al formulario con el objeto
-						// usuario que traía metido en la request
+						// usuario que estaba metido en la request
 						request.setAttribute("usuario", usuario);
 						e.printStackTrace();
 						rutaListado.forward(request, response);
@@ -126,5 +130,4 @@ public class UsuarioFormServlet extends HttpServlet {
 			}
 		}
 	}
-
 }
