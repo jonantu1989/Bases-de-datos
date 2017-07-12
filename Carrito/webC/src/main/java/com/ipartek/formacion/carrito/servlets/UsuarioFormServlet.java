@@ -113,7 +113,7 @@ public class UsuarioFormServlet extends HttpServlet {
 				break;
 			}
 		case "borrar":
-			if (username != null) {
+			if (username == null) {
 				if (usuario.getUsername().equals(usuario.getUsername())) {
 					if (usuarios != null) {
 						usuarios.abrir();
