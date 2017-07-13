@@ -29,7 +29,7 @@ public class ProductoFormServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// La application
+		// La application.
 		// Recoger el objeto application del ServletContext
 		ServletContext application = getServletContext();
 		log.info("Comenzamos el POST");
