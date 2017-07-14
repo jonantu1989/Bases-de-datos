@@ -11,7 +11,7 @@
 <form class="form-group" action="login" method="post">
 		<fieldset>
 			<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
-			  required="required" minlength="4" value="${usuarios.username}"  />
+			  required="required" value="${usuarios.username}"  />
 		</fieldset>
 		<fieldset>
 			<label for="pass">Contraseña</label> <input type="password" id="pass"

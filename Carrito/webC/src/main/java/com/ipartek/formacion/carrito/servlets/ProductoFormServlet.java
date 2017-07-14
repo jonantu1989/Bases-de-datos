@@ -87,7 +87,8 @@ public class ProductoFormServlet extends HttpServlet {
 		// por el navegador
 		// encapsulada en opform.
 		if (op == null) {
-			rutaListado.forward(request, response);
+			rutaListado.forward(request, response); // NumberFormatException:
+													// null
 			return;
 		}
 

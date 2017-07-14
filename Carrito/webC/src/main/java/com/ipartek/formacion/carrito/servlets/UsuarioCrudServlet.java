@@ -65,7 +65,7 @@ public class UsuarioCrudServlet extends HttpServlet {
 			case "modificar":
 			case "borrar":
 				String username = request.getParameter("username");
-				usuarios.abrir();
+				usuarios.abrir(); // NumberFormatException: null
 				usuario = usuarios.findByName(username);
 				usuarios.cerrar();
 				request.setAttribute("usuario", usuario);

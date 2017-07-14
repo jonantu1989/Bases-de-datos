@@ -67,7 +67,8 @@ public class ProductoCrudServlet extends HttpServlet {
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				int id = Integer.parseInt(request.getParameter("id"));
+				int id = Integer.parseInt(request.getParameter("id")); // NumberFormatException:
+																		// null
 				productos.abrir();
 				producto = productos.findById(id);
 				productos.cerrar();
