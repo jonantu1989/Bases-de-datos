@@ -8,6 +8,15 @@ public class Usuario {
 	private String nombre_completo;
 	private String password;
 	private String username;
+	private String errores;
+	
+	public String getErrores() {
+		return errores;
+	}
+
+	public void setErrores(String errores) {
+		this.errores = errores;
+	}
 
 	public Usuario(int id, int id_roles, String nombre_completo,
 			String password, String username) {
