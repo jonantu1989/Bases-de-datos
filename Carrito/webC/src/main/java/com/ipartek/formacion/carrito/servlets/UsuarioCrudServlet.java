@@ -65,10 +65,12 @@ public class UsuarioCrudServlet extends HttpServlet {
 			case "modificar":
 			case "borrar":
 				String username = request.getParameter("username");
-				usuarios.abrir(); // NullPointerException: null
-				usuario = usuarios.findByName(username);
-				usuarios.cerrar();
-				request.setAttribute("usuario", usuario);
+				if (username != null) {
+					usuarios.abrir(); // NullPointerException: null
+					usuario = usuarios.findByName(username);
+					usuarios.cerrar();
+					request.setAttribute("usuario", usuario);
+				}
 			case "alta":
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
 						response);
