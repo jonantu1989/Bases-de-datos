@@ -130,10 +130,12 @@ public class ProductoFormServlet extends HttpServlet {
 				rutaFormulario.forward(request, response);
 			} else {
 				try {
-					productos.abrir();
-					productos.update(producto);
-					productos.cerrar();
-					log.info("Producto modificado");
+					if (productos != null) {
+						productos.abrir();
+						productos.update(producto);
+						productos.cerrar();
+						log.info("Producto modificado");
+					}
 				} catch (DAOException e) {
 
 					request.setAttribute("producto", producto);

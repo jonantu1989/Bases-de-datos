@@ -75,7 +75,7 @@ public class ProductoCrudServlet extends HttpServlet {
 					productos.cerrar();
 					request.setAttribute("producto", producto);
 				} catch (Exception e) {
-					System.out.println("Error");
+
 				}
 			case "alta":
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
