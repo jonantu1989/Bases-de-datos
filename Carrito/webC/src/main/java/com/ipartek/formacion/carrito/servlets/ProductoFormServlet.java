@@ -148,10 +148,12 @@ public class ProductoFormServlet extends HttpServlet {
 			producto = new Producto(id, nombre, precio);
 
 			try {
-				productos.abrir();
-				productos.delete(producto);
-				productos.cerrar();
-				log.info("Producto borrado");
+				if (productos != null) {
+					productos.abrir();
+					productos.delete(producto);
+					productos.cerrar();
+					log.info("Producto borrado");
+				}
 			} catch (DAOException e) {
 
 				request.setAttribute("producto", producto);

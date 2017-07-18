@@ -67,12 +67,16 @@ public class ProductoCrudServlet extends HttpServlet {
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				int id = Integer.parseInt(request.getParameter("id")); // NumberFormatException:
-																		// null
-				productos.abrir();
-				producto = productos.findById(id);
-				productos.cerrar();
-				request.setAttribute("producto", producto);
+				try {
+					int id = Integer.parseInt(request.getParameter("id")); // NumberFormatException:
+																			// null
+					productos.abrir();
+					producto = productos.findById(id);
+					productos.cerrar();
+					request.setAttribute("producto", producto);
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
 			case "alta":
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
 						response);
