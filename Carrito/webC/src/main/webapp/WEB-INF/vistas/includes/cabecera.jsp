@@ -7,7 +7,7 @@
 		<head>
 			<title>Bicis</title>
 			<link rel="stylesheet" href="css/estilos.css" />
-<script src="js/funciones.js"></script>
+			<script src="js/funciones.js"></script>
 		</head>
 		
 		<body>
