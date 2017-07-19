@@ -131,7 +131,7 @@ public final class usuariocrud_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\t<thead>\r\n");
       out.write("\t\t<tr>\r\n");
-      out.write("\t\t\t<th>Operaciones</th>\r\n");
+      out.write("\t\t\t\r\n");
       out.write("\t\t\t<td>Id</td>\r\n");
       out.write("\t\t\t<td>Id_Roles</td>\r\n");
       out.write("\t\t\t<th>Usuario</th>\r\n");
@@ -219,14 +219,7 @@ public final class usuariocrud_jsp extends org.apache.jasper.runtime.HttpJspBase
         do {
           out.write("\r\n");
           out.write("\t\t\t<tr>\r\n");
-          out.write("\t\t\t\t<td>\r\n");
-          out.write("\t\t\t\t\t<a href=\"?op=modificar&id=");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${usuario.nombre}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("\">Modificar</a>\r\n");
-          out.write("\t\t\t\t\t<a href=\"?op=borrar&id=");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${usuario.nombre}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("\">Borrar</a>\r\n");
-          out.write("\t\t\t\t</td>\r\n");
+          out.write("\t\t\t\t\r\n");
           out.write("\t\t\t\t<td>");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${usuario.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("</td>\r\n");
