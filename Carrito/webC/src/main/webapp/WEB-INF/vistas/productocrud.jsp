@@ -10,7 +10,7 @@
 <%--Titulo --%>
 <h2>Mantenimiento de productos.</h2>
 <%--Tabla --%>
-<table border="1" class="table table-hover text-centered">
+<table border="1" class="table table-hover text-centered" style="margin: 0 auto;">
 
 <%--Titulos de las columnas. --%>
 	<thead>

@@ -1,4 +1,3 @@
-com\ipartek\formacion\carrito\filters\Filtro.class
 com\ipartek\formacion\carrito\servlets\ProductoFormServlet.class
 com\ipartek\formacion\carrito\servlets\UsuarioFormServlet.class
 com\ipartek\formacion\carrito\rutas\Rutas.class
@@ -6,5 +5,4 @@ com\ipartek\formacion\carrito\servlets\AltaServlet.class
 com\ipartek\formacion\carrito\servlets\CatalogoServlet.class
 com\ipartek\formacion\carrito\servlets\ProductoCrudServlet.class
 com\ipartek\formacion\carrito\servlets\UsuarioCrudServlet.class
-com\ipartek\formacion\carrito\listeners\Inicializacion.class
 com\ipartek\formacion\carrito\servlets\LoginServlet.class
