@@ -1,8 +1,10 @@
-package com.ipartek.formacion.listeners;
+package com.ipartek.formacion.carrito.listeners;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
+@WebListener
 public class Inicializacion implements ServletContextListener {
 
 	public Inicializacion() {
