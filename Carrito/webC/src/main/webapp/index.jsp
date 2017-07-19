@@ -24,7 +24,7 @@
 		<table>
 	<thead>
 		<tr>
-			<th>Operaciones</th>
+			
 			<th>ID producto</th>
 			<th>Nombre</th>
 			<th>Precio</th>
@@ -33,7 +33,7 @@
 	</thead>
 	<tbody>
 		<c:forEach items="${requestScope.productos}" var="producto">
-			<tr>
+			<tr>  <%--Si quito los enlaces no salen porque ya estan arriba--%>
 				<td>
 					<a href="?op=alta&id=${producto.id}">Alta</a>
 					<a href="?op=modificar&id=${producto.id}">Modificar</a>
