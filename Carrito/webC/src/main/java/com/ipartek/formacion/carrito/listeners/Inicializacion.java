@@ -93,7 +93,7 @@ public class Inicializacion implements ServletContextListener {
 			log.info("No se pudo crear la lista de productos");
 		}
 
-		usuarios.cerrar();
+		productos.cerrar();
 
 		application.setAttribute("productosArr", productosArray);
 
