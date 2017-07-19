@@ -1,6 +1,7 @@
 package com.ipartek.formacion.carrito.servlets;
 
 //TODO Mirar en casa en mi repositorio de javaweb el proyecto de catalogoapp el alta, el login y todas las servlets.
+// TODO En casa descargar no clonar el ejercicio de mikel
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
