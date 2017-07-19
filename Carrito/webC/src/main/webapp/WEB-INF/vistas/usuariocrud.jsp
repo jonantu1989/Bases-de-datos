@@ -10,7 +10,7 @@
 
 
 <%--Tabla que muestra los usuarios --%>
-<table border=1 class="table table-hover text-centered" style="margin: 0 auto;">
+<table class="table table-hover text-centered" style="margin: 0 auto;">
 
 <%--Cabecera de la tabla. --%>
 	<thead>
