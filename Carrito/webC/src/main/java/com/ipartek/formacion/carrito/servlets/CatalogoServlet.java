@@ -53,11 +53,11 @@ public class CatalogoServlet extends HttpServlet {
 		// (porque el usuario haya entrado directamente al catálogo desde
 		// URL), crearlo.
 
-		CatalogoDAO carrito = (CatalogoDAO) session.getAttribute("carrito");
+		CatalogoDAO catalogo = (CatalogoDAO) session.getAttribute("carrito");
 
-		if (carrito == null) {
+		if (catalogo == null) {
 
-			carrito = CatalogoDAOFactory.getCarritoDAO();
+			catalogo = CatalogoDAOFactory.getCarritoDAO();
 		}
 
 		// Lógica del servlet según la opción con la que haya llegado el usuario
@@ -66,9 +66,9 @@ public class CatalogoServlet extends HttpServlet {
 
 		if (op == null) {
 
-			session.setAttribute("carrito", carrito);
+			session.setAttribute("carrito", catalogo);
 			session.setAttribute("numeroProductos",
-					carrito.buscarTodosLosProductos().length);
+					catalogo.buscarTodosLosProductos().length);
 
 			request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
 					.forward(request, response);
@@ -78,9 +78,9 @@ public class CatalogoServlet extends HttpServlet {
 			switch (op) {
 
 			case "logout":
-				session.setAttribute("carrito", carrito);
+				session.setAttribute("carrito", catalogo);
 				session.setAttribute("numeroProductos",
-						carrito.buscarTodosLosProductos().length);
+						catalogo.buscarTodosLosProductos().length);
 				request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
 						.forward(request, response);
 				break;
@@ -100,7 +100,7 @@ public class CatalogoServlet extends HttpServlet {
 					productos.iniciarTransaccion();
 					try {
 						productos.delete(producto);
-						carrito.anadirAlCarrito(producto);
+						catalogo.anadirAlCarrito(producto);
 						productos.confirmarTransaccion();
 					} catch (Exception e) {
 						productos.deshacerTransaccion();
@@ -113,9 +113,9 @@ public class CatalogoServlet extends HttpServlet {
 				productos.cerrar();
 
 				application.setAttribute("productos", productos);
-				session.setAttribute("carrito", carrito);
+				session.setAttribute("carrito", catalogo);
 				session.setAttribute("numeroProductos",
-						carrito.buscarTodosLosProductos().length);
+						catalogo.buscarTodosLosProductos().length);
 
 				request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
 						.forward(request, response);
