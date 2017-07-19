@@ -10,4 +10,6 @@ public interface IpartekDAO {
 	public void confirmarTransaccion();
 
 	public void deshacerTransaccion();
+
+	public void reutilizarConexion(IpartekDAO dao);
 }

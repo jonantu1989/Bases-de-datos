@@ -89,4 +89,10 @@ public class IpartekDAOMySQL implements IpartekDAO {
 		}
 	}
 
+	@Override
+	public void reutilizarConexion(IpartekDAO dao) {
+		con = ((IpartekDAOMySQL) dao).con;
+
+	}
+
 }
