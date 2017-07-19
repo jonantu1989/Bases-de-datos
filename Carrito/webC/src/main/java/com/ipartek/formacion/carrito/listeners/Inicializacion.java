@@ -115,7 +115,7 @@ public class Inicializacion implements ServletContextListener {
 		if (!usuarios.validar(usuario)) {
 			try {
 				usuarios.insert(usuario);
-				log.info("Creado usuario noemal. Usuario: 'jon', Password: 'jon'");
+				log.info("Creado usuario normal. Usuario: 'jon', Password: 'jon'");
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.info(e.getMessage());
@@ -123,11 +123,32 @@ public class Inicializacion implements ServletContextListener {
 			}
 		}
 
-		// Vaciar la base de datos de productos y rellenarla con 2 productos de
+		// Vaciar la base de datos de productos y rellenarla con 5 productos de
 		// prueba
 
 		productos.reutilizarConexion(usuarios);
 		productos.iniciarTransaccion();
+
+		try {
+			// El array de productos es igual 0
+
+			if (productos.findAll().length == 0) {
+
+				productos.insert(new Producto(1, "Bicimonte1", 500));
+				productos.insert(new Producto(2, "Bicimonte2", 1000));
+				productos.insert(new Producto(3, "Bicimonte3", 1100));
+				productos.insert(new Producto(4, "Bicicarretera1", 1000));
+				productos.insert(new Producto(5, "Bicicarretera2", 1500));
+
+				log.info("Creados 5 productos de prueba");
+			}
+
+			productos.confirmarTransaccion();
+
+		} catch (Exception e) {
+			log.info("Error al crear productos de prueba");
+			productos.deshacerTransaccion();
+		}
 
 	}
 
