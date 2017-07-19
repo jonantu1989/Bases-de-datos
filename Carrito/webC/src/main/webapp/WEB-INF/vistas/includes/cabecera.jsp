@@ -24,11 +24,11 @@
 				 	 <li><a href="${applicationScope.login}/login">Login</a></li>
 					 <li><a href="${applicationScope.login}/login?op=logout">Logout</a></li>
 					 <br/>
-					 <li style="display:inline;"><a href="/usuariocrud">Mantenimiento de usuarios</a></li>
+					 <li style="display:inline;"><a href="/usuariocrud">Listado de usuarios</a></li>
 					 <li style="display:inline;"><a href="/usuarioform?op=alta">Alta de usuarios</a></li>
 					 <li style="display:inline;"><a href="/usuarioform?op=modificar">Modificar usuario</a></li>
 					 <li style="display:inline;"><a href="/usuarioform?op=borrar">Borrar usuario</a></li>
-					 <li style="display:inline;"><a href="/productocrud">Mantenimiento de productos</a></li>
+					 <li style="display:inline;"><a href="/productocrud">Listado de productos</a></li>
 					 <li style="display:inline;"><a href="/productoform?op=alta">Alta de productos</a></li>
 					 <li style="display:inline;"><a href="/productoform?op=modificar">Modificar producto</a></li>
 					 <li style="display:inline;"><a href="/productoform?op=borrar">Borrar producto</a></li>
