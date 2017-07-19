@@ -97,6 +97,38 @@ public class Inicializacion implements ServletContextListener {
 
 		application.setAttribute("productosArr", productosArray);
 
+		Usuario usuario = new Usuario(1, 1, "admin", "admin", "admin");
+
+		if (!usuarios.validar(usuario)) {
+			try {
+				usuarios.insert(usuario);
+				log.info("Creado usuario administrador. Usuario: 'admin', Password: 'admin'");
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info(e.getMessage());
+				log.info("No se pudo crear el usuario 'administrador'");
+			}
+		}
+
+		usuario = new Usuario(2, 2, "jon", "jon", "jon");
+
+		if (!usuarios.validar(usuario)) {
+			try {
+				usuarios.insert(usuario);
+				log.info("Creado usuario noemal. Usuario: 'jon', Password: 'jon'");
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info(e.getMessage());
+				log.info("No se pudo crear el usuario 'jon'");
+			}
+		}
+
+		// Vaciar la base de datos de productos y rellenarla con 2 productos de
+		// prueba
+
+		productos.reutilizarConexion(usuarios);
+		productos.iniciarTransaccion();
+
 	}
 
 }
