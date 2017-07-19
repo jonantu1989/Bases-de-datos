@@ -122,6 +122,7 @@ public class UsuarioFormServlet extends HttpServlet {
 						usuarios.cerrar();
 						log.info("Usuario borrado");
 						rutaFormulario.forward(request, response);
+						return;
 					}
 				} else {
 					rutaListado.forward(request, response);
