@@ -16,8 +16,8 @@
 	<thead>
 		<tr>
 			
-			<td>Id</td>
-			<td>Id_Roles</td>
+			<th>Id</th>
+			<th>Id_Roles</th>
 			<th>Usuario</th>
 			<th>Contraseña</th>
 			<th>Nombre Completo</th>
