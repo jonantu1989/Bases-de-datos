@@ -10,14 +10,14 @@
 
 
 <%--Tabla que muestra los usuarios --%>
-<table border=1 class="table table-hover text-centered">
+<table class="table table-hover text-centered" style="margin: 0 auto;">
 
 <%--Cabecera de la tabla. --%>
 	<thead>
 		<tr>
 			
-			<td>Id</td>
-			<td>Id_Roles</td>
+			<th>Id</th>
+			<th>Id_Roles</th>
 			<th>Usuario</th>
 			<th>Contraseña</th>
 			<th>Nombre Completo</th>

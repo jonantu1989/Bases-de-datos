@@ -125,9 +125,9 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		ResultSet generatedKeys = null;
 
 		try {
-			if (psInsert != null)
-				psInsert = con.prepareStatement(INSERT,
-						Statement.RETURN_GENERATED_KEYS);
+
+			psInsert = con.prepareStatement(INSERT,
+					Statement.RETURN_GENERATED_KEYS);
 
 			psInsert.setString(1, usuario.getUsername()); // NullPointerException
 			psInsert.setString(2, usuario.getPassword());

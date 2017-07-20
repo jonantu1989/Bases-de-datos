@@ -1,7 +1,7 @@
 <%@ include file="includes/cabecera.jsp"%>
 
 
-		<table>
+		<table style="margin: 0 auto;">
 	<thead>
 		<tr>
 			<th>ID producto</th>
