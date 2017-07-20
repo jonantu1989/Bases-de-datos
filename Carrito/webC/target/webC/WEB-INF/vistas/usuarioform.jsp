@@ -15,7 +15,7 @@
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
 <%--Formulario dependiente de la opcion elegida. --%>
-	<form action="usuarioform" method="post">
+	<form action="login" method="post">
 		<fieldset>
 			<label for="username">Username</label> 
 			

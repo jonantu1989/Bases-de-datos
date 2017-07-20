@@ -1,12 +1,12 @@
 <%@ include file="includes/cabecera.jsp"%>
 <div>
-	<h2>Alta</h2>
+	<h2>Alta de usuarios</h2>
 </div>
 
 <jsp:useBean id="usuario" scope="request"
 		class="com.ipartek.formacion.carrito.tipos.Usuario" />
 
-<form action="alta" method="post">
+<form action="usuarioform" method="post">
 <fieldset>
 <label for="username">Username</label>
 <input id="username" name="username" value="${usuarios.username}"/>
@@ -27,6 +27,6 @@
 	<a href="${applicationScope.rutaBase}/login">Login</a>
 </div>
 <div>
-<p class="mensaje">${sessionScope.alta}</p>
+<p class="mensaje">${sessionScope.catalogo}</p>
 </div>
 <%@ include file="includes/pie.jsp"%>

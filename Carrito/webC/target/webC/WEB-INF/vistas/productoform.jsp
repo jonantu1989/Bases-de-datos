@@ -16,7 +16,7 @@
 		
 
    <%--"Creacion" de los formularios. --%>
-	<form action="productoform" method="post">
+	<form action="productocrud" method="post">
 	 
 	    <%--Nombre. --%>
 		<fieldset>
