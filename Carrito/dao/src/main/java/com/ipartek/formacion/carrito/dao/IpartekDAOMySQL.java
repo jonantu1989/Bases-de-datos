@@ -10,7 +10,7 @@ public class IpartekDAOMySQL implements IpartekDAO {
 	private static Logger log = Logger.getLogger(IpartekDAOMySQL.class);
 	protected Connection con;
 
-	private String url = "jdbc:mysql://localhost/ipartek";
+	private String url = "jdbc:mysql://localhost/catalogo";
 	private String mysqlUser = "root";
 	private String mysqlPass = "";
 
