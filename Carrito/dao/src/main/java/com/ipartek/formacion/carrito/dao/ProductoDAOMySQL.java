@@ -29,13 +29,15 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		ResultSet rs = null;
 
 		try {
-			psFindAll = con.prepareStatement(FIND_ALL);
+
+			psFindAll = con.prepareStatement(FIND_ALL); // NullPointerException
 
 			rs = psFindAll.executeQuery();
 
 			Producto producto;
 
 			while (rs.next()) {
+
 				producto = new Producto();
 
 				producto.setId(rs.getInt("id"));

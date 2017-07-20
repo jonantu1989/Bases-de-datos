@@ -125,10 +125,11 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 		ResultSet generatedKeys = null;
 
 		try {
-			psInsert = con.prepareStatement(INSERT,
-					Statement.RETURN_GENERATED_KEYS);
+			if (psInsert != null)
+				psInsert = con.prepareStatement(INSERT,
+						Statement.RETURN_GENERATED_KEYS);
 
-			psInsert.setString(1, usuario.getUsername());
+			psInsert.setString(1, usuario.getUsername()); // NullPointerException
 			psInsert.setString(2, usuario.getPassword());
 			psInsert.setString(3, usuario.getNombre_completo());
 			psInsert.setInt(4, usuario.getId_roles());
@@ -147,7 +148,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 				throw new DAOException("No se ha recibido la clave generada");
 
 		} catch (Exception e) {
-			throw new DAOException("Error en insert", e);
+			throw new DAOException("Error en insert", e); // DAOException
 		} finally {
 			cerrar(psInsert, generatedKeys);
 		}

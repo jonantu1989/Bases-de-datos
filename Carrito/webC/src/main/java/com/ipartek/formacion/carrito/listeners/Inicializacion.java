@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.ipartek.formacion.carrito.dao.DAOException;
 import com.ipartek.formacion.carrito.dao.DAOProductoFactory;
 import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
@@ -80,8 +81,9 @@ public class Inicializacion implements ServletContextListener {
 		productos.abrir();
 
 		try {
+
 			productosArray = productos.findAll();
-		} catch (Exception e) {
+		} catch (DAOException e) {
 			log.info(e.getMessage());
 			log.info("No se pudo crear la lista de productos");
 		}
@@ -94,9 +96,10 @@ public class Inicializacion implements ServletContextListener {
 
 		if (!usuarios.validar(usuario)) {
 			try {
-				usuarios.insert(usuario);
+
+				usuarios.insert(usuario); // DAOException
 				log.info("Creado usuario administrador. Usuario: 'admin', Password: 'admin'");
-			} catch (Exception e) {
+			} catch (DAOException e) {
 				e.printStackTrace();
 				log.info(e.getMessage());
 				log.info("No se pudo crear el usuario 'administrador'");
@@ -108,10 +111,10 @@ public class Inicializacion implements ServletContextListener {
 		if (!usuarios.validar(usuario)) {
 
 			try {
-				if (usuarios != null)
-					usuarios.insert(usuario);
+
+				usuarios.insert(usuario); // DAOException
 				log.info("Creado usuario normal. Usuario: 'jon', Password: 'jon'");
-			} catch (Exception e) {
+			} catch (DAOException e) {
 				e.printStackTrace();
 				log.info(e.getMessage());
 				log.info("No se pudo crear el usuario 'jon'");
@@ -126,21 +129,21 @@ public class Inicializacion implements ServletContextListener {
 
 		try {
 			// El array de productos es igual 0
-			if (productos != null)
-				if (productos.findAll().length == 0) {
 
-					productos.insert(new Producto(1, "Bicimonte1", 500));
-					productos.insert(new Producto(2, "Bicimonte2", 1000));
-					productos.insert(new Producto(3, "Bicimonte3", 1100));
-					productos.insert(new Producto(4, "Bicicarretera1", 1000));
-					productos.insert(new Producto(5, "Bicicarretera2", 1500));
+			if (productos.findAll().length == 0) { // NullPointerException
 
-					log.info("Creados 5 productos de prueba");
-				}
+				productos.insert(new Producto(1, "Bicimonte1", 500));
+				productos.insert(new Producto(2, "Bicimonte2", 1000));
+				productos.insert(new Producto(3, "Bicimonte3", 1100));
+				productos.insert(new Producto(4, "Bicicarretera1", 1000));
+				productos.insert(new Producto(5, "Bicicarretera2", 1500));
+
+				log.info("Creados 5 productos de prueba");
+			}
 
 			productos.confirmarTransaccion();
 
-		} catch (Exception e) {
+		} catch (DAOException e) {
 			log.info("Error al crear productos de prueba");
 			productos.deshacerTransaccion();
 		}
