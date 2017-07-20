@@ -88,7 +88,7 @@ public class UsuarioFormServlet extends HttpServlet {
 					}
 				} else {
 					request.setAttribute("usuario", usuario);
-					rutaFormulario.forward(request, response);
+					response.sendRedirect("/WEB-INF/vistas/login.jsp");
 				}
 				break;
 			}

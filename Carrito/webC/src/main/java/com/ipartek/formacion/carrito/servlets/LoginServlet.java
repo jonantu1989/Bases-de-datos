@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 
 	private final String RUTA = "/WEB-INF/vistas";
 	private final String RUTA_LOGIN = RUTA + "/login.jsp";
-	private final String RUTA_CATALOGO = "/catalogo";
+	private final String RUTA_CATALOGO = RUTA + "/catalogo";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -94,7 +94,7 @@ public class LoginServlet extends HttpServlet {
 		if (usuarioInexistente) {
 			session.setAttribute("mensaje",
 					"El usuario no existe, date de alta");
-			catalogo.forward(request, response);
+			response.sendRedirect(RUTA + "alta.jsp");
 			return;
 
 		}
@@ -158,7 +158,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("logueado", "si");
 				session.setAttribute("usuario", usuario);
 				// Se le envía al catálogo
-				catalogo.forward(request, response);
+				response.sendRedirect(RUTA_CATALOGO);
 			}
 
 		} else {

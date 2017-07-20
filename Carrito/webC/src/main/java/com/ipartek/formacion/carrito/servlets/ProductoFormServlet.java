@@ -112,7 +112,7 @@ public class ProductoFormServlet extends HttpServlet {
 					productos.insert(producto);
 					productos.cerrar();
 					log.info("Producto dado de alta");
-					rutaListado.forward(request, response);
+					response.sendRedirect("/WEB-INF/vistas/productocrud.jsp");
 				} else {
 
 					request.setAttribute("producto", producto);
