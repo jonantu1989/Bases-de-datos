@@ -9,15 +9,15 @@
 <form action="usuarioform" method="post">
 <fieldset>
 <label for="username">Username</label>
-<input id="username" name="username" value="${usuarios.username}"/>
+<input id="username" name="username" value="${usuario.username}"/>
 </fieldset>
 <fieldset>
 <label for="password">Password</label>
-<input id="password" name="password" type="password" value="${usuarios.password}"/>
+<input id="password" name="password" type="password"/>
 </fieldset>
 <fieldset>
 <label for="password2">Repita el password</label>
-<input id="password2" name="password2" type="password" value="${usuarios.password2}"/>
+<input id="password2" name="password2" type="password"/>
 </fieldset>
 <fieldset>
 <input type="submit" value="ALTA">
