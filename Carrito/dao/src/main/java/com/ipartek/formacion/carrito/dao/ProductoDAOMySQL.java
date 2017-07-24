@@ -29,8 +29,9 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 		ResultSet rs = null;
 
 		try {
+			if (psFindAll == null)
 
-			psFindAll = con.prepareStatement(FIND_ALL); // NullPointerException
+				psFindAll = con.prepareStatement(FIND_ALL); // NullPointerException
 
 			rs = psFindAll.executeQuery();
 
