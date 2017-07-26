@@ -23,7 +23,7 @@
 			  required="required" minlength="4" value="${usuario.username}" 
 			  
 			  <c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
-			  	readonly="readonly"
+			  
 			  </c:if>   
 		  	/>
 		</fieldset>

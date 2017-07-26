@@ -26,7 +26,7 @@
 			  required="required"  value="${producto.nombre}" 
 			  
 			  <c:if test="${param.op == 'modificar' or param.op == 'borrar'}">
-			  	readonly="readonly"
+			  	
 			  </c:if>   
 		  	/>
 		  	
@@ -42,7 +42,7 @@
 			<label for="id">id</label> 
 			<input  id="id" name="id" 
 			<c:if test="${param.op=='modificar' }">
-			readonly="readonly"
+			
 			value="${producto.id}"
 			</c:if>
 			/>
