@@ -43,7 +43,17 @@ public class CatalogoServlet extends HttpServlet {
 
 		if (productos != null) {
 			productos.abrir();
-			application.setAttribute("catalogo", productos.getCatalogo());
+			application.setAttribute("catalogo", productos.getCatalogo()); // java.sql.SQLException:
+																			// com.ipartek.formacion.carrito.dao.DAOException:
+																			// Error
+																			// en
+																			// findAll
+																			// No
+																			// operations
+																			// allowed
+																			// after
+																			// statement
+																			// closed.
 			productos.cerrar();
 		}
 

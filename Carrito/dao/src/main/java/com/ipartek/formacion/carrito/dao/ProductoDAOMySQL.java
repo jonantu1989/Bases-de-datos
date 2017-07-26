@@ -33,7 +33,9 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 				psFindAll = con.prepareStatement(FIND_ALL); // NullPointerException
 
-			rs = psFindAll.executeQuery();
+			rs = psFindAll.executeQuery(); // java.sql.SQLException: No
+											// operations allowed after
+											// statement closed.
 
 			Producto producto;
 
@@ -47,7 +49,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 				productos.add(producto);
 			}
-
+			// com.ipartek.formacion.carrito.dao.DAOException: Error en findAll
 		} catch (SQLException e) {
 			throw new DAOException("Error en findAll", e);
 		} finally {
@@ -163,7 +165,17 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 	public Producto[] getCatalogo() {
 
-		Producto[] catalogo = new Producto[this.getAlmacen().size()];
+		Producto[] catalogo = new Producto[this.getAlmacen().size()]; // java.sql.SQLException:
+																		// No
+																		// operations
+																		// allowed
+																		// after
+																		// statement
+																		// closed.
+																		// //com.ipartek.formacion.carrito.dao.DAOException:
+																		// Error
+																		// en
+																		// findAll
 		int i = 0;
 
 		for (List<Producto> grupoProductos : this.getAlmacen().values()) {
@@ -182,7 +194,11 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 
 		Map<Integer, List<Producto>> almacen = new HashMap<>();
 
-		Producto[] productosArr = this.findAll();
+		Producto[] productosArr = this.findAll(); // java.sql.SQLException: No
+													// com.ipartek.formacion.carrito.dao.DAOException:
+													// Error en findAll
+													// operations allowed after
+													// statement closed.
 
 		for (Producto p : productosArr) {
 			if (!almacen.containsKey(p.getId())) {
