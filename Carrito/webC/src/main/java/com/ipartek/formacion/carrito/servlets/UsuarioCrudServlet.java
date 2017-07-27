@@ -2,7 +2,6 @@ package com.ipartek.formacion.carrito.servlets;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.carrito.dao.DAOUsuarioFactory;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
+import com.ipartek.formacion.carrito.dao.UsuarioDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 @WebServlet("/usuariocrud")
 public class UsuarioCrudServlet extends HttpServlet {
+
+	public static UsuarioDAO dao = null;
 
 	static final String RUTA_FORMULARIO = "/WEB-INF/vistas/usuarioform.jsp";
 	static final String RUTA_LISTADO = "/WEB-INF/vistas/usuariocrud.jsp";
@@ -33,44 +34,34 @@ public class UsuarioCrudServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		dao = new UsuarioDAOMySQL("jdbc:mysql://localhost/catalogo", "root", "");
 
-		ServletContext application = getServletContext();
 		log.info("Comenzamos el POST");
-		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
 
 		String op = request.getParameter("op");
 
-		if (op == null) {
+		dao.abrir();
+		if (op == null) {// si op el null se cargan los productos
+			// si op el null se cargan los productos
+			Usuario[] usuarios = dao.findAll();
+			dao.cerrar();
 
-			if (usuarios != null) {
-
-				usuarios = DAOUsuarioFactory.getUsuarioDAO();
-
-				usuarios.abrir();
-				Usuario[] usuariosArr = usuarios.findAll();
-				usuarios.cerrar();
-
-				application.setAttribute("usuariosArr", usuariosArr);
-
-			}
+			request.setAttribute("usuarios", usuarios);
 
 			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 					response);
-
 		} else {
+			String nombre = request.getParameter("nombre");
 
 			Usuario usuario;
 
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				String username = request.getParameter("username");
-				if (username != null) {
-					usuarios.abrir(); // NullPointerException: null
-					usuario = usuarios.findByName(username);
-					usuarios.cerrar();
-					request.setAttribute("usuario", usuario);
-				}
+				dao.abrir();
+				usuario = dao.findByName(nombre);
+				dao.cerrar();
+				request.setAttribute("usuario", usuario);
 			case "alta":
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
 						response);
@@ -78,11 +69,8 @@ public class UsuarioCrudServlet extends HttpServlet {
 			default:
 				request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 						response);
-
 			}
-
 		}
-
 	}
 
 }

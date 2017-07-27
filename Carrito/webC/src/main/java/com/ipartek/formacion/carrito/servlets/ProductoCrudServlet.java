@@ -2,7 +2,6 @@ package com.ipartek.formacion.carrito.servlets;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.carrito.dao.DAOProductoFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
+import com.ipartek.formacion.carrito.dao.ProductoDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
 @WebServlet("/productocrud")
 public class ProductoCrudServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static ProductoDAO dao = null;
 
 	private static Logger log = Logger.getLogger(ProductoCrudServlet.class);
 
@@ -33,51 +33,42 @@ public class ProductoCrudServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		dao = new ProductoDAOMySQL("jdbc:mysql://localhost/catalogo", "root",
+				"");
 
-		ServletContext application = getServletContext();
 		log.info("Comenzamos el POST");
-		ProductoDAO productos = (ProductoDAO) application
-				.getAttribute("productos");
 
 		String op = request.getParameter("op");
 
-		if (op == null) {
-
-			if (productos != null) {
-
-				productos = DAOProductoFactory.getProductoDAO();
-
-				productos.abrir();
-
-				Producto[] productosArr = productos.findAll();
-
-				productos.cerrar();
-
-				application.setAttribute("productosArr", productosArr);
-
-			}
+		// actuar en consecuencia de la opcion
+		dao.abrir();
+		if (op == null) {// si op el null se cargan los productos
+			// si op el null se cargan los productos
+			Producto[] productos = dao.findAll();
+			dao.cerrar();
+			request.setAttribute("productos", productos);
 
 			request.getRequestDispatcher(RUTA_LISTADO).forward(request,
 					response);
-
 		} else {
-
+			int id;
+			if (request.getParameter("id") == null
+					|| request.getParameter("id") == "") {
+				id = 0;
+			} else {
+				id = Integer.parseInt(request.getParameter("id"));
+			}
 			Producto producto;
 
 			switch (op) {
 			case "modificar":
 			case "borrar":
-				try {
-					int id = Integer.parseInt(request.getParameter("id")); // NumberFormatException:
-																			// null
-					productos.abrir();
-					producto = productos.findById(id);
-					productos.cerrar();
-					request.setAttribute("producto", producto);
-				} catch (Exception e) {
-
-				}
+				dao.abrir();
+				producto = dao.findById(id);
+				dao.cerrar();
+				request.setAttribute("producto", producto);
 			case "alta":
+
 				request.getRequestDispatcher(RUTA_FORMULARIO).forward(request,
 						response);
 				break;
