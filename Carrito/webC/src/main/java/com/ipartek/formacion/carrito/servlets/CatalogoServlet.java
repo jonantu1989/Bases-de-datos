@@ -15,11 +15,14 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.carrito.dao.CatalogoDAO;
 import com.ipartek.formacion.carrito.dao.CatalogoDAOFactory;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
+import com.ipartek.formacion.carrito.dao.ProductoDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
 @WebServlet("/catalogo")
 public class CatalogoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static ProductoDAO dao = null;
 
 	private static Logger log = Logger.getLogger(CatalogoServlet.class);
 
@@ -31,6 +34,9 @@ public class CatalogoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		dao = new ProductoDAOMySQL("jdbc:mysql://localhost/catalogo", "root",
+				"");
 
 		ServletContext application = getServletContext();
 		log.info("Comenzamos el POST");
