@@ -15,11 +15,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
+import com.ipartek.formacion.carrito.dao.UsuarioDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static UsuarioDAO dao = null;
 
 	private static Logger log = Logger.getLogger(LoginServlet.class);
 
@@ -35,6 +38,8 @@ public class LoginServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		dao = new UsuarioDAOMySQL("jdbc:mysql://localhost/catalogo", "root", "");
 
 		HttpSession session = request.getSession();
 		log.info("Comenzamos el POST");
