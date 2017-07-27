@@ -3,7 +3,6 @@ package com.ipartek.formacion.carrito.servlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +13,14 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.carrito.dao.DAOException;
 import com.ipartek.formacion.carrito.dao.ProductoDAO;
+import com.ipartek.formacion.carrito.dao.ProductoDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Producto;
 
 @WebServlet("/productoform")
 public class ProductoFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static ProductoDAO dao = null;
 
 	private static Logger log = Logger.getLogger(ProductoFormServlet.class);
 
@@ -29,142 +31,133 @@ public class ProductoFormServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// La application.
-		// Recoger el objeto application del ServletContext
-		ServletContext application = getServletContext();
-		log.info("Comenzamos el POST");
-		// Regocoger la opción elegida por el usuario en el formulario enviada
-		// por url
-		String op = request.getParameter("opform");
 
-		// Declaro aquí los dispatcher porque en un momento me dio un problema
-		// extraño por declararlos en el momento en que
-		// los necesitaba
+		dao = new ProductoDAOMySQL("jdbc:mysql://localhost/catalogo", "root",
+				"");
+
 		RequestDispatcher rutaListado = request
 				.getRequestDispatcher(ProductoCrudServlet.RUTA_SERVLET_LISTADO);
 		RequestDispatcher rutaFormulario = request
 				.getRequestDispatcher(ProductoCrudServlet.RUTA_FORMULARIO);
 
-		// Declaración de las variables para construir el objeto con el que se
-		// trabajará e iniciarlas con los valores recogidos
-		// del formulario
+		// La application.
+		// Recoger el objeto application del ServletContext
 
-		int id = 0;
-
-		try {
-			id = Integer.parseInt(request.getParameter("id"));
-		} catch (NumberFormatException e) {
-			id = 0;
-		}
-
-		if (request.getParameter("id") == null) {
-			id = 0;
-		} else {
-			try {
-				id = Integer.parseInt(request.getParameter("id"));
-			} catch (NumberFormatException e) {
-				id = 0;
-			}
-		}
-
+		log.info("Comenzamos el POST");
+		// Regocoger la opción elegida por el usuario en el formulario enviada
+		// por url
+		String op = request.getParameter("opform");
+		// variables del objeto Producto
+		int id;
 		String nombre = request.getParameter("nombre");
+		String descripcion = request.getParameter("descripcion");
+		double precio;
 
-		Double precio;
-
-		if (request.getParameter("precio") == "") {
-			precio = 0.0;
-		} else if (request.getParameter("precio") == null) {
-			precio = 0.0;
+		// recoger valores para inicializar variables
+		if (request.getParameter("id") == null
+				|| request.getParameter("id") == "") {
+			id = 0;
 		} else {
-			try {
-				precio = Double.parseDouble(request.getParameter("precio"));
-			} catch (NumberFormatException e) {
-				precio = 0.0;
-			}
+			id = Integer.parseInt(request.getParameter("id"));// pasar de String
+																// a int
+		}
+		if (request.getParameter("precio") == null
+				|| request.getParameter("precio") == "") {
+			precio = 0;
+		} else {
+			precio = Double.parseDouble(request.getParameter("precio"));// pasar
+																		// de
+																		// String
+																		// a
+																		// double
+
 		}
 
-		// Logica del servlet según la opción elegida por el usuario y enviada
-		// por el navegador
-		// encapsulada en opform.
+		if (request.getParameter("stock") == null
+				|| request.getParameter("stock") == "") {
+
+		} else {
+
+		}
+
+		// crear objeto Pproducto
+		Producto producto = new Producto(id, nombre, precio);
+		producto.setId(id);
+
+		// actuar en consecuencia de la opcion recogida anteriormente
 		if (op == null) {
-			rutaListado.forward(request, response); // NumberFormatException:
-													// null
+			rutaListado.forward(request, response);
 			return;
 		}
-
-		Producto producto;
-
-		ProductoDAO productos = (ProductoDAO) application
-				.getAttribute("productos");
 
 		switch (op) {
 		case "alta":
 
-			producto = new Producto(id, nombre, precio);
+			if (id == 0 || (nombre == null || nombre == "")
+					|| (descripcion == null || descripcion == "")
+					|| precio == 0) {
+				log.info("alta de producto con id '" + id + "' erronea");
 
-			if (nombre == null || nombre == "") {
-
-				request.setAttribute("producto", producto);
-				rutaFormulario.forward(request, response);
-			} else {
-				if (productos != null && !productos.validar(producto)) {
-					productos.abrir();
-					productos.insert(producto);
-					productos.cerrar();
-					log.info("Producto dado de alta");
-					response.sendRedirect("/WEB-INF/vistas/productocrud.jsp");
-				} else {
-
-					request.setAttribute("producto", producto);
-					rutaFormulario.forward(request, response);
-				}
-			}
-			break;
-		case "modificar":
-
-			producto = new Producto(id, nombre, precio);
-
-			if (nombre == null || nombre == "") {
+				producto.setErrores("- Los campos deben estar rellenados </br> - ID y precio deben ser numericos y no tener valor 0");
 
 				request.setAttribute("producto", producto);
 				rutaFormulario.forward(request, response);
+
 			} else {
 				try {
-					if (productos != null) {
-						productos.abrir();
-						productos.update(producto);
-						productos.cerrar();
-						log.info("Producto modificado");
-					}
-				} catch (DAOException e) {
+					log.info("producto  '" + nombre + "' dado de alta");
+					dao.abrir();
+					dao.insert(producto);
+					dao.cerrar();
 
+					rutaListado.forward(request, response);
+				} catch (DAOException a) {
+					log.info("producto con id '" + id
+							+ "' repetida, el alta no ha sido finalizada");
+					producto.setErrores("ID ya existente");
+					request.setAttribute("producto", producto);
+					rutaFormulario.forward(request, response);
+
+				}
+			}
+
+			break;
+		case "modificar":
+			if (id == 0 || (nombre == null || nombre == "")
+					|| (descripcion == null || descripcion == "")
+					|| precio == 0) {
+				log.info("modificacion de producto con id '" + id + "' erronea");
+				producto.setErrores("Los campos deben estar rellenados y no deben tener valor 0");
+				request.setAttribute("producto", producto);
+				rutaFormulario.forward(request, response);
+
+			} else
+				try {
+
+					dao.abrir();
+					dao.update(producto);
+					dao.cerrar();
+					log.info("producto con id '" + id + "' modificado");
+				} catch (DAOException de) {
+					log.info("Error al modificar producto con id '" + id
+							+ "', la modificacion no ha sido finalizada");
+
+					producto.setErrores(de.getMessage());
 					request.setAttribute("producto", producto);
 					rutaFormulario.forward(request, response);
 					return;
 				}
-				rutaListado.forward(request, response);
-			}
-			break;
-		case "borrar":
-
-			producto = new Producto(id, nombre, precio);
-
-			try {
-				if (productos != null) {
-					productos.abrir();
-					productos.delete(producto);
-					productos.cerrar();
-					log.info("Producto borrado");
-				}
-			} catch (DAOException e) {
-
-				request.setAttribute("producto", producto);
-				rutaFormulario.forward(request, response);
-				return;
-			}
 			rutaListado.forward(request, response);
 
 			break;
+		case "borrar":
+			dao.abrir();
+			dao.delete(producto);
+			dao.cerrar();
+			rutaListado.forward(request, response);
+			log.info("producto con id '" + id + "' borrado");
+			break;
 		}
 	}
+
 }

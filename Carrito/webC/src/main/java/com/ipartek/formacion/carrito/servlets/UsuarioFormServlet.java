@@ -3,7 +3,6 @@ package com.ipartek.formacion.carrito.servlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +13,14 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.carrito.dao.DAOException;
 import com.ipartek.formacion.carrito.dao.UsuarioDAO;
+import com.ipartek.formacion.carrito.dao.UsuarioDAOMySQL;
 import com.ipartek.formacion.carrito.tipos.Usuario;
 
 @WebServlet("/usuarioform")
 public class UsuarioFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static UsuarioDAO dao = null;
 
 	private static Logger log = Logger.getLogger(UsuarioFormServlet.class);
 
@@ -30,105 +32,132 @@ public class UsuarioFormServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		ServletContext application = getServletContext();
-		log.info("Comenzamos el POST");
-		String op = request.getParameter("opform");
-
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String password2 = request.getParameter("password2");
-		String nombre_completo = request.getParameter("nombre_completo");
-
-		int id_roles; // id_roles siempre se le asigna 2
-
-		if (request.getParameter("id_roles") == null) {
-			id_roles = 2;
-		} else {
-			id_roles = Integer.parseInt(request.getParameter("id_roles"));
-		}
+		dao = new UsuarioDAOMySQL("jdbc:mysql://localhost/catalogo", "root", "");
 
 		RequestDispatcher rutaListado = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_SERVLET_LISTADO);
-
 		RequestDispatcher rutaFormulario = request
 				.getRequestDispatcher(UsuarioCrudServlet.RUTA_FORMULARIO);
 
+		// recojer la opcion que se carga en la url
+		String op = request.getParameter("opform");
+
+		// variables del objeto Usuario
+		String nombre = request.getParameter("nombre");
+		String pass = request.getParameter("pass");
+		String pass2 = request.getParameter("pass2");
+		String admin = "admin";
+
+		// crear objeto Pproducto
+		Usuario usuario = new Usuario(nombre, pass);
+
+		// actuar en consecuencia de la opcion recogida anteriormente
+
 		if (op == null) {
-			rutaListado.forward(request, response); // NullPointerException:
-													// null
+			rutaListado.forward(request, response);
 			return;
 		}
-
-		Usuario usuario = null;
-
-		UsuarioDAO usuarios = (UsuarioDAO) application.getAttribute("usuarios");
-
 		switch (op) {
 		case "alta":
+			if ((nombre == null || nombre == "")
+					|| (pass == null || pass == "")
+					|| (pass2 == null || pass2 == "")) {
+				log.info("alta de usuario con id '" + nombre + "' erronea");
 
-			usuario = new Usuario(id_roles, 0, password, username,
-					nombre_completo);
+				usuario.setErrores("- Todos campos deben estar rellenados ");
 
-			if (password != null && password2 != null) {
-				if (password.equals(password2)) {
-					try {
-						usuarios.abrir();
-						usuarios.insert(usuario);
-						usuarios.cerrar();
-						log.info("Usuario " + usuario.getUsername()
-								+ " dado de alta");
-					} catch (DAOException e) {
-						// Si falla el insert se coge la excepción que lanza y
-						// se le
-						// reenvía al formulario con el objeto
-						// usuario que estaba metido en la request
-						request.setAttribute("usuario", usuario);
-						e.printStackTrace();
-						rutaListado.forward(request, response);
-					}
-				} else {
-					request.setAttribute("usuario", usuario);
-					response.sendRedirect("/WEB-INF/vistas/login.jsp");
-				}
-				break;
-			}
-		case "modificar":
-			if (password != null && password2 != null) {
-				if (password.equals(password2)) {
-					try {
-						usuarios.abrir();
-						usuarios.update(usuario);
-						usuarios.cerrar();
-						log.info("Usuario modificado");
-					} catch (DAOException e) {
-						request.setAttribute("usuario", usuario);
-						e.printStackTrace();
-						rutaFormulario.forward(request, response);
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
 
-					}
+			} else if (pass.equals(pass2)) {
+				log.info("usuario: '" + nombre + "' dado de alta por el admin");
+
+				try {
+					log.info("producto con id '" + nombre + "' dado de alta");
+					dao.abrir();
+					dao.insert(usuario);
+					dao.cerrar();
 					rutaListado.forward(request, response);
-				} else {
+				} catch (DAOException a) {
+					log.info("usuario con  '" + nombre
+							+ "' repetido, el alta no ha sido finalizada");
+					usuario.setErrores("Usuario ya existente");
 					request.setAttribute("usuario", usuario);
 					rutaFormulario.forward(request, response);
 				}
-				break;
+			} else {
+				log.info("error al crear el usuario: '" + nombre
+						+ "' , las contraseñas no coinciden");
+
+				usuario.setErrores("Las contraseñas no coinciden");
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
+
 			}
-		case "borrar":
-			if (username == null) {
-				if (usuario.getUsername().equals(usuario.getUsername())) {
-					if (usuarios != null) {
-						usuarios.abrir();
-						usuarios.delete(usuario);
-						usuarios.cerrar();
-						log.info("Usuario borrado");
-						rutaFormulario.forward(request, response);
-						return;
-					}
-				} else {
-					rutaListado.forward(request, response);
+
+			break;
+
+		case "modificar":
+			if (admin.equals(nombre)) {
+				log.info("el usuario: '" + nombre + "' no se puede modificar");
+
+				usuario.setErrores("El administrador no puede ser modificado");
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
+			} else if ((nombre == null || nombre == "")
+					|| (pass == null || pass == "")
+					|| (pass2 == null || pass2 == "")) {
+				log.info("alta de usuario con id '" + nombre + "' erronea");
+
+				usuario.setErrores("- Todos campos deben estar rellenados ");
+
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
+			} else if (pass.equals(pass2)) {
+				try {
+					log.info("usuario: '" + nombre + "' modificado");
+
+					dao.abrir();
+					dao.update(usuario);
+					dao.cerrar();
+				} catch (DAOException de) {
+					log.info("error al modificar el usuario: '" + nombre
+							+ "' , no se ha completado la modificacion");
+
+					usuario.setErrores(de.getMessage());
+					request.setAttribute("usuario", usuario);
+					rutaFormulario.forward(request, response);
+					return;
 				}
-				break;
+				rutaListado.forward(request, response);
+			} else {
+				log.info("error al modificar el usuario: '" + nombre
+						+ "' , las contraseñas no coinciden");
+
+				usuario.setErrores("Las contraseñas no coinciden");
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
 			}
+
+			break;
+		case "borrar":
+			if (admin.equals(nombre)) {
+				log.info("el usuario: '" + nombre + "' no se puede borrar");
+
+				usuario.setErrores("El administrador no puede ser eliminado");
+				request.setAttribute("usuario", usuario);
+				rutaFormulario.forward(request, response);
+			} else {
+				log.info("usuario: '" + nombre + "' borrado");
+
+				dao.abrir();
+				dao.delete(usuario);
+				dao.cerrar();
+				rutaListado.forward(request, response);
+			}
+
+			break;
 		}
 	}
+
 }

@@ -81,4 +81,8 @@ public class Producto {
 				+ precio + "]";
 	}
 
+	public void setErrores(String string) {
+
+	}
+
 }
