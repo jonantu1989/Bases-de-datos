@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>TIENDA DE BICIS</title>
+<link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
 <h1>TIENDA DE BICIS</h1>
