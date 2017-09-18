@@ -29,7 +29,7 @@ public class ProductoDAOMySQL extends IpartekDAOMySQL implements ProductoDAO {
 	}
 
 	public ProductoDAOMySQL() {
-
+		super();
 	}
 
 	public Producto[] findAll() {

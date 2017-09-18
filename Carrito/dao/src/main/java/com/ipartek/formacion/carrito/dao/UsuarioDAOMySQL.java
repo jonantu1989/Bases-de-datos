@@ -28,7 +28,7 @@ public class UsuarioDAOMySQL extends IpartekDAOMySQL implements UsuarioDAO {
 	}
 
 	public UsuarioDAOMySQL() {
-
+		super();
 	}
 
 	public Usuario[] findAll() {
