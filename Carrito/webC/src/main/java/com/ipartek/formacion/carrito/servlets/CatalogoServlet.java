@@ -73,7 +73,7 @@ public class CatalogoServlet extends HttpServlet {
 
 		if (carrito == null) {
 
-			carrito = CatalogoDAOFactory.getCatalogoDAO();
+			carrito = CatalogoDAOFactory.getCarritoDAO();
 		}
 
 		// Lógica del servlet según la opción con la que haya llegado el usuario
