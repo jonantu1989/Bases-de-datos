@@ -22,7 +22,7 @@
 				<ul>
 				 	 <li><a href="${applicationScope.catalogo}/catalogo">Catálogo</a></li>
 				 	 <li><a href="${applicationScope.login}/login">Login</a></li>
-					 <li><a href="${applicationScope.login}/login?op=logout">Logout</a></li>
+					 <li><a href="${applicationScope.login}/login?op=logout">Salir</a></li>
 					 
 					 <h3>Mantenimiento de usuarios:</h3>
 					 <li style="display:inline;"><a href="/usuariocrud">Listado de usuarios</a></li>

@@ -73,7 +73,7 @@ public class CatalogoServlet extends HttpServlet {
 
 		if (carrito == null) {
 
-			carrito = CatalogoDAOFactory.getCarritoDAO();
+			carrito = CatalogoDAOFactory.getCatalogoDAO();
 		}
 
 		// Lógica del servlet según la opción con la que haya llegado el usuario
@@ -86,7 +86,7 @@ public class CatalogoServlet extends HttpServlet {
 			session.setAttribute("numeroProductos",
 					carrito.buscarTodosLosProductos().length);
 
-			request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
+			request.getRequestDispatcher("/WEB-INF/vistas/productocrud.jsp")
 					.forward(request, response);
 
 		} else {
@@ -97,7 +97,7 @@ public class CatalogoServlet extends HttpServlet {
 				session.setAttribute("carrito", carrito);
 				session.setAttribute("numeroProductos",
 						carrito.buscarTodosLosProductos().length);
-				request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
+				request.getRequestDispatcher("/WEB-INF/vistas/login.jsp")
 						.forward(request, response);
 				break;
 
@@ -133,14 +133,14 @@ public class CatalogoServlet extends HttpServlet {
 				session.setAttribute("numeroProductos",
 						carrito.buscarTodosLosProductos().length);
 
-				request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
+				request.getRequestDispatcher("/WEB-INF/vistas/productocrud.jsp")
 						.forward(request, response);
 
 				break;
 
 			default:
 
-				request.getRequestDispatcher("/WEB-INF/vistas/catalogo.jsp")
+				request.getRequestDispatcher("/WEB-INF/vistas/productocrud.jsp")
 						.forward(request, response);
 
 			}

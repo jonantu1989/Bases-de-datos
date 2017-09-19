@@ -1,5 +1,7 @@
 <%@ include file="includes/cabecera.jsp"%>
 
+<jsp:useBean id="producto" scope="request"
+		class="com.ipartek.formacion.carrito.tipos.Producto" />
 
 		<table style="margin: 0 auto;">
 	<thead>

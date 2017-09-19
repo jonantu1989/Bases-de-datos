@@ -2,6 +2,9 @@
 <head>
 <title>TIENDA DE BICIS</title>
 <link rel="stylesheet" href="css/estilos.css" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:useBean id="producto" scope="request"
+		class="com.ipartek.formacion.carrito.tipos.Producto" />
 </head>
 <body>
 <h1>TIENDA DE BICIS</h1>
