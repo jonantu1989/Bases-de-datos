@@ -73,7 +73,7 @@ public class UsuarioFormServlet extends HttpServlet {
 				log.info("usuario: '" + nombre + "' dado de alta por el admin");
 
 				try {
-					log.info("producto con id '" + nombre + "' dado de alta");
+					log.info("Usuario con id '" + nombre + "' dado de alta");
 					dao.abrir();
 					dao.insert(usuario);
 					dao.cerrar();
